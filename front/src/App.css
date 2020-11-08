@@ -1,0 +1,488 @@
+:root {
+  --text-font: rgb(211, 211, 211);
+  --backgroudselected: rgb(43, 43, 43);
+  --text-hoover: white;
+  --sub-heading-color: rgb(170, 170, 170);
+  --body-background-color: rgb(238, 238, 238);
+  --sub-list: rgb(87, 87, 87);
+}
+
+* {
+  margin: 0;
+  top: 0;
+  left: 0;
+
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  background-color: var(--body-background-color);
+  height: 100vh;
+  width: 100vw;
+}
+
+Nav {
+  color: var(--text-font);
+  background: var(--backgroudselected);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas: "a b c d";
+  align-items: center;
+  justify-content: center;
+  place-items: center;
+}
+.nav-logo {
+  grid-area: b;
+  width: 100%;
+  align-items: center;
+}
+.nav-logo > h2 {
+  font-size: 40px;
+}
+.nav-menu {
+  grid-area: c;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.tags {
+  text-decoration: none;
+  text-align: center;
+  color: var(--text-font);
+  font: 20%;
+  font-weight: 500;
+}
+.tags:hover,
+.nav-logo:hover {
+  cursor: pointer;
+  color: var(--text-hoover);
+  transition: ease-in-out;
+}
+
+/* This is for the laptop navbar section  */
+.content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(auto, minmax(100px, 1fr));
+  grid-template-areas:
+    "e con con e"
+    "e con con e"
+    "e con con e"
+    "foot foot foot foot";
+}
+
+.laptopsection {
+  grid-area: con;
+  grid-column: 2/4;
+}
+.sub-nav {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
+  grid-template-areas:
+    "n1 n2"
+    "cont1 cont1"
+    "cont1 cont1";
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding-bottom: 10px;
+  padding-top: 1rem;
+  border-bottom: 2px white solid;
+}
+
+.sub-nav-left {
+  grid-area: n1;
+  width: 100%;
+}
+.sub-nav-left > h2 {
+  align-items: flex-start;
+}
+
+.sub-nav-right {
+  width: 100%;
+  grid-area: n2;
+  justify-content: space-between;
+}
+
+.sub-nav-right ul {
+  list-style: none;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.blue {
+  color: black;
+  font-size: 16px;
+}
+.blue:hover {
+  cursor: pointer;
+  color: var(--text-hoover);
+}
+
+.sub-view {
+  margin-top: 10px;
+  grid-area: cont1;
+}
+
+/* This is for the laptop content section */
+.container {
+  margin-top: 1rem;
+  grid-area: con;
+  width: 100%;
+}
+.main-heading {
+  text-align: center;
+  font-size: 5.5rem;
+}
+.sub-main-heading {
+  display: flex;
+  justify-content: space-between;
+  color: var(--sub-heading-color);
+  font-size: 3.5rem;
+  text-align: center;
+}
+.sub-container {
+  height: 100%;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+strong {
+  color: black;
+}
+.overview-specs {
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  /* text-align: center; */
+  color: var(--sub-heading-color);
+}
+.sub-sub-main-heading {
+  text-align: center;
+  color: var(--sub-heading-color);
+  font-size: 2.5rem;
+}
+
+.sub-information {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "col1 col2"
+    "col3 col4";
+  grid-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.col1 {
+  grid-area: col1;
+}
+.col1 > h1 {
+  font-size: 3rem;
+}
+.col1 > h4 {
+  font-size: 2rem;
+}
+.col2 {
+  grid-area: col2;
+}
+.col2 > h1 {
+  font-size: 3rem;
+}
+.col2 > h4 {
+  font-size: 2rem;
+}
+.col3 > h1 {
+  font-size: 3rem;
+}
+.col3 > h4 {
+  font-size: 2rem;
+}
+.col4 > h1 {
+  font-size: 3rem;
+}
+.col4 > h4 {
+  font-size: 2rem;
+}
+.col3 {
+  grid-area: col3;
+}
+.col4 {
+  grid-area: col4;
+}
+
+/* This is the laptop sections  */
+.options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10%;
+  grid-template-rows: repeat(auto, 1fr);
+  grid-template-areas: "";
+  margin-top: 2rem;
+}
+
+.container {
+  height: 100%;
+}
+.options-heading {
+  text-align: center;
+  margin: 20px 0 20px;
+  margin-bottom: 4rem;
+}
+
+.option-spec ul {
+  list-style: none;
+}
+.option-spec li {
+  line-height: 2.5rem;
+  color: var(--sub-list);
+}
+
+.buttons1,
+.buttons2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: center;
+  margin: 1rem 0;
+}
+.buttons {
+  padding: 20px;
+  width: 200px;
+  height: 150x;
+  font-size: 1.5rem;
+  border: none;
+  color: var(--text-font);
+  background: var(--backgroudselected);
+  border-radius: 10px;
+  -webkit-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+}
+
+/* This is the laptop config */
+.opt-heading {
+  color: black;
+  font-size: 1rem;
+  line-height: 3rem;
+}
+ul {
+  list-style: none;
+}
+
+li {
+  line-height: 2.5rem;
+}
+
+.sub-sub-sub-heading {
+  margin-left: 1rem;
+  line-height: 2.5rem;
+  border-bottom: 2px solid grey;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+.sub-sub-sub-heading h3 {
+  font-size: 1.5rem;
+}
+.sub-sub-sub-heading span {
+  width: 100%;
+  font-size: 1.2rem;
+  line-height: 1rem;
+}
+
+.options--list li {
+  cursor: pointer;
+}
+.options-listing-checked {
+  border: 5px solid blue;
+  border-radius: 2px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: 1rem 0;
+  text-align: center;
+}
+.options-listing {
+  cursor: pointer;
+  margin: 1rem 0;
+  border: 1px solid grey;
+  width: 100%;
+  border-radius: 2px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  -webkit-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  box-shadow: -32px 35px 20px -28px rgba(0, 0, 0, 0.43);
+}
+.options-given {
+  display: none;
+  cursor: pointer;
+}
+
+.opt-image {
+  position: sticky;
+}
+.final-decision {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "total1 total1 total1"
+    "but1 but1 but1";
+  align-items: center;
+  margin: 1rem 0;
+  justify-items: center;
+}
+.total {
+  grid-area: total1;
+  grid-column: 2/3;
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+.final-click {
+  grid-area: but1;
+  grid-column: 2/3;
+
+  padding: 20px;
+  height: 150x;
+  width: 50%;
+  font-size: 1.5rem;
+  border: none;
+  color: var(--text-font);
+  background: var(--backgroudselected);
+  border-radius: 10px;
+  -webkit-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+  box-shadow: -32px 30px 27px -22px rgba(0, 0, 0, 0.43);
+}
+
+/* main page */
+.front-page-container {
+  grid-area: con;
+  grid-column: 2/4;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.front-heading > h3 {
+  font-size: 3rem;
+  text-align: center;
+}
+.ontop-text {
+  text-align: center;
+  font-size: 2rem;
+}
+.picture {
+  width: 50%;
+}
+
+.tablet-section {
+  grid-area: con;
+  grid-column: 2/4;
+}
+
+.another-version {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
+.sub-col1 > span {
+  color: var(--sub-list);
+}
+
+.cart-container {
+  grid-area: con;
+  grid-column: 2/4;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "head head"
+    "im amo"
+    "im amo"
+    "pay pay";
+}
+
+.cart-heading {
+  grid-area: head;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.emptypayment {
+  /* grid-area: im amo; */
+  grid-column: 1/3;
+  text-align: center;
+}
+.cart-section {
+  margin-top: 4rem;
+}
+.totalpayment {
+  text-align: center;
+  margin-top: 4rem;
+}
+.cart-listing {
+  margin: 2rem;
+}
+
+.final-click {
+  margin-top: 2rem;
+}
+
+/* .login {
+	grid-area: con;
+} */
+.input-heading {
+  font-size: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+}
+.Login-Container {
+  /* height: 2rem; */
+  grid-area: con;
+  grid-column: 2/4;
+}
+.forms {
+  margin: 2rem 0;
+}
+.input {
+  padding: 20px 0;
+}
+.input > label {
+  line-height: 1rem;
+  font-size: 1.25rem;
+}
+input[type="text"],
+input[type="password"] {
+  width: 80vh;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 0.5px solid #ccc;
+  border-radius: 6px;
+  box-shadow: border-box;
+}
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border: 1px solid rgb(154, 206, 255);
+  border-radius: 6px;
+  box-shadow: border-box;
+}
+
+.new-user-heading {
+  margin: 2rem 0;
+}
+.new-user-redirect,
+.new-user-submit {
+  margin: 2rem 0;
+}
