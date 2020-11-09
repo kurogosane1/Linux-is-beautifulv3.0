@@ -7,7 +7,7 @@ import Laptop from "./pages/Laptop/Laptop";
 import Tablet from "./pages/iTab/Tablet";
 import Login from "./pages/Logins/Login";
 import Signup from "./pages/Logins/Signup";
-import User from "./pages/UserAccount/User";
+
 import Main from "./pages/Main";
 function App() {
   return (
@@ -19,19 +19,19 @@ function App() {
             <Route exact path="/">
               <Main />
             </Route>
-            <Route exact path="/DeepinPro">
+            <Route path="/DeepinPro">
               <Laptop />
             </Route>
-            <Route exact path="/iTab">
+            <Route path="/iTab">
               <Tablet />
             </Route>
-            <Route exact path="/Login">
+            <Route path="/Login">
               <Login />
             </Route>
-            <Route exact path="/SignUp">
+            <Route path="/SignUp">
               <Signup />
             </Route>
-            <Route exact path="/user">
+            <Route path="/user">
               <MainUser />
             </Route>
           </Switch>
