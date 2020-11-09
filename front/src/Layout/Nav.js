@@ -56,6 +56,7 @@ export default function Nav() {
           </Typography>
           {isMobile ? (
             <>
+              {/* This is the menu icon when mobile */}
               <IconButton
                 edge="start"
                 className={classes.menuButton}
@@ -107,12 +108,9 @@ export default function Nav() {
               </Button>
               <IconButton component={NavLink} to="/Login" color="inherit">
                 <PersonIcon />
-                Login
               </IconButton>
             </>
           )}
-
-          {/* This is the menu icon when mobile */}
         </Toolbar>
       </Container>
     </AppBar>
