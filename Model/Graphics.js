@@ -17,7 +17,7 @@ const GPU = sequelize.define("GPU", {
   },
 });
 
-GPU.sync().then(() => {
+GPU.sync({ force: false }).then(() => {
   GPU.bulkCreate([
     {
       id: "gpu-1",

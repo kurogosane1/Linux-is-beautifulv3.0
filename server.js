@@ -12,6 +12,11 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use("/", require("./Router/Route"));
 
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
-});
+sequelize
+  .authenticate()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(`Error ` + err));

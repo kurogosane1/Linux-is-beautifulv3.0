@@ -14,7 +14,7 @@ const Tag = sequelize.define("Tag", {
   },
 });
 
-Tag.sync().then(() => {
+Tag.sync({ force: false }).then(() => {
   Tag.bulkCreate([
     {
       Tag_Description: "Laptop",

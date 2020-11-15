@@ -17,7 +17,7 @@ const Processor = sequelize.define("Processor", {
   },
 });
 
-Processor.sync().then(() => {
+Processor.sync({ force: false }).then(() => {
   Processor.bulkCreate([
     { id: "pro-1", name: "Core i7 8 core 3.0 ghz", cost: 200 },
     { id: "pro-2", name: "Core i9 10 core 2.7ghz", cost: 320 },

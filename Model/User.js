@@ -90,7 +90,7 @@ const cartUsers = sequelize.define("cartUser", {
   },
 });
 
-Users.sync().then(() => {
+Users.sync({ force: true }).then(() => {
   Users.bulkCreate([
     {
       firstname: "John",

@@ -17,7 +17,7 @@ const RAM = sequelize.define("RAM", {
   },
 });
 
-RAM.sync().then(() => {
+RAM.sync({ force: false }).then(() => {
   RAM.bulkCreate([
     { id: "ram-1", name: "16gb 2333Mhz RAM", cost: 100 },
     { id: "ram-2", name: "32gb 2333Mhz RAM", cost: 260 },

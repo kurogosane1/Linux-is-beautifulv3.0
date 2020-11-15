@@ -50,6 +50,6 @@ const Selection = sequelize.define("Selection", {
   },
 });
 
-Selection.sync();
+Selection.sync({ force: false });
 
 module.exports = Selection;

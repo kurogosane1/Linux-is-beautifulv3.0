@@ -17,7 +17,7 @@ const Storage = sequelize.define("storage", {
   },
 });
 
-Storage.sync().then(() => {
+Storage.sync({ force: false }).then(() => {
   Storage.bulkCreate([
     { id: "st-01", name: "512GB SSD", cost: 110 },
     { id: "st-02", name: "1TB SSD", cost: 200 },

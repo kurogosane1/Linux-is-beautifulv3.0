@@ -22,6 +22,6 @@ const Cart = sequelize.define("Cart", {
   },
 });
 
-Cart.sync();
+Cart.sync({ force: false });
 
 module.exports = Cart;

@@ -12,7 +12,22 @@ import Overview from "./Overview";
 import Options from "./Options";
 import BuyNow from "./BuyNow";
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  subNav: {
+    borderBottom: "2px black solid",
+    borderColor: "black",
+    backgroundColor: "rgb(238, 238, 238,0.88) ",
+    // filter: "blur(1px)",
+
+    boxShadow: "none",
+  },
+  subNavhead: {
+    color: "#2b2b2b",
+    fontWeight: "bold",
+    fontSize: "2rem",
+    flexGrow: "1",
+  },
+});
 
 export default function Laptop() {
   const { path, url } = useRouteMatch();
@@ -20,9 +35,9 @@ export default function Laptop() {
   const [selection, useSelection] = useState("option1");
   return (
     <Container>
-      <AppBar position="sticky">
+      <AppBar position="sticky" className={classes.subNav}>
         <Toolbar>
-          <Typography>DeepinPro</Typography>
+          <Typography className={classes.subNavhead}>DeepinPro</Typography>
           <Button component={NavLink} to={`${path}`}>
             Overview
           </Button>
