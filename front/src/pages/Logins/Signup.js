@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -21,28 +21,36 @@ const useStyles = makeStyles({
 });
 
 export default function Signup() {
-  const FirstName = useRef();
-  const LastName = useRef();
-  const StreetAddress = useRef();
-  const City = useRef();
-  const State = useRef();
-  const Zipcode = useRef();
-  const cellphone = useRef();
-  const email = useRef();
-  const password = useRef();
-  const password2 = useRef();
-
   const history = useHistory();
   const classes = useStyles();
-  const [Entry, useEntry] = useState({});
+  const [Entry, useEntry] = useState({
+    FirstName: "",
+    Lastname: "",
+    StreetAddress: "",
+    City: "",
+    State: "",
+    Zipcode: "",
+    cellphone: "",
+    password: "",
+    password2: "",
+  });
+
+  const [match, setMatch] = useState(false);
 
   function moveTo() {
     history.push("/Login");
   }
 
-  function onChange(e) {
-    console.log(e.target.value);
-    console.log(FirstName.current.focus());
+  function OnChange(e) {
+    useEntry({
+      ...Entry,
+      [e.target.name]: e.target.value,
+    });
+    if (Entry.password === Entry.password2 && Entry.password2 != "") {
+      setMatch(true);
+    } else {
+      setMatch(false);
+    }
   }
 
   return (
@@ -85,8 +93,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={FirstName}
+                onChange={OnChange}
+                name="FirstName"
               />
             </div>
           </Grid>
@@ -100,8 +108,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={LastName}
+                onChange={OnChange}
+                name="LastName"
               />
             </div>
           </Grid>
@@ -125,8 +133,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={StreetAddress}
+                onChange={OnChange}
+                name="StreetAddress"
               />
             </div>
           </Grid>
@@ -141,8 +149,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={City}
+                onChange={OnChange}
+                name="City"
               />
             </div>
           </Grid>
@@ -156,8 +164,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={State}
+                onChange={OnChange}
+                name="State"
               />
             </div>
           </Grid>
@@ -171,8 +179,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={Zipcode}
+                onChange={OnChange}
+                name="Zipcode"
               />
             </div>
           </Grid>
@@ -187,8 +195,8 @@ export default function Signup() {
                 multiline
                 type="text"
                 variant="outlined"
-                onChange={onChange}
-                ref={cellphone}
+                onChange={OnChange}
+                name="cellphone"
               />
             </div>
           </Grid>
@@ -199,11 +207,9 @@ export default function Signup() {
                 id="outlined-textarea"
                 label="Email Address"
                 placeholder="email@something.com"
-                multiline
                 type="email"
-                variant="outlined"
-                onChange={onChange}
-                ref={email}
+                onChange={OnChange}
+                name="email"
               />
             </div>
           </Grid>
@@ -211,14 +217,14 @@ export default function Signup() {
             <div>
               <TextField
                 style={{ width: "100%" }}
-                id="outlined-textarea"
+                id="outlined-password-input"
                 label="Password"
                 placeholder="Re-type your Password"
-                multiline
+                autoComplete="current-password"
                 type="password"
+                onChange={OnChange}
+                name="password"
                 variant="outlined"
-                onChange={onChange}
-                ref={password}
               />
             </div>
           </Grid>
@@ -226,14 +232,14 @@ export default function Signup() {
             <div>
               <TextField
                 style={{ width: "100%" }}
-                id="outlined-textarea"
+                id="outlined-password-input"
                 label="Confirm Password"
                 placeholder="Re-type Password Again"
-                multiline
                 type="password"
+                autoComplete="current-password"
+                onChange={OnChange}
+                name="password2"
                 variant="outlined"
-                onChange={onChange}
-                ref={password2}
               />
             </div>
           </Grid>
