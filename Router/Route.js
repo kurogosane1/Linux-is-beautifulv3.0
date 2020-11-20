@@ -47,5 +47,9 @@ router.get("/cart", (req, res) => {
   cart.findAll();
   res.send(cart);
 });
+router.post("/SignUp", (req, res) => {
+  let data = JSON.stringify(req.body);
+  console.log(`This is from server side: ${data}`);
+});
 
 module.exports = router;

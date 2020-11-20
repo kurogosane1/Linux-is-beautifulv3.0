@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -7,6 +8,9 @@ import {
   Button,
   makeStyles,
   Link,
+  Input,
+  InputLabel,
+  Container,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -25,7 +29,7 @@ export default function Signup() {
   const classes = useStyles();
   const [Entry, useEntry] = useState({
     FirstName: "",
-    Lastname: "",
+    LastName: "",
     StreetAddress: "",
     City: "",
     State: "",
@@ -35,53 +39,108 @@ export default function Signup() {
     password2: "",
   });
 
-  const [match, setMatch] = useState(false);
+  const [match, setMatch] = useState();
+  const [result, setResult] = useState();
+
+  const checkpassword = () => {
+    if (Entry.password === "" && Entry.password2 === "") {
+      setMatch(null);
+      setResult(<Typography></Typography>);
+    } else if (Entry.password === Entry.password2) {
+      setMatch(true);
+      setResult(
+        <Typography variant="caption" style={{ color: "green" }}>
+          Password match
+        </Typography>
+      );
+    } else if (Entry.password !== Entry.password2) {
+      setMatch(false);
+      setResult(
+        <Typography variant="caption" style={{ color: "red" }}>
+          Password does not match
+        </Typography>
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (Entry.password === "" && Entry.password2 === "") {
+      setMatch(null);
+      setResult(<Typography></Typography>);
+    } else if (Entry.password === Entry.password2) {
+      setMatch(true);
+      setResult(
+        <Typography variant="caption" style={{ color: "green" }}>
+          Password match
+        </Typography>
+      );
+    } else if (Entry.password !== Entry.password2) {
+      setMatch(false);
+      setResult(
+        <Typography variant="caption" style={{ color: "red" }}>
+          Password does not match
+        </Typography>
+      );
+    }
+  }, [Entry]);
 
   function moveTo() {
     history.push("/Login");
   }
 
-  function OnChange(e) {
-    useEntry({
+  async function OnChange(e) {
+    await useEntry({
       ...Entry,
       [e.target.name]: e.target.value,
     });
-    if (Entry.password === Entry.password2 && Entry.password2 != "") {
-      setMatch(true);
-    } else {
-      setMatch(false);
-    }
+    checkpassword();
   }
 
+  const FormSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("/SignUp", {
+        FirstName: Entry.FirstName,
+        LastName: Entry.LastName,
+        StreetAddress: Entry.StreetAddress,
+        City: Entry.City,
+        State: Entry.State,
+        Zipcode: Entry.Zipcode,
+        cellphone: Entry.cellphone,
+        password: Entry.password,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <Grid
-      container
-      direction="column"
-      xs={12}
-      sm={12}
-      alignItems="center"
-      justify="center"
-      spacing={3}
+    <Container
+      maxWidth="sm"
       style={{
-        maxHeight: "100%",
         marginTop: "1rem",
-        textAlign: "center",
+        maxHeight: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
-      <Grid item xs={12} sm={12}>
-        <Typography variant="h3">Sign Up</Typography>
+      <Grid container direction="row" style={{ marginTop: "1rem" }}>
+        <Grid item xs={12} sm={12}>
+          <Typography
+            variant="h3"
+            style={{ textAlign: "center", marginTop: "1rem" }}
+          >
+            Sign Up
+          </Typography>
+        </Grid>
       </Grid>
-      <form>
+      <form onSubmit={FormSubmit}>
         <Grid
           container
           direction="row"
-          spacing={3}
           alignItems="center"
-          justify="center"
-          style={{
-            maxHeight: "100%",
-            marginTop: "1rem",
-          }}
+          judtify="center"
+          spacing={3}
+          style={{ marginTop: "1rem" }}
         >
           <Grid item xs={12} sm={6}>
             <div>
@@ -98,6 +157,7 @@ export default function Signup() {
               />
             </div>
           </Grid>
+
           <Grid item xs={12} sm={6}>
             <div>
               <TextField
@@ -114,15 +174,13 @@ export default function Signup() {
             </div>
           </Grid>
         </Grid>
-        <br />
         <Grid
           container
           direction="row"
-          spacing={3}
-          alignItems="center"
           justify="center"
+          alignItems="center"
+          spacing={3}
         >
-          <br />
           <Grid item xs={12} sm={12}>
             <div>
               <TextField
@@ -138,8 +196,15 @@ export default function Signup() {
               />
             </div>
           </Grid>
-          <br />
-          <Grid item xs={12} sm={6}>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={3}
+        >
+          <Grid item xs={12} sm={4}>
             <div>
               <TextField
                 style={{ width: "100%" }}
@@ -154,11 +219,11 @@ export default function Signup() {
               />
             </div>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <div>
               <TextField
                 style={{ width: "100%" }}
-                id="outlined-textarea"
+                id="outlined-basic"
                 label="State"
                 placeholder="example TX"
                 multiline
@@ -169,7 +234,7 @@ export default function Signup() {
               />
             </div>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <div>
               <TextField
                 style={{ width: "100%" }}
@@ -177,14 +242,15 @@ export default function Signup() {
                 label="Zip Code"
                 placeholder="example 77000"
                 multiline
-                type="text"
+                type="number"
                 variant="outlined"
                 onChange={OnChange}
                 name="Zipcode"
               />
             </div>
           </Grid>
-
+        </Grid>
+        <Grid container direction="row" justify="center" spacing={3}>
           <Grid item xs={12} sm={6}>
             <div>
               <TextField
@@ -200,7 +266,7 @@ export default function Signup() {
               />
             </div>
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={6}>
             <div>
               <TextField
                 style={{ width: "100%" }}
@@ -210,58 +276,83 @@ export default function Signup() {
                 type="email"
                 onChange={OnChange}
                 name="email"
+                variant="outlined"
               />
             </div>
           </Grid>
-          <Grid item xs={12} sm={4}>
+        </Grid>
+
+        <Grid container direction="row" justify="center" spacing={3}>
+          <Grid item xs={12} sm={12}>
             <div>
               <TextField
                 style={{ width: "100%" }}
-                id="outlined-password-input"
+                id="outlined-textarea"
                 label="Password"
-                placeholder="Re-type your Password"
-                autoComplete="current-password"
+                placeholder="Please enter Password"
                 type="password"
                 onChange={OnChange}
+                onKeyDown={checkpassword}
                 name="password"
                 variant="outlined"
               />
             </div>
           </Grid>
-          <Grid item xs={12} sm={4}>
+        </Grid>
+        <Grid container direction="row" justify="center" spacing={3}>
+          <Grid item xs={12} sm={12}>
             <div>
               <TextField
                 style={{ width: "100%" }}
-                id="outlined-password-input"
+                id="outlined-textarea"
                 label="Confirm Password"
-                placeholder="Re-type Password Again"
+                placeholder="Re-Enter Password"
                 type="password"
-                autoComplete="current-password"
                 onChange={OnChange}
+                onKeyDown={checkpassword}
                 name="password2"
                 variant="outlined"
               />
+              {result}
             </div>
           </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          spacing={3}
+          justify="center"
+          align="center"
+        >
           <Grid item sm={12} xs={12}>
             <Button
               variant="contained"
               className={classes.button}
               value="11111"
+              disabled={match === false || match === null ? true : false}
+              type="submit"
             >
-              Login Now
+              Sign Up
             </Button>
           </Grid>
         </Grid>
       </form>
-      <Grid item xs={12} sm={12}>
-        <Typography varient="caption">
-          Already Registerd? Then click{" "}
-          <Link onClick={moveTo} style={{ cursor: "pointer" }}>
-            here
-          </Link>
-        </Typography>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        align="center"
+        spacing={3}
+      >
+        <Grid item xs={12} sm={12}>
+          <Typography varient="caption">
+            Have an Account with us Already. Then Click{" "}
+            <Link onClick={moveTo} style={{ cursor: "pointer" }}>
+              here
+            </Link>
+          </Typography>
+        </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 }

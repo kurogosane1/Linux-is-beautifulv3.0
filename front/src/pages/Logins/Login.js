@@ -77,7 +77,7 @@ export default function Login() {
               className={classes.button}
               value="11111"
             >
-              Login Now
+              Login
             </Button>
           </Grid>
         </form>
