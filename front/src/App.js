@@ -31,7 +31,7 @@ function App() {
             <Route path="/SignUp">
               <Signup />
             </Route>
-            <Route path="/user">
+            <Route path="/:id">
               <MainUser />
             </Route>
           </Switch>

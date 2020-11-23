@@ -8,8 +8,6 @@ import {
   Button,
   makeStyles,
   Link,
-  Input,
-  InputLabel,
   Container,
 } from "@material-ui/core";
 
@@ -27,6 +25,7 @@ const useStyles = makeStyles({
 export default function Signup() {
   const history = useHistory();
   const classes = useStyles();
+  const [check, setCheck] = useState();
   const [Entry, useEntry] = useState({
     FirstName: "",
     LastName: "",
@@ -34,6 +33,7 @@ export default function Signup() {
     City: "",
     State: "",
     Zipcode: "",
+    email: "",
     cellphone: "",
     password: "",
     password2: "",
@@ -42,7 +42,7 @@ export default function Signup() {
   const [match, setMatch] = useState();
   const [result, setResult] = useState();
 
-  const checkpassword = () => {
+  const checkpassword = async () => {
     if (Entry.password === "" && Entry.password2 === "") {
       setMatch(null);
       setResult(<Typography></Typography>);
@@ -83,7 +83,7 @@ export default function Signup() {
       );
     }
   }, [Entry]);
-
+  useEffect(() => {}, [check]);
   function moveTo() {
     history.push("/Login");
   }
@@ -96,21 +96,30 @@ export default function Signup() {
     checkpassword();
   }
 
-  const FormSubmit = (e) => {
+  const FormSubmit = async (e) => {
     e.preventDefault();
+    setCheck();
     axios
       .post("/SignUp", {
-        FirstName: Entry.FirstName,
-        LastName: Entry.LastName,
-        StreetAddress: Entry.StreetAddress,
+        firstname: Entry.FirstName,
+        lastname: Entry.LastName,
+        streetaddress: Entry.StreetAddress,
         City: Entry.City,
-        State: Entry.State,
-        Zipcode: Entry.Zipcode,
+        state: Entry.State,
+        zipcode: Entry.Zipcode,
+        email: Entry.email,
         cellphone: Entry.cellphone,
         password: Entry.password,
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        let id = res.data.id
+        setCheck(res.status);
+        history.push(`/${id}`);
+      })
+      .catch((err) => {
+        console.log(`this is from front error ${err}`);
+        setCheck(400);
+      });
   };
 
   return (
@@ -241,11 +250,11 @@ export default function Signup() {
                 id="outlined-textarea"
                 label="Zip Code"
                 placeholder="example 77000"
-                multiline
-                type="number"
+                type="text"
                 variant="outlined"
                 onChange={OnChange}
                 name="Zipcode"
+                value={Entry.Zipcode}
               />
             </div>
           </Grid>
@@ -313,7 +322,7 @@ export default function Signup() {
                 name="password2"
                 variant="outlined"
               />
-              {result}
+              {Entry.password !== "" ? result : ""}
             </div>
           </Grid>
         </Grid>
@@ -352,6 +361,13 @@ export default function Signup() {
             </Link>
           </Typography>
         </Grid>
+        {check === 400 ? (
+          <Typography variant="h5" style={{ color: "red" }}>
+            User email address is already registered. Please try Signing In
+          </Typography>
+        ) : (
+          ""
+        )}
       </Grid>
     </Container>
   );

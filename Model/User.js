@@ -29,6 +29,10 @@ const Users = sequelize.define("Users", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  cellphone: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -98,6 +102,7 @@ Users.sync({ force: true }).then(() => {
       streetaddress: "1234 somewhere",
       state: "TX",
       zipcode: "77777",
+      cellphone: "888-888-8888",
       email: "jdoe@email.com",
       password: "123password",
     },
@@ -107,6 +112,7 @@ Users.sync({ force: true }).then(() => {
       streetaddress: "2222 somewhere",
       state: "NY",
       zipcode: "11111",
+      cellphone: "888-888-8888",
       email: "jayl@email.com",
       password: "password123",
     },

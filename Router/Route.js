@@ -8,6 +8,7 @@ const RAM = require("../Model/RAM");
 const Storage = require("../Model/Storage");
 const cart = require("../Model/Cart");
 const bcrypt = require("bcrypt");
+const auth = require("../Controller/Authetication");
 
 //Basic Get Route
 router.get("/", (req, res) => {
@@ -22,6 +23,14 @@ router.get("/User", (req, res) => {
       ? res.sendStatus(404).send("Password does not match")
       : res.send(201).send("Password matches");
   });
+});
+
+router.get("/Create", (req, res) => {
+  User.findAll()
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => console.log(err));
 });
 router.get("/Processor", (req, res) => {
   Processor.findAll();
@@ -47,9 +56,6 @@ router.get("/cart", (req, res) => {
   cart.findAll();
   res.send(cart);
 });
-router.post("/SignUp", (req, res) => {
-  let data = JSON.stringify(req.body);
-  console.log(`This is from server side: ${data}`);
-});
+router.post("/SignUp", auth.signup_post);
 
 module.exports = router;

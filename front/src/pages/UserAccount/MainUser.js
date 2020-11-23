@@ -38,7 +38,7 @@ export default function MainUser() {
     <Container>
       <AppBar position="sticky" className={classes.subNav}>
         <Toolbar>
-          {/* <Typography className={classes.subNavhead}>User</Typography> */}
+          <Typography variant="h3">User</Typography>
           <Button component={NavLink} to={`${path}`}>
             Profile
           </Button>
