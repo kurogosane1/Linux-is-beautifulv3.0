@@ -57,5 +57,6 @@ router.get("/cart", (req, res) => {
   res.send(cart);
 });
 router.post("/SignUp", auth.signup_post);
+router.post("/Login", auth.login);
 
 module.exports = router;

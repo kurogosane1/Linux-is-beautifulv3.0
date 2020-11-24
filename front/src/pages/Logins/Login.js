@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
   Grid,
@@ -23,10 +24,57 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [wpassword, setPassword] = useState("");
+  const [wrongemail, setEmail] = useState("");
+  useEffect(() => {}, [wpassword]);
+  useEffect(() => {}, [wrongemail]);
 
   function handleClick() {
     history.push("/SignUp");
   }
+  function onChange(e) {
+    setEmail("");
+    setPassword("");
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
+  }
+  //Handling submit request
+  function handleSubmit(e) {
+    e.preventDefault();
+    setEmail("");
+    setPassword("");
+
+    console.log(user);
+    axios
+      .post("/Login", user)
+      .then((data) => {
+        let id = data.data.id;
+        let message = data.data.message;
+        let status = data.status;
+        switch (status) {
+          case status === 200:
+            history.push(`/${id}`);
+
+          case status === 201:
+            setEmail("Email is not registered");
+
+          case status === 202:
+            setPassword("Password is not correct");
+            break;
+          default:
+            message = "";
+            status = "";
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <Grid
       container
@@ -46,7 +94,7 @@ export default function Login() {
       </Grid>
       <br />
       <Grid item sm={12} xs={12}>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div>
             <TextField
               id="outlined-textarea"
@@ -56,7 +104,19 @@ export default function Login() {
               type="email"
               variant="outlined"
               style={{ width: "100%" }}
+              name="email"
+              onChange={onChange}
             />
+            {wrongemail === "Email is not registered" ? (
+              <Typography
+                variant="caption"
+                style={{ color: "red", textAlign: "center" }}
+              >
+                Email address is not registered
+              </Typography>
+            ) : (
+              ""
+            )}
           </div>
           <br />
           <div>
@@ -68,7 +128,19 @@ export default function Login() {
               multiline
               variant="outlined"
               style={{ width: "100%" }}
+              name="password"
+              onChange={onChange}
             />
+            {wpassword === "Password is not correct" ? (
+              <Typography
+                variant="caption"
+                style={{ color: "red", textAlign: "center" }}
+              >
+                Password is not correct
+              </Typography>
+            ) : (
+              ""
+            )}
           </div>
           <br />
           <Grid item sm={12} xs={12}>
@@ -76,6 +148,7 @@ export default function Login() {
               variant="contained"
               className={classes.button}
               value="11111"
+              type="submit"
             >
               Login
             </Button>
