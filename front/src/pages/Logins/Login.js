@@ -24,18 +24,25 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
+
+  //States to manage
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
   const [wpassword, setPassword] = useState("");
   const [wrongemail, setEmail] = useState("");
+
+  //Check changes that are to happen
   useEffect(() => {}, [wpassword]);
   useEffect(() => {}, [wrongemail]);
 
+  //To move to signup page if the user is not aready registered
   function handleClick() {
     history.push("/SignUp");
   }
+
+  //Handling changes that are happening in the text section
   function onChange(e) {
     setEmail("");
     setPassword("");
@@ -44,6 +51,7 @@ export default function Login() {
       [e.target.name]: e.target.value,
     });
   }
+
   //Handling submit request
   function handleSubmit(e) {
     e.preventDefault();
