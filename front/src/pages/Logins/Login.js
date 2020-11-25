@@ -58,26 +58,23 @@ export default function Login() {
     setEmail("");
     setPassword("");
 
-    console.log(user);
     axios
       .post("/Login", user)
       .then((data) => {
         let id = data.data.id;
         let message = data.data.message;
         let status = data.status;
-        switch (status) {
-          case status === 200:
-            history.push(`/${id}`);
-
-          case status === 201:
-            setEmail("Email is not registered");
-
-          case status === 202:
-            setPassword("Password is not correct");
-            break;
-          default:
-            message = "";
-            status = "";
+        console.log(id);
+        console.log(status);
+        if (status === 200) {
+          history.push(`/${id}`);
+        } else if (status === 201) {
+          setEmail("Email is not registered");
+        } else if (status === 202) {
+          setPassword("Password is not correct");
+        } else {
+          message = "";
+          status = "";
         }
       })
       .catch((err) => console.log(err));

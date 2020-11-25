@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 
 export default function MainUser() {
   const { path, url } = useRouteMatch();
+  console.log(path, url);
   const classes = useStyles();
   return (
     <Container>
@@ -55,10 +56,10 @@ export default function MainUser() {
           <Route exact path={`${url}`}>
             <Profile />
           </Route>
-          <Route path={`${url}/others`}>
+          <Route exact path={`${url}/others`}>
             <Others />
           </Route>
-          <Route path={`${url}/orders`}>
+          <Route exact path={`${url}/orders`}>
             <Orders />
           </Route>
         </Switch>

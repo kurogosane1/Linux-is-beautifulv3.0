@@ -9,6 +9,7 @@ const Storage = require("../Model/Storage");
 const cart = require("../Model/Cart");
 const bcrypt = require("bcrypt");
 const auth = require("../Controller/Authetication");
+const verify = require("../middleware/authMiddleware");
 
 //Basic Get Route
 router.get("/", (req, res) => {
@@ -58,5 +59,8 @@ router.get("/cart", (req, res) => {
 });
 router.post("/SignUp", auth.signup_post);
 router.post("/Login", auth.login);
+router.get("/:id/others", verify, (req, res) => {
+  res.status(200);
+});
 
 module.exports = router;
