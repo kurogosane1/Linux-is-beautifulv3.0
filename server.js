@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT | 4000;
 const sequelize = require("./Controller/Connection");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 // BodyParser makes it possible for our server to interpret data sent to it.
 app.use(bodyParser.json());
@@ -12,6 +13,7 @@ app.use(bodyParser.text());
 // app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors());
 
 app.use("/", require("./Router/Route"));
 

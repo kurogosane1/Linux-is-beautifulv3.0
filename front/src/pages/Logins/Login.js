@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,6 +9,7 @@ import {
   makeStyles,
   Link,
 } from "@material-ui/core";
+import { UserContext } from "../../Context/UserContext";
 
 const useStyles = makeStyles({
   button: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
-
+  const { setUsers } = useContext(UserContext);
   //States to manage
   const [user, setUser] = useState({
     email: "",
@@ -67,6 +68,7 @@ export default function Login() {
         console.log(id);
         console.log(status);
         if (status === 200) {
+          setUsers({ type: "SET_USER_ID", payload: id });
           history.push(`/${id}`);
         } else if (status === 201) {
           setEmail("Email is not registered");

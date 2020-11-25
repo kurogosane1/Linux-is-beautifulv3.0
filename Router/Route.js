@@ -62,5 +62,8 @@ router.post("/Login", auth.login);
 router.get("/:id/others", verify, (req, res) => {
   res.status(200);
 });
+router.get("/:id/orders", (req, res) => {
+  console.log(req);
+});
 
 module.exports = router;
