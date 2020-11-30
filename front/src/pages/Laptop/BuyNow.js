@@ -30,16 +30,27 @@ const useStyles = makeStyles({
     fontSize: "1.2rem",
   },
 });
-export default function BuyNow() {
+export default function BuyNow(props) {
+  const Selection = props.func;
   const classes = useStyles();
+  const { url } = useRouteMatch();
+  const history = useHistory();
+
+  const nextAction = (e, number) => {
+    //To let the main address change
+    Selection(number);
+    //To move to the next page
+    history.push(`${url}/${number}`);
+  };
+
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item style={{ textAlign: "center" }} xs={12} sm={12}>
-          <Typography classname={classes.subHeading} variant="h3">
+          <Typography className={classes.subHeading} variant="h3">
             15.6 DeepinPro
           </Typography>
-          <Typography classname={classes.subHeading} variant="h6">
+          <Typography className={classes.subHeading} variant="h6">
             We're here to help. Feel free to contact us
           </Typography>
         </Grid>
@@ -51,8 +62,7 @@ export default function BuyNow() {
           spacing={5}
           direction="row"
           style={{ marginTop: "2rem" }}
-          justify="center"
-        >
+          justify="center">
           <Grid item xs={12} sm={6}>
             <img src={VS} alt="" />
             <ListItem>
@@ -79,15 +89,14 @@ export default function BuyNow() {
             <ListItem>
               <ListItemText primary="Four Thunderbolt 4 ports" />
             </ListItem>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                className={classes.button}
-                value="11111"
-              >
-                Buy Now
-              </Button>
-            </Grid>
+
+            <Button
+              variant="contained"
+              className={classes.button}
+              value="11111"
+              onClick={(e) => nextAction(e, "11111")}>
+              Buy Now
+            </Button>
           </Grid>
           <Grid item xs={12} sm={6}>
             <img src={VS} alt="" />
@@ -116,15 +125,13 @@ export default function BuyNow() {
               <ListItemText primary="Four Thunderbolt 4 ports" />
             </ListItem>
 
-            <Grid item xs={12} style={{ display: "flex" }}>
-              <Button
-                variant="contained"
-                className={classes.button}
-                value="12222"
-              >
-                Buy Now
-              </Button>
-            </Grid>
+            <Button
+              variant="contained"
+              className={classes.button}
+              value="12222"
+              onClick={(e) => nextAction(e, "12222")}>
+              Buy Now
+            </Button>
           </Grid>
         </Grid>
       </Grid>

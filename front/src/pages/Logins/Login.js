@@ -65,8 +65,7 @@ export default function Login() {
         let id = data.data.id;
         let message = data.data.message;
         let status = data.status;
-        console.log(id);
-        console.log(status);
+        
         if (status === 200) {
           setUsers({ type: "SET_USER_ID", payload: id });
           history.push(`/${id}`);

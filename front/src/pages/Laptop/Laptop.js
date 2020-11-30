@@ -31,8 +31,12 @@ const useStyles = makeStyles({
 
 export default function Laptop() {
   const { path, url } = useRouteMatch();
+  
   const classes = useStyles();
   const [selection, useSelection] = useState("option1");
+  const Something = (some)=>{
+    useSelection(some);
+  }
   return (
     <Container>
       <AppBar position="sticky" className={classes.subNav}>
@@ -51,11 +55,11 @@ export default function Laptop() {
           <Route exact path={`${url}`}>
             <Overview />
           </Route>
-          <Route path={`${url}/BuyNow`}>
+          <Route exact path={`${url}/BuyNow`}>
             <BuyNow func={useSelection} />
           </Route>
-          <Route path={`${url}/${selection}`}>
-            <Options choice={selection} />
+          <Route exact path={`${url}/BuyNow/${selection}`}>
+            <Options something={selection}/>
           </Route>
         </Switch>
       </Container>

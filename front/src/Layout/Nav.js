@@ -19,6 +19,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 const useStyles = makeStyles({
   header: {
     backgroundColor: "#2b2b2b",
+    boxShadow:"none",
   },
   font: {
     textDecoration: "none",
@@ -82,11 +83,11 @@ export default function Nav() {
                     iTab
                   </Button>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                {/* <MenuItem onClick={handleClose}>
                   <Button component={NavLink} to="/iDeep" color="inherit">
                     iDeep
                   </Button>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={handleClose}>
                   <Button component={NavLink} to="/Login" color="inherit">
                     Login
@@ -103,9 +104,9 @@ export default function Nav() {
               <Button component={NavLink} to="/iTab" color="inherit">
                 iTab
               </Button>
-              <Button component={NavLink} to="/iDeep" color="inherit">
+              {/* <Button component={NavLink} to="/iDeep" color="inherit">
                 iDeep
-              </Button>
+              </Button> */}
               <IconButton component={NavLink} to="/Login" color="inherit">
                 <PersonIcon />
               </IconButton>
