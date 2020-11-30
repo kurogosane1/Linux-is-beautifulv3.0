@@ -1,5 +1,7 @@
-# Linux-is-beautifulv3.0
+<div align="center"><h1>Linux-is-beautiful</h1></div>
 
 ### This is to imagine a ecommerce site where linux is advertised & sold as if it was Apple
 
-NOTE: This is not a real ecommerce site
+*NOTE: This is not a real ecommerce site*
+
+THIS TEXT IS IN THE CENTER! <- 
