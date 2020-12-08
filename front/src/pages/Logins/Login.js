@@ -62,6 +62,7 @@ export default function Login() {
     axios
       .post("/Login", user)
       .then((data) => {
+        console.log(data.headers)
         let id = data.data.id;
         let message = data.data.message;
         let status = data.status;

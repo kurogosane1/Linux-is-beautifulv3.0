@@ -59,11 +59,10 @@ router.get("/cart", (req, res) => {
 });
 router.post("/SignUp", auth.signup_post);
 router.post("/Login", auth.login);
-router.get("/:id/others", verify, (req, res) => {
-  res.status(200);
-});
-router.get("/:id/orders", (req, res) => {
-  console.log(req);
-});
-
+router.get("/:id/others",verify);
+router.get("/:id/orders",verify);
+// router.get("/:id/others", (req, res) => {
+//   console.log(req);
+// });
+router.get("/:id", verify);
 module.exports = router;

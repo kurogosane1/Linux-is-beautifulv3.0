@@ -1,10 +1,16 @@
-import React from "react";
-// import { useHistory } from "react-router-dom";
+import React, {useEffect} from "react";
+import axios from 'axios';
+import { useRouteMatch, useHistory } from "react-router-dom";
 // import { v4 as uuidv4 } from "uuid";
 // import { Grid, Typography, ListItem, ListItemText } from "@material-ui/core";
 
 export default function Options(props) {
-  console.log(props);
+  let histroy = useHistory();
+  const {url} = useRouteMatch();
+  function userHasAuth(){
+    axios.get(`${url}`)
+  }
+  useEffect(()=>{},[])
 
   return (
     <div>

@@ -1,14 +1,20 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useRouteMatch } from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
+
 
 export default function Others() {
-  const { path } = useRouteMatch();
+  const { url } = useRouteMatch();
+  let history = useHistory();
 
-  useEffect(() => {
+  useEffect(() => {   
     axios
-      .get(`/${path}`)
-      .then((response) => console.log(response))
+      .get(`${url}`,{withCredentials:true})
+      .then((res)=>{
+        if(res.data.status !== 200){
+          history.push('/Login')
+        }
+      })
       .catch((err) => console.log(err));
   });
   return (
