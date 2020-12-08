@@ -40,7 +40,7 @@ export default function BuyNow(props) {
     //To let the main address change
     Selection(number);
     //To move to the next page
-    history.push(`${url}/${number}`);
+    history.push(`${url}/${number}`,{selection:number});
   };
 
   return (

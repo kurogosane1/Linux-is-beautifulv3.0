@@ -4,6 +4,13 @@ const bcrypt = require("bcryptjs");
 const User = require("../Model/User");
 const dotenv = require("dotenv");
 const { create } = require("../Model/User");
+const Processor = require("../Model/Processor");
+const Tag = require("../Model/Category");
+const GPU = require("../Model/Graphics");
+const RAM = require("../Model/RAM");
+const Storage = require("../Model/Storage");
+const Category = require("../Model/Category");
+
 const maxAge = 5 * 60 * 60;
 
 //Create tokens
@@ -113,4 +120,38 @@ module.exports.login = async (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+module.exports.getProductLaptop = async (req, res) => {
+  const selection = req.params.Number;
+
+  if (selection === "12222") {
+    const processors = await Processor.findAll({
+      where: { id: ["pro-3", "pro-4"] },
+    });
+    const graphics = await GPU.findAll({
+      where: { id: ["gpu-3", "gpu-4", "gpu-5"] },
+    });
+    const ram = await RAM.findAll({
+      where: { id: ["ram-2", "ram-3", "ram-4"] },
+    });
+    const storage = await Storage.findAll({
+      where: { id: ["st-02", "st-03", "st-04"] },
+    });
+    const tag = await Category.findAll({
+      where: { Tag_Description: "Laptop" },
+    });
+
+    res.status(200).json({ processors, graphics, ram, storage, tag });
+  }
+  if (selection === "11111") {
+    const processors = await Processor.findAll();
+    const graphics = await GPU.findAll();
+    const ram = await RAM.findAll();
+    const storage = await Storage.findAll();
+    const tag = await Category.findAll({
+      where: { Tag_Description: "Laptop" },
+    });
+    res.status(200).json({ processors, graphics, ram, storage, tag });
+  }
 };

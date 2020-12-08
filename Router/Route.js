@@ -15,7 +15,6 @@ const verify = require("../middleware/authMiddleware");
 router.get("/", (req, res) => {
   res.send("Hello World");
 });
-
 router.get("/User", (req, res) => {
   const user = User.findOne(req.body.email);
   // compare password
@@ -25,7 +24,6 @@ router.get("/User", (req, res) => {
       : res.send(201).send("Password matches");
   });
 });
-
 router.get("/Create", (req, res) => {
   User.findAll()
     .then((res) => {
@@ -59,10 +57,8 @@ router.get("/cart", (req, res) => {
 });
 router.post("/SignUp", auth.signup_post);
 router.post("/Login", auth.login);
-router.get("/:id/others",verify);
-router.get("/:id/orders",verify);
-// router.get("/:id/others", (req, res) => {
-//   console.log(req);
-// });
+router.get("/:id/others", verify);
+router.get("/:id/orders", verify);
 router.get("/:id", verify);
+router.get("/DeepinPro/BuyNow/:Number", auth.getProductLaptop);
 module.exports = router;
