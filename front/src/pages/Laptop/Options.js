@@ -5,39 +5,55 @@ import { useRouteMatch, useHistory } from "react-router-dom";
 // import { Grid, Typography, ListItem, ListItemText } from "@material-ui/core";
 
 export default function Options() {
-  let history = useHistory();
+  // let history = useHistory();
   const { url } = useRouteMatch();
-  const [processors, setProcessors] = useState({});
-  const [ram, setRAM] = useState([]);
-  const [storage, setStorage] = useState([]);
-  const [graphics, setGraphics] = useState([]);
-  function userHasAuth() {
+  const [Processor, setProcessors] = useState([
+    {
+      id: "",
+      name: "",
+      cost: 0,
+    },
+  ]);
+  const [RAM, setRAM] = useState([{}]);
+  const [Storage, setStorage] = useState([{}]);
+  const [Graphics, setGraphics] = useState([{}]);
+  const [Selection, setSelection] = useState({
+    Processor: Processor[0].name,
+    RAM: RAM[0].name,
+    GPU: Graphics[0].name,
+    Storage: Storage[0].name,
+    Type: "LAPTOP",
+  });
+
+  async function userHasAuth() {
     axios
       .get(`${url}`)
       .then((res) => {
-        console.log(JSON.stringify(res.data.processors));
-        setProcessors({
-          ...processors,
-          processors: res.data.processors.map((data) => data),
-        });
-        setGraphics({ ...graphics, graphics: res.data.graphics });
-        setStorage({ storage: res.data.storage.map((data) => data) });
-        setRAM({ ram: res.data.ram });
+        let { processors, graphics, storage, ram } = res.data;
+        setProcessors([...processors]);
+        setGraphics([...graphics]);
+        setStorage([...storage]);
+        setRAM([...ram]);
       })
       .catch((err) => console.log(err));
   }
 
   useEffect(() => {
-    console.log(url);
     userHasAuth();
-    console.log(processors);
-    console.log(ram);
-    console.log(storage);
   }, []);
 
   return (
     <div>
       <h2>This is the options section</h2>
+      <h2>{<span key={Processor.id}>{Processor.name}</span>}</h2>
+      <h2>{<span key={Storage.id}>{Storage.name}</span>}</h2>
+      <h2>{<span key={RAM.id}>{RAM.name}</span>}</h2>
+      <h2>{<span key={Graphics.id}>{Graphics.name}</span>}</h2>
+      <ul>
+        {Processor.filter((index) => index >= 0).map((data) => {
+          return <h2 key={data.id}>{data.name}</h2>;
+        })}
+      </ul>
     </div>
   );
 }
