@@ -124,25 +124,30 @@ module.exports.login = async (req, res) => {
 
 module.exports.getProductLaptop = async (req, res) => {
   const selection = req.params.Number;
+  let processors;
+  let graphics;
+  let ram;
+  let storage;
+  let category;
 
   if (selection === "12222") {
-    const processors = await Processor.findAll({
+    await Processor.findAll({
       where: { id: ["pro-3", "pro-4"] },
-    });
-    const graphics = await GPU.findAll({
+    }).then((res) => (processors = res));
+    await GPU.findAll({
       where: { id: ["gpu-3", "gpu-4", "gpu-5"] },
-    });
-    const ram = await RAM.findAll({
+    }).then((res) => (graphics = res));
+    await RAM.findAll({
       where: { id: ["ram-2", "ram-3", "ram-4"] },
-    });
-    const storage = await Storage.findAll({
+    }).then((res) => (ram = res));
+    await Storage.findAll({
       where: { id: ["st-02", "st-03", "st-04"] },
-    });
-    const tag = await Category.findAll({
+    }).then((res) => (storage = res));
+    await Category.findAll({
       where: { Tag_Description: "Laptop" },
-    });
+    }).then((res) => (category = res));
 
-    res.status(200).json({ processors, graphics, ram, storage, tag });
+    res.status(200).send({ processors, graphics, ram, storage, category });
   }
   if (selection === "11111") {
     const processors = await Processor.findAll();
@@ -152,6 +157,6 @@ module.exports.getProductLaptop = async (req, res) => {
     const tag = await Category.findAll({
       where: { Tag_Description: "Laptop" },
     });
-    res.status(200).json({ processors, graphics, ram, storage, tag });
+    res.status(200).send({ processors, graphics, ram, storage, category });
   }
 };

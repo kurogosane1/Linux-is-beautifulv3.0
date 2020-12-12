@@ -16,7 +16,9 @@ const useStyles = makeStyles({
   subNav: {
     borderBottom: "2px black solid",
     borderColor: "black",
-    backgroundColor: "rgb(238, 238, 238,0.88) ",
+    backgroundColor: "rgb(238, 238, 238,0.5) ",
+    backdropFilter: `blur(30px)`,
+
     // filter: "blur(1px)",
 
     boxShadow: "none",
@@ -31,12 +33,12 @@ const useStyles = makeStyles({
 
 export default function Laptop() {
   const { path, url } = useRouteMatch();
-  
+
   const classes = useStyles();
   const [selection, useSelection] = useState("option1");
-  const Something = (some)=>{
+  const Something = (some) => {
     useSelection(some);
-  }
+  };
   return (
     <Container>
       <AppBar position="sticky" className={classes.subNav}>
@@ -59,7 +61,7 @@ export default function Laptop() {
             <BuyNow func={useSelection} />
           </Route>
           <Route exact path={`${url}/BuyNow/${selection}`}>
-            <Options something={selection}/>
+            <Options something={selection} />
           </Route>
         </Switch>
       </Container>
