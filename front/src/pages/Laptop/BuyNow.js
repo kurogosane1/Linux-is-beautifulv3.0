@@ -101,19 +101,19 @@ export default function BuyNow(props) {
           <Grid item xs={12} sm={6}>
             <img src={VS} alt="" />
             <ListItem>
-              <ListItemText primary="2.5GHz 12-Core Processor" />
+              <ListItemText primary="3.2GHz 10-Core Processor" />
             </ListItem>
             <ListItem>
               <ListItemText primary="Turbo Boost up to 5Ghz" />
             </ListItem>
             <ListItem>
-              <ListItemText primary="Nvidia RTX 3050 with 8GB of GDDR8 memory" />
+              <ListItemText primary="Nvidia RTX 3060 Super with 8GB of GDDR8 memory" />
             </ListItem>
             <ListItem>
-              <ListItemText primary="16GB of 2666MHz DDR6 memory" />
+              <ListItemText primary="32GB of 2333MHz DDR6 memory" />
             </ListItem>
             <ListItem>
-              <ListItemText primary="512GB of Storage" />
+              <ListItemText primary="1TB of Storage" />
             </ListItem>
             <ListItem>
               <ListItemText primary="15.6-inch Art Display with Thin bezels and blue light filter" />

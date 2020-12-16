@@ -11,7 +11,7 @@ import Login from "./Pages/Logins/Login";
 import Signup from "./Pages/Logins/Signup";
 import { UserContext } from "./Context/UserContext";
 import Main from "./Pages/Main";
-
+import ProductOptionContext from "./Context/ProductOptionsContext";
 
 function App() {
   const { users } = useContext(UserContext);
@@ -27,7 +27,9 @@ function App() {
               <Main />
             </Route>
             <Route path="/DeepinPro">
-              <Laptop />
+              <ProductOptionContext>
+                <Laptop />
+              </ProductOptionContext>
             </Route>
             <Route path="/iTab">
               <Tablet />

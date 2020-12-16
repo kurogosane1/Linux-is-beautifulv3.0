@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Typography, makeStyles } from "@material-ui/core";
-import axios from "axios";
-import { useRouteMatch, useHistory } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  Grid,
+  Typography,
+  makeStyles,
+  ListItem,
+  ListItemText,
+  Button,
+} from "@material-ui/core";
+import { useRouteMatch } from "react-router-dom";
 import VS from "../../Assets/DesktopEnv.svg";
-// import { v4 as uuidv4 } from "uuid";
-// import { Grid, Typography, ListItem, ListItemText } from "@material-ui/core";
+import { OptionContext } from "../../Context/ProductOptionsContext";
 
 const useStyles = makeStyles({
   heading: {
@@ -24,47 +29,37 @@ export default function Options() {
   const classes = useStyles();
   // let history = useHistory();
   const { url } = useRouteMatch();
-  const [Processor, setProcessors] = useState([
-    {
-      id: "",
-      name: "",
-      cost: 0,
-    },
-  ]);
-  const [RAM, setRAM] = useState([{}]);
-  const [Storage, setStorage] = useState([{}]);
-  const [Graphics, setGraphics] = useState([{}]);
-
-  function userHasAuth() {
-    axios
-      .get(`${url}`)
-      .then(async (res) => {
-        console.log(res.data);
-        let { processors, graphics, storage, ram } = res.data;
-
-        await setProcessors([...processors]);
-        await setGraphics([...graphics]);
-        await setStorage([...storage]);
-        await setRAM([...ram]);
-      })
-      .catch((err) => console.log(err));
-  }
-
-  useEffect(() => {
-    userHasAuth();
-  }, []);
+  const { getData, Processor, RAM, Graphics, Storage } = useContext(
+    OptionContext
+  );
 
   const [Selection, setSelection] = useState({
-    Processor: Processor[1],
-    RAM: RAM[0].name,
-    GPU: Graphics[0].name,
-    Storage: Storage[0].name,
+    Processor: "",
+    RAM: "",
+    GPU: "",
+    Storage: "",
     Type: "LAPTOP",
   });
 
+  useEffect(() => {}, [Processor]);
+  useEffect(() => {}, [RAM]);
+  useEffect(() => {}, [Graphics]);
+  useEffect(() => {}, [Storage]);
+  useEffect(() => {}, [Selection]);
+
   useEffect(() => {
-    console.log(Selection);
-  }, [Selection]);
+    getData(url);
+  }, []);
+
+  useEffect(() => {
+    setSelection({
+      Processor: Processor[0].name,
+      RAM: RAM[0].name,
+      GPU: Graphics[0].name,
+      Storage: Storage[0].name,
+      Type: "LAPTOP",
+    });
+  }, [Processor, RAM, Graphics, Storage]);
 
   return (
     <div
@@ -83,38 +78,170 @@ export default function Options() {
           marginTop: "1rem",
         }}>
         <Grid item sm={6} xs={12}>
-          <Grid item>
-            <img src={VS} />
+          <Grid item position="sticky">
+            <img src={VS} alt="something" />
           </Grid>
           <Grid item>
-            <span>{Selection.Processor}</span>
-            <span>{Selection.RAM}</span>
-            <span>{Selection.GPU}</span>
-            <span>{Selection.Storage}</span>
-            <span>{console.log(Processor)}</span>
+            <ListItem>
+              <ListItemText primary={Selection.Processor} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary={Selection.RAM} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary={Selection.GPU} />
+            </ListItem>
+            <ListItem>
+              <ListItemText primary={Selection.Storage} />
+            </ListItem>
           </Grid>
         </Grid>
         <Grid item sm={6} xs={12}>
-          <ul>
-            {Processor.map((data) => {
-              return <h2 key={data.id}>{data.name}</h2>;
+          <Grid item>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              Processor
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" style={{ textAlign: "left" }}>
+              Which processor is right for you
+            </Typography>
+          </Grid>
+          <Grid item style={{ marginBottom: "1rem" }}>
+            {Processor.map((data, index) => {
+              return (
+                <Button
+                  value="list"
+                  key={index}
+                  color={
+                    Selection.Processor === data.name ? "primary" : "default"
+                  }
+                  onClick={() =>
+                    setSelection({ ...Selection, Processor: data.name })
+                  }
+                  style={{
+                    width: "100%",
+                    lineHeight: "auto",
+                    fontSize: "1rem",
+                    border: "0.15rem solid",
+                    marginBottom: "0.10rem",
+                    marginTop: "1rem",
+                  }}>
+                  {`${data.name}`}{" "}
+                  {Selection.Processor !== data.name
+                    ? index < 0
+                      ? `${
+                          Processor[Processor.length - 1].cost -
+                          Processor[index].cost
+                        }`
+                      : Processor[0].cost
+                    : "Included"}
+                </Button>
+              );
             })}
-          </ul>
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              Memory
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" style={{ textAlign: "left" }}>
+              Choose the Proper Memory for you
+            </Typography>
+          </Grid>
+          <Grid item>
+            {RAM.map((data, index) => {
+              return (
+                <Button
+                  value="list"
+                  key={index}
+                  color={Selection.RAM === data.name ? "primary" : "default"}
+                  onClick={() => setSelection({ ...Selection, RAM: data.name })}
+                  style={{
+                    width: "100%",
+                    lineHeight: "auto",
+                    fontSize: "1rem",
+                    border: "0.15rem solid",
+                    marginBottom: "0.10rem",
+                    marginTop: "1rem",
+                  }}>
+                  {`${data.name}              $${data.cost}`}
+                </Button>
+              );
+            })}
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              Storage
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" style={{ textAlign: "left" }}>
+              Choose the Correct amount of storage you require
+            </Typography>
+          </Grid>
+          <Grid item>
+            {Storage.map((data, index) => {
+              return (
+                <Button
+                  variant="outlined"
+                  color={
+                    Selection.Storage === data.name ? "primary" : "default"
+                  }
+                  onClick={() =>
+                    setSelection({ ...Selection, Storage: data.name })
+                  }
+                  key={index}
+                  style={{
+                    width: "100%",
+                    lineHeight: "auto",
+                    fontSize: "1rem",
+                    border: "0.15rem solid",
+                    marginBottom: "0.10rem",
+                    marginTop: "1rem",
+                  }}>
+                  {`${data.name}                $${data.cost}`}
+                </Button>
+              );
+            })}
+          </Grid>
+          <Grid item>
+            <Typography variant="h5" style={{ textAlign: "left" }}>
+              GPU
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle1" style={{ textAlign: "left" }}>
+              Select the require Graphical Power that you may need
+            </Typography>
+          </Grid>
+          <Grid item>
+            {Graphics.map((data, index) => {
+              return (
+                <Button
+                  value="list"
+                  key={index}
+                  color={Selection.GPU === data.name ? "primary" : "default"}
+                  onClick={() => setSelection({ ...Selection, GPU: data.name })}
+                  style={{
+                    width: "100%",
+                    lineHeight: "auto",
+                    fontSize: "1rem",
+                    border: "0.15rem solid",
+                    marginBottom: "0.10rem",
+                    marginTop: "1rem",
+                  }}>
+                  {`${data.name}`}
+                  {``}
+                  {``}
+                  {`${data.cost}`}
+                </Button>
+              );
+            })}
+          </Grid>
         </Grid>
       </Grid>
     </div>
   );
 }
-
-// <div>
-//   <h2>This is the options section</h2>
-//   <h2>{<span key={Processor.id}>{Processor.name}</span>}</h2>
-//   <h2>{<span key={Storage.id}>{Storage.name}</span>}</h2>
-//   <h2>{<span key={RAM.id}>{RAM.name}</span>}</h2>
-//   <h2>{<span key={Graphics.id}>{Graphics.name}</span>}</h2>
-//   <ul>
-//     {Processor.filter((index) => index >= 0).map((data) => {
-//       return <h2 key={data.id}>{data.name}</h2>;
-//     })}
-//   </ul>
-// </div>

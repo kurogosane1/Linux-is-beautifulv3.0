@@ -16,9 +16,7 @@ const initialState = {
 };
 export default function UserStoreContext(props) {
   const [users, setUsers] = useReducer(userReducer, initialState);
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+  useEffect(() => {}, [users]);
 
   return (
     <UserContext.Provider value={{ users, setUsers }}>

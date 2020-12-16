@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
 import {
   AppBar,
@@ -35,10 +35,10 @@ export default function Laptop() {
   const { path, url } = useRouteMatch();
 
   const classes = useStyles();
-  const [selection, useSelection] = useState("option1");
-  const Something = (some) => {
-    useSelection(some);
-  };
+  const [selection, useSelection] = useState("11111");
+
+  useEffect(() => {}, [selection]);
+
   return (
     <Container>
       <AppBar position="sticky" className={classes.subNav}>

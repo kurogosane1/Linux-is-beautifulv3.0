@@ -16,10 +16,13 @@ import {
 import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
 
+
+
+
 const useStyles = makeStyles({
   header: {
     backgroundColor: "#2b2b2b",
-    boxShadow:"none",
+    boxShadow: "none",
   },
   font: {
     textDecoration: "none",
@@ -37,7 +40,6 @@ export default function Nav() {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(isMobile);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -62,8 +64,7 @@ export default function Nav() {
                 edge="start"
                 className={classes.menuButton}
                 color="inherit"
-                aria-label="menu"
-              >
+                aria-label="menu">
                 <MenuIcon onClick={handleClick} />
               </IconButton>
               <Menu
@@ -71,8 +72,7 @@ export default function Nav() {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
+                onClose={handleClose}>
                 <MenuItem onClick={handleClose}>
                   <Button component={NavLink} to="/DeepinPro" color="inherit">
                     DeepinPro
