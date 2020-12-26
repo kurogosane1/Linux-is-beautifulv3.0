@@ -7,9 +7,11 @@ import {
   ListItemText,
   Button,
 } from "@material-ui/core";
-import { useRouteMatch } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import VS from "../../Assets/DesktopEnv.svg";
 import { OptionContext } from "../../Context/ProductOptionsContext";
+import { CartContext } from "../../Context/CartContext";
 
 const useStyles = makeStyles({
   heading: {
@@ -27,11 +29,12 @@ const useStyles = makeStyles({
 
 export default function Options() {
   const classes = useStyles();
-  // let history = useHistory();
+  let history = useHistory();
   const { url } = useRouteMatch();
   const { getData, Processor, RAM, Graphics, Storage } = useContext(
     OptionContext
   );
+  const { dispatch } = useContext(CartContext);
 
   const [Selection, setSelection] = useState({
     Processor: "",
@@ -99,6 +102,20 @@ export default function Options() {
     minimumFractionDigits: 2,
   });
 
+  const AddToCart = async () => {
+    const { processorCost, gpuCost, ramCost, storageCost } = cost;
+    const Total = processorCost + gpuCost + ramCost + storageCost;
+    const Cart = {
+      id: uuidv4(),
+      PurchaseType: "LAPTOP",
+      Config: Selection,
+      Cost: Total,
+    };
+
+    await dispatch({ type: "ADD_CART", payload: Cart });
+    await history.push("/Cart");
+  };
+
   return (
     <div
       style={{
@@ -153,7 +170,8 @@ export default function Options() {
                 color: "white",
                 width: "100%",
                 fontSize: "1.2rem",
-              }}>
+              }}
+              onClick={AddToCart}>
               Buy Now
             </Button>
           </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import {
   AppBar,
@@ -15,9 +15,8 @@ import {
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
-
-
-
+import ShopOutlinedIcon from "@material-ui/icons/ShopOutlined";
+import { CartContext } from "../Context/CartContext";
 
 const useStyles = makeStyles({
   header: {
@@ -41,6 +40,7 @@ export default function Nav() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { cart } = useContext(CartContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -109,6 +109,29 @@ export default function Nav() {
               </Button> */}
               <IconButton component={NavLink} to="/Login" color="inherit">
                 <PersonIcon />
+              </IconButton>
+              <IconButton component={NavLink} to="/Cart" color="inherit">
+                <ShopOutlinedIcon />
+
+                {cart.length - 1 === 0 ? (
+                  ""
+                ) : (
+                  <span
+                    style={{
+                      position: "relative",
+                      top: "-5px",
+                      left: "-8px",
+                      zIndex: "1rem",
+                      paddingLeft: "5px",
+                      paddingRight: "5px",
+                      borderRadius: "9px",
+                      backgroundColor: "white",
+                      color: "black",
+                      fontSize: "1rem",
+                    }}>
+                    {cart.length - 1}
+                  </span>
+                )}
               </IconButton>
             </>
           )}

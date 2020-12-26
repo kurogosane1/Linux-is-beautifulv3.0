@@ -9,6 +9,7 @@ import Laptop from "./Pages/Laptop/Laptop";
 import Tablet from "./Pages/iTab/Tablet";
 import Login from "./Pages/Logins/Login";
 import Signup from "./Pages/Logins/Signup";
+import Cart from "./Pages/Cart/Cart";
 import { UserContext } from "./Context/UserContext";
 import Main from "./Pages/Main";
 import ProductOptionContext from "./Context/ProductOptionsContext";
@@ -40,8 +41,11 @@ function App() {
             <Route path="/SignUp">
               <Signup />
             </Route>
-            <Route path={`/${users.id}`}>
+            <Route exact path={`/${users.id}`}>
               <MainUser />
+            </Route>
+            <Route path="/Cart">
+              <Cart />
             </Route>
           </Switch>
         </Container>

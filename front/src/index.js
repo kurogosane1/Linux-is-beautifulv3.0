@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import UserStoreContext from "./Context/UserContext";
+import CartStoreContext from "./Context/CartContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserStoreContext>
-      <App />
+      <CartStoreContext>
+        <App />
+      </CartStoreContext>
     </UserStoreContext>
   </React.StrictMode>,
   document.getElementById("root")
