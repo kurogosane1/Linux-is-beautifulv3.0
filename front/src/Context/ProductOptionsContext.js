@@ -1,4 +1,4 @@
-import React, { useState, createContext, useReducer, useEffect } from "react";
+import React, { useState, createContext, useEffect } from "react";
 import axios from "axios";
 
 export const OptionContext = createContext();

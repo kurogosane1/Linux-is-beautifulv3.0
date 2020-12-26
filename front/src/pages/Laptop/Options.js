@@ -40,12 +40,19 @@ export default function Options() {
     Storage: "",
     Type: "LAPTOP",
   });
+  const [cost, setCollection] = useState({
+    processorCost: 0,
+    ramCost: 0,
+    gpuCost: 0,
+    storageCost: 0,
+  });
 
   useEffect(() => {}, [Processor]);
   useEffect(() => {}, [RAM]);
   useEffect(() => {}, [Graphics]);
   useEffect(() => {}, [Storage]);
   useEffect(() => {}, [Selection]);
+  useEffect(() => {}, [url]);
 
   useEffect(() => {
     getData(url);
@@ -61,12 +68,43 @@ export default function Options() {
     });
   }, [Processor, RAM, Graphics, Storage]);
 
+  useEffect(() => {
+    setCollection({
+      processorCost: parseInt(
+        Processor.filter(
+          (information) => Selection.Processor === information.name
+        ).map((data) => data.cost)
+      ),
+      ramCost: parseInt(
+        RAM.filter((information) => Selection.RAM === information.name).map(
+          (data) => data.cost
+        )
+      ),
+      gpuCost: parseInt(
+        Graphics.filter(
+          (information) => Selection.GPU === information.name
+        ).map((data) => data.cost)
+      ),
+      storageCost: parseInt(
+        Storage.filter(
+          (information) => Selection.Storage === information.name
+        ).map((data) => data.cost)
+      ),
+    });
+  }, [Selection]);
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+
   return (
     <div
       style={{
         marginTop: "1rem",
       }}>
-      <Typography variant="h6" className={classes.heading}>
+      <Typography variant="h5" className={classes.heading}>
         Customize your DeepinPro
       </Typography>
 
@@ -79,9 +117,9 @@ export default function Options() {
         }}>
         <Grid item sm={6} xs={12}>
           <Grid item position="sticky">
-            <img src={VS} alt="something" />
+            <img src={VS} alt="something" position="sticky" />
           </Grid>
-          <Grid item>
+          <Grid item position="sticky">
             <ListItem>
               <ListItemText primary={Selection.Processor} />
             </ListItem>
@@ -95,9 +133,33 @@ export default function Options() {
               <ListItemText primary={Selection.Storage} />
             </ListItem>
           </Grid>
+          <Grid item sm={6} xs={12}>
+            <Typography
+              variant="h3"
+              style={{ marginBottom: "1rem", marginTop: "1rem" }}>
+              {formatter.format(
+                cost.processorCost +
+                  cost.gpuCost +
+                  cost.ramCost +
+                  cost.storageCost
+              )}
+            </Typography>
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "#2b2b2b",
+                color: "white",
+                width: "100%",
+                fontSize: "1.2rem",
+              }}>
+              Buy Now
+            </Button>
+          </Grid>
         </Grid>
         <Grid item sm={6} xs={12}>
-          <Grid item>
+          <Grid item style={{ marginTop: "1rem" }}>
             <Typography variant="h5" style={{ textAlign: "left" }}>
               Processor
             </Typography>
@@ -140,7 +202,7 @@ export default function Options() {
               );
             })}
           </Grid>
-          <Grid item>
+          <Grid item style={{ marginTop: "1rem" }}>
             <Typography variant="h5" style={{ textAlign: "left" }}>
               Memory
             </Typography>
@@ -171,7 +233,7 @@ export default function Options() {
               );
             })}
           </Grid>
-          <Grid item>
+          <Grid item style={{ marginTop: "1rem" }}>
             <Typography variant="h5" style={{ textAlign: "left" }}>
               Storage
             </Typography>
@@ -206,7 +268,7 @@ export default function Options() {
               );
             })}
           </Grid>
-          <Grid item>
+          <Grid item style={{ marginTop: "1rem" }}>
             <Typography variant="h5" style={{ textAlign: "left" }}>
               GPU
             </Typography>
