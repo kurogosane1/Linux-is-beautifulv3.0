@@ -7,13 +7,22 @@ function add(state, action) {
   localStorage.setItem("cart", newCart);
   return newCart;
 }
+function deleteCart(state, action) {
+  const newCart = state.filter((cart) => cart.id !== action.id);
+  if (newCart.length === 0) {
+    localStorage.removeItem("cart");
+  } else {
+    localStorage.setItem("cart", newCart);
+  }
+  return newCart;
+}
 
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CART":
       return add(state, action);
     case "DELETE_ADD_CART":
-      return state.filter((cart) => cart.id !== action.id);
+      return deleteCart(state, action);
     case "CHECK_CART":
       return [...state, action.payload];
     default:
@@ -36,7 +45,6 @@ export default function CartStoreContext(props) {
 
   useEffect(() => {
     checkCart();
-    console.log(cart);
   }, []);
 
   return (

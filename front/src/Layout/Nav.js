@@ -12,6 +12,7 @@ import {
   useTheme,
   MenuItem,
   Menu,
+  Badge,
 } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -111,26 +112,12 @@ export default function Nav() {
                 <PersonIcon />
               </IconButton>
               <IconButton component={NavLink} to="/Cart" color="inherit">
-                <ShopOutlinedIcon />
-
-                {cart.length  === 0 ? (
-                  ""
+                {cart.length === 0 ? (
+                  <ShopOutlinedIcon />
                 ) : (
-                  <span
-                    style={{
-                      position: "relative",
-                      top: "-5px",
-                      left: "-8px",
-                      zIndex: "1rem",
-                      paddingLeft: "5px",
-                      paddingRight: "5px",
-                      borderRadius: "9px",
-                      backgroundColor: "white",
-                      color: "black",
-                      fontSize: "1rem",
-                    }}>
-                    {cart.length}
-                  </span>
+                  <Badge badgeContent={cart.length} color="secondary">
+                    <ShopOutlinedIcon />
+                  </Badge>
                 )}
               </IconButton>
             </>
