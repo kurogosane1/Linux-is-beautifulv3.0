@@ -113,7 +113,7 @@ export default function Nav() {
               <IconButton component={NavLink} to="/Cart" color="inherit">
                 <ShopOutlinedIcon />
 
-                {cart.length - 1 === 0 ? (
+                {cart.length  === 0 ? (
                   ""
                 ) : (
                   <span
@@ -129,7 +129,7 @@ export default function Nav() {
                       color: "black",
                       fontSize: "1rem",
                     }}>
-                    {cart.length - 1}
+                    {cart.length}
                   </span>
                 )}
               </IconButton>

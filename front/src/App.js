@@ -13,9 +13,11 @@ import Cart from "./Pages/Cart/Cart";
 import { UserContext } from "./Context/UserContext";
 import Main from "./Pages/Main";
 import ProductOptionContext from "./Context/ProductOptionsContext";
+import { CartContext } from "./Context/CartContext";
 
 function App() {
   const { users } = useContext(UserContext);
+  const { cart, dispatch } = useContext(CartContext);
   useEffect(() => {}, [users]);
 
   return (
@@ -45,7 +47,7 @@ function App() {
               <MainUser />
             </Route>
             <Route path="/Cart">
-              <Cart />
+              <Cart info={cart} action={dispatch} />
             </Route>
           </Switch>
         </Container>
