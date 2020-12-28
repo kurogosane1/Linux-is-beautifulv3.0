@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import {
   AppBar,
@@ -50,6 +50,8 @@ export default function Nav() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {}, []);
 
   return (
     <AppBar position="static" className={classes.header}>
