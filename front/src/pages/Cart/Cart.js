@@ -7,6 +7,12 @@ import {
   CardContent,
   CardMedia,
   makeStyles,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import VS from "../../Assets/DesktopEnv.svg";
@@ -16,7 +22,6 @@ const useStyles = makeStyles({
   configuration: {
     textAlign: "left",
     width: "100%",
-    zIndex: 10,
   },
   cover: {
     display: "flex",
@@ -31,6 +36,7 @@ const useStyles = makeStyles({
     display: "flex",
     marginTop: "1.2rem",
     width: "100%",
+    zIndex: 10,
   },
   detail: {
     display: "flex",
@@ -41,6 +47,9 @@ const useStyles = makeStyles({
 
     marginRight: "6rem",
     marginTop: "0.5rem",
+  },
+  total: {
+    width: "100%",
   },
 });
 
@@ -55,6 +64,18 @@ export default function Cart({ info, action }) {
 
   const Remove = (id) => {
     action({ type: "DELETE_ADD_CART", id });
+  };
+
+  const taxRate = 0.0825;
+  const percentageTax = taxRate.toLocaleString(undefined, {
+    style: "percent",
+    minimumFractionDigits: 2,
+  });
+
+  // To make payment
+  const proceed = () => {};
+  const empty = () => {
+    action({ type: "EMPTY_CART" });
   };
 
   return (
@@ -74,6 +95,7 @@ export default function Cart({ info, action }) {
               flexDirection: "column",
               alignItems: "center",
               alignContent: "center",
+              zIndex: "10",
             }}>
             {info.map((data, index) => {
               const total = formatter.format(data.Cost);
@@ -148,19 +170,99 @@ export default function Cart({ info, action }) {
             })}
           </Grid>
           <Grid item sm={6} xs={12}>
-            <Card className={classes.root}>
-              <CardContent>
-                <Typography variant="h3">
-                  {formatter.format(
-                    info
-                      .map((data) => data.Cost)
-                      .reduce((accum, currentValue) => {
-                        return accum + currentValue;
-                      }, 0)
-                  )}
-                </Typography>
-              </CardContent>
-            </Card>
+            <TableContainer
+              component={Paper}
+              style={{ width: "100%", marginTop: "1.2rem" }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell style={{ fontSize: "2rem" }} align="left">
+                    Details
+                  </TableCell>
+                  <TableCell style={{ fontSize: "2rem" }} align="right">
+                    $
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell style={{ fontSize: "1rem" }} align="left">
+                    Total Before Tax
+                  </TableCell>
+                  <TableCell
+                    style={{ fontSize: "1rem", fontWeight: "100" }}
+                    align="right">
+                    {formatter.format(
+                      info
+                        .map((data) => data.Cost)
+                        .reduce((accum, currentValue) => {
+                          return accum + currentValue;
+                        }, 0)
+                    )}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ fontSize: "1rem" }} align="left">
+                    Tax percentage
+                  </TableCell>
+                  <TableCell
+                    style={{ fontSize: "1rem", fontWeight: "100" }}
+                    align="right">
+                    {percentageTax}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ fontSize: "1rem" }} align="left">
+                    Tax
+                  </TableCell>
+                  <TableCell
+                    style={{ fontSize: "1rem", fontWeight: "100" }}
+                    align="right">
+                    {" "}
+                    {formatter.format(
+                      info
+                        .map((data) => data.Cost)
+                        .reduce((accum, currentValue) => {
+                          return accum + currentValue;
+                        }, 0) * taxRate
+                    )}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ fontSize: "2rem" }} align="left">
+                    Total
+                  </TableCell>
+                  <TableCell style={{ fontSize: "2rem" }} align="right">
+                    {formatter.format(
+                      info
+                        .map((data) => data.Cost)
+                        .reduce((accum, currentValue) => {
+                          return accum + currentValue;
+                        }, 0) *
+                        (taxRate + 1)
+                    )}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<DeleteIcon />}
+                      onClick={empty}>
+                      Empty Cart
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={proceed}>
+                      Proceed to payment
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </TableContainer>
           </Grid>
         </>
       )}
