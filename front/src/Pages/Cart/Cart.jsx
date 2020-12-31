@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import {
   Typography,
   Button,
@@ -17,6 +18,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import VS from "../../Assets/DesktopEnv.svg";
 import Tablet from "../../Assets/iTablet1.svg";
+import Payment from "../Payment/Payment";
 
 const useStyles = makeStyles({
   configuration: {
@@ -36,7 +38,9 @@ const useStyles = makeStyles({
     display: "flex",
     marginTop: "1.2rem",
     width: "100%",
+    height: "370px",
     zIndex: 10,
+    border: "none",
   },
   detail: {
     display: "flex",
@@ -44,7 +48,6 @@ const useStyles = makeStyles({
   },
   actionButton: {
     alignContent: "start",
-
     marginRight: "6rem",
     marginTop: "0.5rem",
   },
@@ -55,6 +58,7 @@ const useStyles = makeStyles({
 
 export default function Cart({ info, action }) {
   const classes = useStyles();
+  const history = useHistory();
 
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -67,13 +71,18 @@ export default function Cart({ info, action }) {
   };
 
   const taxRate = 0.0825;
+
   const percentageTax = taxRate.toLocaleString(undefined, {
     style: "percent",
     minimumFractionDigits: 2,
   });
 
   // To make payment
-  const proceed = () => {};
+  const proceed = () => {
+    history.push("/Payment", info);
+  };
+
+  //To empty all the carts
   const empty = () => {
     action({ type: "EMPTY_CART" });
   };

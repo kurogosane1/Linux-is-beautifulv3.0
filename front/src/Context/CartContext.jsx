@@ -55,7 +55,10 @@ export default function CartStoreContext(props) {
   //Checking Cart status when they load
   const checkCart = () => {
     const cartCheck = JSON.parse(localStorage.getItem("cart"));
-    return cartCheck === null ? "" : dispatch({ type: "CHECK_CART" });
+   
+    return cartCheck === null || cartCheck === []
+      ? ""
+      : dispatch({ type: "CHECK_CART" });
   };
 
   useEffect(() => {
