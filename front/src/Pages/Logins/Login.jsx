@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
-  const { setUsers } = useContext(UserContext);
+  const { setUsers, users } = useContext(UserContext);
   //States to manage
   const [user, setUser] = useState({
     email: "",
@@ -62,13 +62,19 @@ export default function Login() {
     axios
       .post("/Login", user)
       .then((data) => {
-        console.log(data.headers)
+        console.log(data.headers);
         let id = data.data.id;
         let message = data.data.message;
         let status = data.status;
-        
+
         if (status === 200) {
-          setUsers({ type: "SET_USER_ID", payload: id });
+          const { isLoggedIn } = users;
+          const userInfo = {
+            id,
+            isLoggedIn: true,
+          };
+          setUsers({ type: "SET_USER_ID", userInfo });
+
           history.push(`/${id}`);
         } else if (status === 201) {
           setEmail("Email is not registered");
@@ -89,13 +95,11 @@ export default function Login() {
       direction="column"
       justify="center"
       alignItems="center"
-      style={{ maxHeight: "100%", marginTop: "1rem" }}
-    >
+      style={{ maxHeight: "100%", marginTop: "1rem" }}>
       <Grid item sm={12} xs={12}>
         <Typography
           variant="h3"
-          style={{ textAlign: "Center", fontFamily: "Roboto" }}
-        >
+          style={{ textAlign: "Center", fontFamily: "Roboto" }}>
           Sign In
         </Typography>
       </Grid>
@@ -117,8 +121,7 @@ export default function Login() {
             {wrongemail === "Email is not registered" ? (
               <Typography
                 variant="caption"
-                style={{ color: "red", textAlign: "center" }}
-              >
+                style={{ color: "red", textAlign: "center" }}>
                 Email address is not registered
               </Typography>
             ) : (
@@ -141,8 +144,7 @@ export default function Login() {
             {wpassword === "Password is not correct" ? (
               <Typography
                 variant="caption"
-                style={{ color: "red", textAlign: "center" }}
-              >
+                style={{ color: "red", textAlign: "center" }}>
                 Password is not correct
               </Typography>
             ) : (
@@ -155,8 +157,7 @@ export default function Login() {
               variant="contained"
               className={classes.button}
               value="11111"
-              type="submit"
-            >
+              type="submit">
               Login
             </Button>
           </Grid>

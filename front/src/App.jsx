@@ -47,7 +47,7 @@ function App() {
             <Route exact path={`/${users.id}`}>
               <MainUser />
             </Route>
-            <Route path="/Cart">
+            <Route exact path="/Cart">
               <Cart info={cart} action={dispatch} />
             </Route>
             <Route path="/Payment">

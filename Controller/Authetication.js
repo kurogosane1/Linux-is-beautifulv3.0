@@ -10,6 +10,7 @@ const GPU = require("../Model/Graphics");
 const RAM = require("../Model/RAM");
 const Storage = require("../Model/Storage");
 const Category = require("../Model/Category");
+const Users = require("../Model/User");
 
 const maxAge = 5 * 60 * 60;
 
@@ -120,6 +121,20 @@ module.exports.login = async (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+//This is for Logging Out
+module.exports.LogOut = (req, res) => {
+  const id = req.body.id;
+  console.log(id);
+  Users.findOne({ where: { id } }).then((response) => {
+    if (response !== null) {
+      res.cookie("jwt", "", { expiresIn: 1 });
+      res.send(200);
+    } else {
+      console.err();
+    }
+  });
 };
 
 module.exports.getProductLaptop = async (req, res) => {

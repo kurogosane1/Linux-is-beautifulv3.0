@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import {
   Typography,
@@ -18,7 +18,7 @@ import {
 import DeleteIcon from "@material-ui/icons/Delete";
 import VS from "../../Assets/DesktopEnv.svg";
 import Tablet from "../../Assets/iTablet1.svg";
-import Payment from "../Payment/Payment";
+import { UserContext } from "../../Context/UserContext";
 
 const useStyles = makeStyles({
   configuration: {
@@ -60,6 +60,9 @@ export default function Cart({ info, action }) {
   const classes = useStyles();
   const history = useHistory();
 
+  const { isLoggedIn } = useContext(UserContext);
+
+  //Formatter
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
@@ -79,7 +82,11 @@ export default function Cart({ info, action }) {
 
   // To make payment
   const proceed = () => {
-    history.push("/Payment", info);
+    if (!isLoggedIn) {
+      history.push("/Payment", info);
+    } else {
+      history.push("/Login");
+    }
   };
 
   //To empty all the carts

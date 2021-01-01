@@ -18,6 +18,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
 import ShopOutlinedIcon from "@material-ui/icons/ShopOutlined";
 import { CartContext } from "../Context/CartContext";
+import { UserContext } from "../Context/UserContext";
 
 const useStyles = makeStyles({
   header: {
@@ -42,6 +43,8 @@ export default function Nav() {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { cart } = useContext(CartContext);
+  const { users } = useContext(UserContext);
+  const { id, isLoggedIn } = users;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,7 +54,9 @@ export default function Nav() {
     setAnchorEl(null);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [users]);
 
   return (
     <AppBar position="static" className={classes.header}>
@@ -92,9 +97,21 @@ export default function Nav() {
                   </Button>
                 </MenuItem> */}
                 <MenuItem onClick={handleClose}>
-                  <Button component={NavLink} to="/Login" color="inherit">
+                  <Button
+                    component={NavLink}
+                    to={users.isLoggedIn ? `/${users.id}` : "/Login"}
+                    color="inherit">
                     Login
                   </Button>
+                </MenuItem>
+                <MenuItem component={NavLink} to="/Cart" color="inherit">
+                  {cart.length === 0 ? (
+                    ""
+                  ) : (
+                    <Badge badgeContent={cart.length} color="secondary">
+                      <ShopOutlinedIcon />
+                    </Badge>
+                  )}
                 </MenuItem>
               </Menu>
             </>
@@ -110,12 +127,15 @@ export default function Nav() {
               {/* <Button component={NavLink} to="/iDeep" color="inherit">
                 iDeep
               </Button> */}
-              <IconButton component={NavLink} to="/Login" color="inherit">
+              <IconButton
+                component={NavLink}
+                to={users.isLoggedIn ? `/${users.id}` : "/Login"}
+                color="inherit">
                 <PersonIcon />
               </IconButton>
               <IconButton component={NavLink} to="/Cart" color="inherit">
                 {cart.length === 0 ? (
-                  <ShopOutlinedIcon />
+                  ""
                 ) : (
                   <Badge badgeContent={cart.length} color="secondary">
                     <ShopOutlinedIcon />

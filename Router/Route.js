@@ -60,5 +60,6 @@ router.post("/Login", auth.login);
 router.get("/:id/others", verify);
 router.get("/:id/orders", verify);
 router.get("/:id", verify);
+router.post("/Logout", auth.LogOut);
 router.get("/DeepinPro/BuyNow/:Number", auth.getProductLaptop);
 module.exports = router;
