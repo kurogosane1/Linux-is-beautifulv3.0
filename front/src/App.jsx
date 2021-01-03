@@ -51,7 +51,7 @@ function App() {
               <Cart info={cart} action={dispatch} />
             </Route>
             <Route path="/Payment">
-              <Payment />
+              <Payment info={cart} action={dispatch} />
             </Route>
           </Switch>
         </Container>
