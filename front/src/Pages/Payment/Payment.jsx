@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import dotenv from "dotenv";
 
 import {
   Grid,
@@ -15,6 +16,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@material-ui/core";
+import Card from "./Card";
 
 //for Styles
 const useStyles = makeStyles({
@@ -26,6 +28,8 @@ const useStyles = makeStyles({
     marginTop: "1rem",
   },
 });
+
+dotenv.config();
 
 export default function Payment() {
   const classes = useStyles();
@@ -51,6 +55,7 @@ export default function Payment() {
   });
 
   const [check, setCheck] = useState(false);
+  const key = process.env.Secret_Key;
 
   //Formatter
   const formatter = new Intl.NumberFormat("en-US", {
@@ -336,6 +341,9 @@ export default function Payment() {
               onChange={ChangeBillingAddress}
             />
           </form>
+        </Paper>
+        <Paper>
+          <Card />
         </Paper>
       </Grid>
     </Grid>
