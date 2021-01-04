@@ -18,6 +18,8 @@ import {
 } from "@material-ui/core";
 import Card from "./Card";
 
+dotenv.config({ path: "../../.env" });
+
 //for Styles
 const useStyles = makeStyles({
   roothead: {
@@ -28,8 +30,6 @@ const useStyles = makeStyles({
     marginTop: "1rem",
   },
 });
-
-dotenv.config();
 
 export default function Payment() {
   const classes = useStyles();
@@ -97,6 +97,7 @@ export default function Payment() {
 
   useEffect(() => {
     UpdateData();
+    console.log(process.env);
   }, [data]);
 
   useEffect(() => {
