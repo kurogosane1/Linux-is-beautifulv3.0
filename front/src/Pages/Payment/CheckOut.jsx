@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Payment() {
+export default function CheckOut() {
   const classes = useStyles();
   const location = useLocation();
 
@@ -94,6 +94,9 @@ export default function Payment() {
 
   //Changeing Billing Address
   const ChangeBillingAddress = async (e) => {};
+
+  //Process Payment
+  const PaymentProcess = async (e) => {};
 
   useEffect(() => {
     UpdateData();
@@ -344,7 +347,10 @@ export default function Payment() {
           </form>
         </Paper>
         <Paper>
-          <Card />
+          <Card
+            style={{ width: "100%", marginTop: "1.2rem" }}
+            onClick={PaymentProcess}
+          />
         </Paper>
       </Grid>
     </Grid>

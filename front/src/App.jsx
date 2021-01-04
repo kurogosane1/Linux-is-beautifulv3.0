@@ -14,7 +14,7 @@ import { UserContext } from "./Context/UserContext";
 import Main from "./Pages/Main";
 import ProductOptionContext from "./Context/ProductOptionsContext";
 import { CartContext } from "./Context/CartContext";
-import Payment from "./Pages/Payment/Payment";
+import Checkout from "./Pages/Payment/CheckOut";
 
 function App() {
   const { users } = useContext(UserContext);
@@ -51,7 +51,7 @@ function App() {
               <Cart info={cart} action={dispatch} />
             </Route>
             <Route path="/Payment">
-              <Payment info={cart} action={dispatch} />
+              <Checkout info={cart} action={dispatch} />
             </Route>
           </Switch>
         </Container>

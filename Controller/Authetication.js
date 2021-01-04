@@ -10,9 +10,36 @@ const GPU = require("../Model/Graphics");
 const RAM = require("../Model/RAM");
 const Storage = require("../Model/Storage");
 const Category = require("../Model/Category");
+const Selection = require("../Model/Selection");
 const Users = require("../Model/User");
+const stripe = require("stripe")(process.env.REACT_APP_Secret_Key);
 
 const maxAge = 5 * 60 * 60;
+
+//To post into server side
+const saveOrder = (data) => {
+  const { Proc, graphics, memory, storage, category } = data;
+  const Processor_id = Processor.findOne({ where: { name: Proc } });
+  const GPU_id = GPU.findOne({ where: { name: graphics } });
+  const RAM_id = RAM.findOne({ where: { name: memory } });
+  const Storage_id = Storage.findOne({ where: { name: storage } });
+  const Category_id = Category.findOne({ where: { name: category } });
+
+  //Saving it to Cart model
+  Selection.create({
+    Processor_id,
+    GPU_id,
+    RAM_id,
+    Storage_id,
+    Category_id,
+  }).then((response) => {
+    if (response !== null) {
+      res.status(200).json({ id: response.id });
+    } else {
+      res.status(401).json({ action: "Failure" });
+    }
+  });
+};
 
 //Create tokens
 const createToken = (id) => {
@@ -39,6 +66,7 @@ const handleErrors = (err) => {
   return errors;
 };
 
+//signup post
 module.exports.signup_post = async (req, res) => {
   const {
     firstname,
@@ -70,7 +98,6 @@ module.exports.signup_post = async (req, res) => {
           password: hashPassword,
         })
           .then((response) => {
-            console.log(response.id);
             const token = createToken(response.id);
             res.cookie("jwt", token, {
               expiresIn: maxAge,
@@ -137,6 +164,7 @@ module.exports.LogOut = (req, res) => {
   });
 };
 
+//get product laptops
 module.exports.getProductLaptop = async (req, res) => {
   const selection = req.params.Number;
   let processors;
@@ -174,4 +202,40 @@ module.exports.getProductLaptop = async (req, res) => {
     });
     res.status(200).send({ processors, graphics, ram, storage, category });
   }
+};
+
+//Make payment with stripe
+module.exports.paymentProcess = async (req, res) => {
+  const Configuration = req.body.Config;
+  const Total = req.body.Total;
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    line_items: [
+      {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Future attachments",
+          },
+          unit_amount: 2000,
+        },
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `/sucess=true`,
+    cancel_url: `/failure=true`,
+  });
+
+  //This is to save the order
+  const Selection_id = saveOrder(Configuration);
+
+  //This is to save and create and order
+  const Save = Cart.create({
+    Selection_id,
+    Total,
+  });
+
+  //Sending the Cart information
+  res.json({ id: session.id, Cart: Save });
 };
