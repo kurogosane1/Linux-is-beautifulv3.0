@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import dotenv from "dotenv";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 
 import {
   Grid,
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
 
 const stripePromise = loadStripe(process.env.REACT_APP_Stripe_PUBLISHIBLE_KEY);
 
-export default function CheckOut() {
+export default function CheckOut(props) {
   const classes = useStyles();
   const location = useLocation();
 
@@ -46,18 +47,22 @@ export default function CheckOut() {
     Name: "",
     StreetAddress: "",
     Apt: "",
+    City: "",
     Zipcode: 0,
     State: "",
     Country: "",
+    Email: "",
   });
 
   const [billingAddress, useBillingAddress] = useState({
     Name: "",
     StreetAddress: "",
     Apt: "",
+    City: "",
     Zipcode: 0,
     State: "",
     Country: "",
+    Email: "",
   });
 
   const [check, setCheck] = useState(false);
@@ -105,7 +110,34 @@ export default function CheckOut() {
   const PaymentProcess = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
-    console.log("checking");
+    const total =
+      data
+        .map((x) => x.Cost)
+        .reduce((accum, currentValue) => {
+          return accum + currentValue;
+        }, 0) *
+      (taxRate + 1);
+    const Billing = {
+      name: billingAddress.Name,
+      email: billingAddress.Email,
+      amount: total * 100,
+      billing_details: {
+        address: {
+          city: billingAddress.City,
+          country: billingAddress.Country,
+          line1: billingAddress.StreetAddress,
+          line2: billingAddress.Apt,
+          postal_code: billingAddress.Zipcode,
+          state: billingAddress.State,
+        },
+      },
+    };
+
+    try {
+      axios.post("/Payment", Billing).then((response) => console.log(response));
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -243,6 +275,16 @@ export default function CheckOut() {
               />
               <TextField
                 id="outlined-full-width"
+                type="text"
+                label="City"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="City"
+                onChange={Address}
+              />
+              <TextField
+                id="outlined-full-width"
                 type="number"
                 label="Zip Code"
                 variant="outlined"
@@ -270,6 +312,17 @@ export default function CheckOut() {
                 style={{ width: "19.8ch", marginLeft: "1rem" }}
                 onChange={Address}
                 name="Country"
+              />
+              <TextField
+                id="outlined-margin-none"
+                type="text"
+                label="Email Address"
+                placeholder="United States"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                onChange={Address}
+                name="Email"
               />
             </form>
           </Paper>
@@ -327,6 +380,17 @@ export default function CheckOut() {
                 onChange={ChangeBillingAddress}
               />
               <TextField
+                id="outlined-margin-none"
+                type="text"
+                label="City"
+                variant="outlined"
+                margin="normal"
+                fullWidth
+                name="City"
+                value={!check ? billingAddress.City : ChangeBillingAddress}
+                onChange={ChangeBillingAddress}
+              />
+              <TextField
                 id="outlined-full-width"
                 type="number"
                 label="Zip Code"
@@ -362,6 +426,18 @@ export default function CheckOut() {
                 value={!check ? billingAddress.Country : ChangeBillingAddress}
                 onChange={ChangeBillingAddress}
               />
+              <TextField
+                id="outlined-margin-none"
+                type="text"
+                label="Email Address"
+                placeholder="United States"
+                variant="outlined"
+                margin="normal"
+                name="Email"
+                fullWidth
+                value={!check ? billingAddress.Email : ChangeBillingAddress}
+                onChange={ChangeBillingAddress}
+              />
             </Paper>
             <Paper
               style={{
@@ -382,7 +458,8 @@ export default function CheckOut() {
               type="submit"
               color="primary"
               disabled={isProcessing}
-              onClick={PaymentProcess}>
+              onClick={PaymentProcess}
+              style={{ width: "100%", fontSize: "1.2rem" }}>
               {!isProcessing ? "Pay" : "Processing..."}
             </Button>
           </form>

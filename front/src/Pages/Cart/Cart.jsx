@@ -60,7 +60,7 @@ export default function Cart({ info, action }) {
   const classes = useStyles();
   const history = useHistory();
 
-  const { isLoggedIn } = useContext(UserContext);
+  const { users } = useContext(UserContext);
 
   //Formatter
   const formatter = new Intl.NumberFormat("en-US", {
@@ -82,10 +82,12 @@ export default function Cart({ info, action }) {
 
   // To make payment
   const proceed = () => {
-    if (!isLoggedIn) {
-      history.push("/Payment", info);
-    } else {
+    const { isLoggedIn } = users;
+
+    if (isLoggedIn === false) {
       history.push("/Login");
+    } else {
+      history.push("/Payment", info);
     }
   };
 

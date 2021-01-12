@@ -10,6 +10,7 @@ const cart = require("../Model/Cart");
 const bcrypt = require("bcrypt");
 const auth = require("../Controller/Authetication");
 const verify = require("../middleware/authMiddleware");
+const stripe = require("stripe")(process.env.SECRET_KEY);
 
 //Basic Get Route
 router.get("/", (req, res) => {
@@ -62,4 +63,21 @@ router.get("/:id/orders", verify);
 router.get("/:id", verify);
 router.post("/Logout", auth.LogOut);
 router.get("/DeepinPro/BuyNow/:Number", auth.getProductLaptop);
+router.post("/Payment", async (req, res) => {
+  const { amount } = req.body;
+  console.log(typeof amount);
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+    });
+    res.status(200).send(paymentIntent.client_secret);
+  } catch (error) {
+    console.log("this is coming from the payment side");
+    console.log(error);
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 module.exports = router;

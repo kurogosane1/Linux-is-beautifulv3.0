@@ -51,7 +51,7 @@ function App() {
               <Cart info={cart} action={dispatch} />
             </Route>
             <Route path="/Payment">
-              <Checkout info={cart} action={dispatch} />
+              <Checkout info={cart} action={dispatch} id={users.id}/>
             </Route>
           </Switch>
         </Container>

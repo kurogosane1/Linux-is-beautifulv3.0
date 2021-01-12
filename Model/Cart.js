@@ -25,3 +25,13 @@ const Cart = sequelize.define("Cart", {
 Cart.sync({ force: false });
 
 module.exports = Cart;
+
+
+// const [billingAddress, useBillingAddress] = useState({
+//   Name: "",
+//   StreetAddress: "",
+//   Apt: "",
+//   Zipcode: 0,
+//   State: "",
+//   Country: "",
+// });

@@ -8,7 +8,8 @@ const userReducer = (state, action) => {
       localStorage.setItem("isL", action.userInfo.isLoggedIn);
       return { ...state, ...action.userInfo };
     case "LOGUSER_OUT":
-      return { id: "", isLoggedIn: false };
+      localStorage.removeItem("isL");
+      return { id: null, isLoggedIn: false };
     default:
       return state;
   }
