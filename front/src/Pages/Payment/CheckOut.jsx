@@ -22,6 +22,7 @@ import {
 import Card from "./Card";
 
 dotenv.config();
+
 //for Styles
 const useStyles = makeStyles({
   roothead: {
@@ -39,6 +40,7 @@ export default function CheckOut() {
   const classes = useStyles();
   const location = useLocation();
 
+  const [isProcessing, setIsProcessing] = useState(false);
   const [data, useData] = useState([]);
   const [address, useAddress] = useState({
     Name: "",
@@ -100,11 +102,14 @@ export default function CheckOut() {
   const ChangeBillingAddress = async (e) => {};
 
   //Process Payment
-  const PaymentProcess = async (e) => {};
+  const PaymentProcess = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    console.log("checking");
+  };
 
   useEffect(() => {
     UpdateData();
-    console.log(process.env.REACT_APP_Stripe_PUBLISHIBLE_KEY);
   }, [data]);
 
   useEffect(() => {
@@ -268,20 +273,25 @@ export default function CheckOut() {
               />
             </form>
           </Paper>
-          <Paper style={{ marginTop: "1.2rem", padding: "1rem" }}>
-            <div>
-              <Typography variant="h4" align="left" style={{ padding: "10px" }}>
-                Billing Address
-              </Typography>
-            </div>
-            <div>
-              <FormControlLabel
-                control={<Checkbox name="checkedA" onChange={SelectCheckbox} />}
-                label="Same as the Shipping Address"
-              />
-            </div>
+          <form>
+            <Paper style={{ marginTop: "1.2rem", padding: "1rem" }}>
+              <div>
+                <Typography
+                  variant="h4"
+                  align="left"
+                  style={{ padding: "10px" }}>
+                  Billing Address
+                </Typography>
+              </div>
+              <div>
+                <FormControlLabel
+                  control={
+                    <Checkbox name="checkedA" onChange={SelectCheckbox} />
+                  }
+                  label="Same as the Shipping Address"
+                />
+              </div>
 
-            <form>
               <TextField
                 required
                 id="outlined-required"
@@ -352,25 +362,30 @@ export default function CheckOut() {
                 value={!check ? billingAddress.Country : ChangeBillingAddress}
                 onChange={ChangeBillingAddress}
               />
-            </form>
-          </Paper>
-          <Paper
-            style={{
-              height: "2rem",
-              marginTop: "1rem",
-              marginBottom: "1.2rem",
+            </Paper>
+            <Paper
+              style={{
+                height: "2rem",
+                marginTop: "1rem",
+                marginBottom: "1.2rem",
 
-              alignItems: "center",
-              justifyItems: "center",
-              alignContent: "center",
-              justifyContent: "center",
-            }}>
-            <Card onClick={PaymentProcess} />
-          </Paper>
+                alignItems: "center",
+                justifyItems: "center",
+                alignContent: "center",
+                justifyContent: "center",
+              }}>
+              <Card />
+            </Paper>
 
-          <Button variant="contained" color="primary">
-            Pay Now
-          </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              color="primary"
+              disabled={isProcessing}
+              onClick={PaymentProcess}>
+              {!isProcessing ? "Pay" : "Processing..."}
+            </Button>
+          </form>
         </Grid>
       </Elements>
     </Grid>
