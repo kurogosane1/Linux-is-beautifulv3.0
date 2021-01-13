@@ -239,3 +239,52 @@ module.exports.paymentProcess = async (req, res) => {
   //Sending the Cart information
   res.json({ id: session.id, Cart: Save });
 };
+
+//Get Processor info requested
+module.exports.getProcessor = (data) => {
+  const info_requested = Processor.findOne({
+    where: { name: data },
+  }).then((res) => {
+    return res;
+  });
+  return info_requested;
+};
+//Get GPU info requested
+module.exports.getGPU = async (data) => {
+  const info_requested = await GPU.findOne({ where: { name: data } }).then(
+    (res) => res
+  );
+  return info_requested;
+};
+//Get info on RAM
+module.exports.getRAM = async (data) => {
+  const info_requested = await RAM.findOne({
+    where: { name: data },
+  }).then((res) => JSON.stringify(res.id));
+  return info_requested;
+};
+
+//Get info on Storage
+module.exports.getStorage = (data) => {
+  const info_requested = Storage.findOne({ where: { name: data } }).then(
+    (res) => {
+      console.log(res);
+      return res.id;
+    }
+  );
+  return info_requested;
+};
+// Get info on User with parameter
+module.exports.getUser = async (data) => {
+  const info_requested = await Users.findOne({ where: { name: data } }).then(
+    (res) => res
+  );
+  return info_requested;
+};
+// Get info on category with parameter
+module.exports.getCategory = async (data) => {
+  const info_requested = await Category.findOne({ where: { name: data } }).then(
+    (res) => res
+  );
+  return info_requested;
+};

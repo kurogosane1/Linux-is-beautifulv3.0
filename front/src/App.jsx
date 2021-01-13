@@ -1,7 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Nav from "./Layout/Nav";
 import { Container } from "@material-ui/core";
 import MainUser from "./Pages/UserAccount/MainUser";
@@ -15,11 +16,16 @@ import Main from "./Pages/Main";
 import ProductOptionContext from "./Context/ProductOptionsContext";
 import { CartContext } from "./Context/CartContext";
 import Checkout from "./Pages/Payment/CheckOut";
+import Success from "./Pages/Payment/Success";
+import Failure from "./Pages/Payment/Failure";
 
 function App() {
   const { users } = useContext(UserContext);
   const { cart, dispatch } = useContext(CartContext);
   useEffect(() => {}, [users]);
+  const stripePromise = loadStripe(
+    process.env.REACT_APP_Stripe_PUBLISHIBLE_KEY
+  );
 
   return (
     <Router>
@@ -50,8 +56,17 @@ function App() {
             <Route exact path="/Cart">
               <Cart info={cart} action={dispatch} />
             </Route>
+
             <Route path="/Payment">
-              <Checkout info={cart} action={dispatch} id={users.id}/>
+              <Elements stripe={stripePromise}>
+                <Checkout info={cart} action={dispatch} id={users.id} />
+              </Elements>
+            </Route>
+            <Route path="/Success">
+              <Success />
+            </Route>
+            <Route path="/Failure">
+              <Failure />
             </Route>
           </Switch>
         </Container>
