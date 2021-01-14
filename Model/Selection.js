@@ -7,46 +7,41 @@ const GPU = require("./Graphics");
 const Tag = require("./Category");
 
 const Selection = sequelize.define("Selection", {
-  Selection_id: {
+  id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
-  Processor_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: Processor,
-      key: "id",
-    },
+  Processor: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "",
   },
-  RAM_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: RAM,
-      key: "id",
-    },
+  RAM: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "",
   },
-  Storage_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: Storage,
-      key: "id",
-    },
+  Storage: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "",
   },
-  GPU_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: GPU,
-      key: "id",
-    },
+  GPU: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: "",
   },
-  Category_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: Tag,
-      key: "id",
-    },
+  Type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
+  },
+  Order_Number: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "",
   },
 });
 

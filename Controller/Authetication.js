@@ -5,6 +5,8 @@ const User = require("../Model/User");
 const dotenv = require("dotenv");
 const { create } = require("../Model/User");
 const Processor = require("../Model/Processor");
+const Cart = require("../Model/Cart");
+const stripe = require("stripe")(process.env.SECRET_KEY);
 const Tag = require("../Model/Category");
 const GPU = require("../Model/Graphics");
 const RAM = require("../Model/RAM");
@@ -12,7 +14,6 @@ const Storage = require("../Model/Storage");
 const Category = require("../Model/Category");
 const Selection = require("../Model/Selection");
 const Users = require("../Model/User");
-const stripe = require("stripe")(process.env.REACT_APP_Secret_Key);
 
 const maxAge = 5 * 60 * 60;
 
@@ -157,7 +158,7 @@ module.exports.LogOut = (req, res) => {
   Users.findOne({ where: { id } }).then((response) => {
     if (response !== null) {
       res.cookie("jwt", "", { expiresIn: 1 });
-      res.send(200);
+      res.sendStatus(200);
     } else {
       console.err();
     }
@@ -206,38 +207,40 @@ module.exports.getProductLaptop = async (req, res) => {
 
 //Make payment with stripe
 module.exports.paymentProcess = async (req, res) => {
-  const Configuration = req.body.Config;
-  const Total = req.body.Total;
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: [
-      {
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: "Future attachments",
-          },
-          unit_amount: 2000,
-        },
-        quantity: 1,
-      },
-    ],
-    mode: "payment",
-    success_url: `/sucess=true`,
-    cancel_url: `/failure=true`,
-  });
+  const { amount, Config, customer_id, Order_Number } = req.body;
 
-  //This is to save the order
-  const Selection_id = saveOrder(Configuration);
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount,
+      currency: "usd",
+      payment_method_types: ["card"],
+    });
 
-  //This is to save and create and order
-  const Save = Cart.create({
-    Selection_id,
-    Total,
-  });
+    res.status(200).send(paymentIntent.client_secret);
 
-  //Sending the Cart information
-  res.json({ id: session.id, Cart: Save });
+    //Bulk create the Configuration of multiple items user has selected
+    const configs = await Selection.bulkCreate([...Config, Order_Number], {
+      returning: true,
+    }).then((response) => {
+      const result_id = response.map((r) => r.id);
+      result_id;
+    });
+
+    const newCart = await Cart.create({
+      Order_Number,
+      User_id: customer_id,
+      Total: amount / 100,
+      Payment_id: paymentIntent.client_secret,
+    }).then((response) => {
+      console.log("This is the cart side");
+      response;
+    });
+  } catch (error) {
+    console.log("this is coming from the payment side");
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
 //Get Processor info requested
@@ -252,7 +255,7 @@ module.exports.getProcessor = (data) => {
 //Get GPU info requested
 module.exports.getGPU = async (data) => {
   const info_requested = await GPU.findOne({ where: { name: data } }).then(
-    (res) => res
+    (res) => res.id
   );
   return info_requested;
 };
@@ -260,7 +263,7 @@ module.exports.getGPU = async (data) => {
 module.exports.getRAM = async (data) => {
   const info_requested = await RAM.findOne({
     where: { name: data },
-  }).then((res) => JSON.stringify(res.id));
+  }).then((res) => res.id);
   return info_requested;
 };
 
@@ -277,14 +280,14 @@ module.exports.getStorage = (data) => {
 // Get info on User with parameter
 module.exports.getUser = async (data) => {
   const info_requested = await Users.findOne({ where: { name: data } }).then(
-    (res) => res
+    (res) => res.id
   );
   return info_requested;
 };
 // Get info on category with parameter
 module.exports.getCategory = async (data) => {
-  const info_requested = await Category.findOne({ where: { name: data } }).then(
-    (res) => res
-  );
+  const info_requested = await Category.findOne({
+    where: { Tag_Description: data },
+  }).then((res) => res.Tag_id);
   return info_requested;
 };

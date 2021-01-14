@@ -63,7 +63,7 @@ function App() {
               </Elements>
             </Route>
             <Route path="/Success">
-              <Success />
+              <Success action={dispatch} />
             </Route>
             <Route path="/Failure">
               <Failure />

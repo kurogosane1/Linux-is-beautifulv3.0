@@ -10,12 +10,9 @@ const Cart = sequelize.define("Cart", {
     allowNull: false,
     primaryKey: true,
   },
-  Selection_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: Selection,
-      key: "Selection_id",
-    },
+  Order_Number: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   User_id: {
     type: DataTypes.UUID,
@@ -25,7 +22,7 @@ const Cart = sequelize.define("Cart", {
     },
   },
   Total: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
   Payment_id: {

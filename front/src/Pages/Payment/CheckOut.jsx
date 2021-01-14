@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import dotenv from "dotenv";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
-
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 import {
@@ -127,6 +127,7 @@ export default function CheckOut(props) {
       customer_id: props.id,
       name: billingAddress.Name,
       email: billingAddress.Email,
+      Order_Number: uuidv4(),
       Config: Config,
       amount: (total * 100).toFixed(),
       billing_details: {
@@ -140,14 +141,19 @@ export default function CheckOut(props) {
         },
       },
     };
+    console.log(Billing.Order_Number);
 
     try {
       //Get Client secret
       const paymentIntent = await axios
         .post("/Payment", Billing)
         .then((res) => {
+          console.log("This is coming from the payment Intent");
+          console.log(res.data);
           return res.data;
         });
+
+        console.log(paymentIntent)
 
       //Create PaymentMethod Object
       const paymentMethodObj = await stripe.createPaymentMethod({
@@ -155,6 +161,8 @@ export default function CheckOut(props) {
         card: cardElement,
         billing_details: Billing.billing_details,
       });
+
+      console.log(paymentMethodObj);
       //Confirm Payment Method
 
       const confirmPayment = await stripe.confirmCardPayment(paymentIntent, {
