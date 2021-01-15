@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   NavLink,
   Switch,
@@ -43,10 +43,20 @@ export default function MainUser() {
   const history = useHistory();
   const classes = useStyles();
   const { users, setUsers } = useContext(UserContext);
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     console.log(users.isLoggedIn);
   }, [users.isLoggedIn]);
+
+  useEffect(() => {
+    //geting the users data when the page loads
+    const id = users.id;
+    //Fetching the data to retrieve
+    axios.get(`/${id}`).then((response) => {
+      setUserInfo(response.data);
+    });
+  }, []);
 
   //This is to clear the user loggin
   const TakeAction = async () => {
@@ -82,14 +92,14 @@ export default function MainUser() {
       </AppBar>
       <Container>
         <Switch>
-          <Route exact path={`${url}`}>
-            <Profile />
+          <Route path={`${url}`}>
+            <Profile info={users} id={userInfo} />
           </Route>
           <Route path={`${url}/others`}>
-            <Others />
+            <Others info={users} />
           </Route>
           <Route path={`${url}/orders`}>
-            <Orders />
+            <Orders info={users} />
           </Route>
         </Switch>
       </Container>

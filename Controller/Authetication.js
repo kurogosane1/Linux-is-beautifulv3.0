@@ -291,3 +291,23 @@ module.exports.getCategory = async (data) => {
   }).then((res) => res.Tag_id);
   return info_requested;
 };
+
+//Getting User Info on the time when the page loads
+module.exports.getUserInfo = async (req, res) => {
+  const id = req.params.id;
+
+  //This is to get the information regarding the User
+  const data = await User.findOne({ where: { id } })
+    .then((info) => info)
+    .catch((err) => err.message);
+
+  //Getting Users Order if any
+  const orders = await Cart.findAll({ where: { User_id: id } })
+    .then((orders) => orders)
+    .catch((err) => err.message);
+
+  
+
+  //Sending the user information to the front line
+  res.status(200).json({ info: data, Orders: orders });
+};

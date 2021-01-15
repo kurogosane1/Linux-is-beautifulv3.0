@@ -114,7 +114,7 @@ export default function Login() {
               multiline
               type="email"
               variant="outlined"
-              style={{ width: "100%" }}
+              fullWidth
               name="email"
               onChange={onChange}
             />
@@ -131,13 +131,13 @@ export default function Login() {
           <br />
           <div>
             <TextField
-              id="outlined-textarea"
+              id="outlined-text"
               label="Password"
               type="password"
               placeholder="Placeholder"
               multiline
               variant="outlined"
-              style={{ width: "100%" }}
+              fullWidth
               name="password"
               onChange={onChange}
             />

@@ -50,8 +50,8 @@ function App() {
             <Route path="/SignUp">
               <Signup />
             </Route>
-            <Route exact path={`/${users.id}`}>
-              <MainUser />
+            <Route path={`/${users.id}`}>
+              <MainUser  />
             </Route>
             <Route exact path="/Cart">
               <Cart info={cart} action={dispatch} />
