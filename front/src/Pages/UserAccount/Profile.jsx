@@ -9,7 +9,12 @@ export default function Profile({ info, id }) {
   }, [id]);
 
   return (
-    <Grid container direction="column" justify="center" alignItems="center">
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+      style={{ marginTop: "1rem", maxHeight: "100vh", height: "100%" }}>
       <Grid items sm={12} xs={12}>
         <Paper elevation={3} style={{ display: "flex" }}>
           <Container style={{ padding: "1rem" }}>
@@ -28,9 +33,7 @@ export default function Profile({ info, id }) {
             </div>
             <div>
               <Typography variant="h5">Street Address :</Typography>
-              <Typography variant="subtitle1">
-                {id.streetaddress}
-              </Typography>
+              <Typography variant="subtitle1">{id.streetaddress}</Typography>
             </div>
             <div>
               <Typography variant="h5">State :</Typography>

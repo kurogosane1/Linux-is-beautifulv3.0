@@ -19,6 +19,7 @@ import Orders from "./Purchases";
 import Profile from "./Profile";
 import Others from "./Others";
 import { UserContext } from "../../Context/UserContext";
+import Loading from "../../Loading";
 
 const useStyles = makeStyles({
   subNav: {
@@ -96,17 +97,17 @@ export default function MainUser() {
         <Switch>
           <Route exact path={`${url}`}>
             {isLoading ? (
-              <h1>Loading....</h1>
+              <Loading />
             ) : (
               <Profile info={users} id={userInfo.info} />
             )}
           </Route>
           <Route path={`${url}/others`}>
-            {isLoading ? <h1>Loading...</h1> : <Others info={users} />}
+            {isLoading ? <Loading /> : <Others info={users} />}
           </Route>
           <Route path={`${url}/orders`}>
             {isLoading ? (
-              <h1>Loading...</h1>
+              <Loading />
             ) : (
               <Orders info={users} id={userInfo.Orders} />
             )}
