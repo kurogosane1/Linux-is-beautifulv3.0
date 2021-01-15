@@ -44,6 +44,7 @@ export default function MainUser() {
   const classes = useStyles();
   const { users, setUsers } = useContext(UserContext);
   const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     console.log(users.isLoggedIn);
@@ -55,6 +56,7 @@ export default function MainUser() {
     //Fetching the data to retrieve
     axios.get(`/${id}`).then((response) => {
       setUserInfo(response.data);
+      setIsLoading(false);
     });
   }, []);
 
@@ -92,14 +94,22 @@ export default function MainUser() {
       </AppBar>
       <Container>
         <Switch>
-          <Route path={`${url}`}>
-            <Profile info={users} id={userInfo} />
+          <Route exact path={`${url}`}>
+            {isLoading ? (
+              <h1>Loading....</h1>
+            ) : (
+              <Profile info={users} id={userInfo.info} />
+            )}
           </Route>
           <Route path={`${url}/others`}>
-            <Others info={users} />
+            {isLoading ? <h1>Loading...</h1> : <Others info={users} />}
           </Route>
           <Route path={`${url}/orders`}>
-            <Orders info={users} />
+            {isLoading ? (
+              <h1>Loading...</h1>
+            ) : (
+              <Orders info={users} id={userInfo.Orders} />
+            )}
           </Route>
         </Switch>
       </Container>

@@ -6,6 +6,8 @@ import {
   ListItem,
   ListItemText,
   Button,
+  Paper,
+  Container,
 } from "@material-ui/core";
 import VS from "../../Assets/DesktopEnv.svg";
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -64,74 +66,82 @@ export default function BuyNow(props) {
           style={{ marginTop: "2rem" }}
           justify="center">
           <Grid item xs={12} sm={6}>
-            <img src={VS} alt="" />
-            <ListItem>
-              <ListItemText primary="2.5GHz 12-Core Processor" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Turbo Boost up to 5Ghz" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Nvidia RTX 3050 with 8GB of GDDR8 memory" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="16GB of 2666MHz DDR6 memory" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="256GB of Storage" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="15.6-inch Art Display with Thin bezels and blue light filter" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Facial Recognition and Finger print sensor" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Four Thunderbolt 4 ports" />
-            </ListItem>
+            <Paper elevation={3}>
+              <Container style={{ padding: "1.5rem" }}>
+                <img src={VS} alt="" />
+                <ListItem>
+                  <ListItemText primary="2.5GHz 12-Core Processor" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Turbo Boost up to 5Ghz" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Nvidia RTX 3050 with 8GB of GDDR8 memory" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="16GB of 2666MHz DDR6 memory" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="256GB of Storage" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="15.6-inch Art Display with Thin bezels and blue light filter" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Facial Recognition and Finger print sensor" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Four Thunderbolt 4 ports" />
+                </ListItem>
 
-            <Button
-              variant="contained"
-              className={classes.button}
-              value="11111"
-              onClick={(e) => nextAction(e, "11111")}>
-              Buy Now
-            </Button>
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  value="11111"
+                  onClick={(e) => nextAction(e, "11111")}>
+                  Buy Now
+                </Button>
+              </Container>
+            </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <img src={VS} alt="" />
-            <ListItem>
-              <ListItemText primary="3.2GHz 10-Core Processor" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Turbo Boost up to 5Ghz" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Nvidia RTX 3060 Super with 8GB of GDDR8 memory" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="32GB of 2333MHz DDR6 memory" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="1TB of Storage" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="15.6-inch Art Display with Thin bezels and blue light filter" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Facial Recognition and Finger print sensor" />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary="Four Thunderbolt 4 ports" />
-            </ListItem>
+            <Paper elevation={3}>
+              <Container style={{ padding: "1.5rem" }}>
+                <img src={VS} alt="" />
+                <ListItem>
+                  <ListItemText primary="3.2GHz 10-Core Processor" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Turbo Boost up to 5Ghz" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Nvidia RTX 3060 Super with 8GB of GDDR8 memory" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="32GB of 2333MHz DDR6 memory" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="1TB of Storage" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="15.6-inch Art Display with Thin bezels and blue light filter" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Facial Recognition and Finger print sensor" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Four Thunderbolt 4 ports" />
+                </ListItem>
 
-            <Button
-              variant="contained"
-              className={classes.button}
-              value="12222"
-              onClick={(e) => nextAction(e, "12222")}>
-              Buy Now
-            </Button>
+                <Button
+                  variant="contained"
+                  className={classes.button}
+                  value="12222"
+                  onClick={(e) => nextAction(e, "12222")}>
+                  Buy Now
+                </Button>
+              </Container>
+            </Paper>
           </Grid>
         </Grid>
       </Grid>

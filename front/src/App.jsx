@@ -50,11 +50,11 @@ function App() {
             <Route path="/SignUp">
               <Signup />
             </Route>
-            <Route path={`/${users.id}`}>
-              <MainUser  />
-            </Route>
             <Route exact path="/Cart">
               <Cart info={cart} action={dispatch} />
+            </Route>
+            <Route path={`/${users.id}`}>
+              <MainUser />
             </Route>
 
             <Route path="/Payment">
