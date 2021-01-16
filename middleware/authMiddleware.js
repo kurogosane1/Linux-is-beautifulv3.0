@@ -4,23 +4,25 @@ const cookie = require("cookie-parser");
 //check the authentication status
 module.exports.verifyAuth = (req, res, next) => {
   const decodedCookie = req.cookies.jwt;
+  console.log("This is coming from the back side");
+  console.log(req.cookie);
 
   const token = decodedCookie;
   //check json webtoken exists & is verified
 
-  if (token) {
+  if (!token) {
+    res.sendStatus(401);
+  } else {
     jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
       if (err) {
-        console.log(err.message);
-        res.redirect("/Login");
+        return err.message;
       } else {
-        next();
+        return next();
       }
     });
-  } else {
-    res.sendStatus(401);
   }
 };
+
 
 module.exports.verAuth = (req, res, next) => {
   console.log(`This is coming from middleware ${req.headers.cookie}`);

@@ -55,10 +55,19 @@ export default function MainUser() {
     //geting the users data when the page loads
     const id = users.id !== null ? users.id : path;
     //Fetching the data to retrieve
-    axios.get(`/${id}`, { withCredentials: true }).then((response) => {
-      setUserInfo(response.data);
-      setIsLoading(false);
-    });
+    axios
+      .get(`/${id}`, { withCredentials: true })
+      .then((response) => {
+        const status = response.status;
+        console.log(response.status);
+        if (status == 200) {
+          setUserInfo(response.data);
+          setIsLoading(false);
+        } else {
+          history.push("/");
+        }
+      })
+      .catch((err) => history.push("/Login"));
   }, []);
 
   useEffect(() => {
@@ -71,6 +80,7 @@ export default function MainUser() {
       })
       .catch((err) => {
         setIsLoading(true);
+        history.push("/Login");
         console.log(err.message);
       });
   }, [users.id]);
@@ -117,10 +127,10 @@ export default function MainUser() {
               <Profile info={users} id={userInfo.info} />
             )}
           </Route>
-          <Route path={`${url}/others`}>
+          <Route exact path={`${url}/others`}>
             {isLoading ? <Loading /> : <Others info={users} />}
           </Route>
-          <Route path={`${url}/orders`}>
+          <Route exact path={`${url}/orders`}>
             {isLoading ? (
               <Loading />
             ) : (
