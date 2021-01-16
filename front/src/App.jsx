@@ -23,6 +23,8 @@ function App() {
   const { users } = useContext(UserContext);
   const { cart, dispatch } = useContext(CartContext);
   useEffect(() => {}, [users]);
+
+  //This is the for stripe to work with this
   const stripePromise = loadStripe(
     process.env.REACT_APP_Stripe_PUBLISHIBLE_KEY
   );

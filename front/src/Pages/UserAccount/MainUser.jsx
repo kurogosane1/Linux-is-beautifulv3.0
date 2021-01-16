@@ -53,13 +53,27 @@ export default function MainUser() {
 
   useEffect(() => {
     //geting the users data when the page loads
-    const id = users.id;
+    const id = users.id !== null ? users.id : path;
     //Fetching the data to retrieve
-    axios.get(`/${id}`).then((response) => {
+    axios.get(`/${id}`, { withCredentials: true }).then((response) => {
       setUserInfo(response.data);
       setIsLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const id = users.id === null ? path : users.id;
+    axios
+      .get(`${id}`, { withCredentials: true })
+      .then((response) => {
+        setUserInfo(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(true);
+        console.log(err.message);
+      });
+  }, [users.id]);
 
   //This is to clear the user loggin
   const TakeAction = async () => {
@@ -80,7 +94,6 @@ export default function MainUser() {
     <Container>
       <AppBar position="sticky" className={classes.subNav}>
         <Toolbar>
-          <Typography variant="h3">User</Typography>
           <Button component={NavLink} to={`${path}`}>
             Profile
           </Button>
@@ -90,7 +103,9 @@ export default function MainUser() {
           <Button component={NavLink} to={`${path}/others`}>
             Others
           </Button>
-          <Button onClick={TakeAction}>Log Out</Button>
+          <Button variant="contained" color="secondary" onClick={TakeAction}>
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
       <Container>

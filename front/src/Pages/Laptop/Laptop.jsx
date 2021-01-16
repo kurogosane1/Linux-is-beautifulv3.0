@@ -47,7 +47,11 @@ export default function Laptop() {
           <Button component={NavLink} to={`${path}`}>
             Overview
           </Button>
-          <Button component={NavLink} to={`${path}/BuyNow`}>
+          <Button
+            variant="contained"
+            color="secondary"
+            component={NavLink}
+            to={`${path}/BuyNow`}>
             Buy Now
           </Button>
         </Toolbar>

@@ -12,8 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 // app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+
 app.use(cors());
+
+app.use(cookieParser());
 
 app.use("/", require("./Router/Route"));
 

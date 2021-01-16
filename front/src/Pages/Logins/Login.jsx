@@ -8,6 +8,7 @@ import {
   Button,
   makeStyles,
   Link,
+  Container,
 } from "@material-ui/core";
 import { UserContext } from "../../Context/UserContext";
 
@@ -106,61 +107,61 @@ export default function Login() {
       <br />
       <Grid item sm={12} xs={12}>
         <form onSubmit={handleSubmit}>
-          <div>
-            <TextField
-              id="outlined-textarea"
-              label="Email"
-              placeholder="Placeholder"
-              multiline
-              type="email"
-              variant="outlined"
-              fullWidth
-              name="email"
-              onChange={onChange}
-            />
-            {wrongemail === "Email is not registered" ? (
-              <Typography
-                variant="caption"
-                style={{ color: "red", textAlign: "center" }}>
-                Email address is not registered
-              </Typography>
-            ) : (
-              ""
-            )}
-          </div>
-          <br />
-          <div>
-            <TextField
-              id="outlined-text"
-              label="Password"
-              type="password"
-              placeholder="Placeholder"
-              multiline
-              variant="outlined"
-              fullWidth
-              name="password"
-              onChange={onChange}
-            />
-            {wpassword === "Password is not correct" ? (
-              <Typography
-                variant="caption"
-                style={{ color: "red", textAlign: "center" }}>
-                Password is not correct
-              </Typography>
-            ) : (
-              ""
-            )}
-          </div>
-          <br />
-          <Grid item sm={12} xs={12}>
-            <Button
-              variant="contained"
-              className={classes.button}
-              value="11111"
-              type="submit">
-              Login
-            </Button>
-          </Grid>
+          <Container style={{ padding: "1rem", width: "50%" }}>
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                placeholder="Placeholder"
+                type="email"
+                variant="outlined"
+                fullWidth
+                name="email"
+                onChange={onChange}
+              />
+              {wrongemail === "Email is not registered" ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{ color: "red", textAlign: "center" }}>
+                  Email address is not registered
+                </Typography>
+              ) : (
+                ""
+              )}
+            </div>
+            <br />
+            <div>
+              <TextField
+                id="outlined-basic"
+                label="Password"
+                placeholder="Password"
+                type="password"
+                variant="outlined"
+                fullWidth
+                name="password"
+                onChange={onChange}
+              />
+              {wpassword === "Password is not correct" ? (
+                <Typography
+                  variant="subtitle1"
+                  style={{ color: "red", textAlign: "center" }}>
+                  Password is not correct
+                </Typography>
+              ) : (
+                ""
+              )}
+            </div>
+            <br />
+            <Grid item sm={12} xs={12}>
+              <Button
+                variant="contained"
+                className={classes.button}
+                value="11111"
+                type="submit">
+                Login
+              </Button>
+            </Grid>
+          </Container>
         </form>
       </Grid>
       <Grid item xs={12} sm={12}>

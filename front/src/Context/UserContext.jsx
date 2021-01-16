@@ -5,7 +5,7 @@ export const UserContext = createContext();
 const userReducer = (state, action) => {
   switch (action.type) {
     case "SET_USER_ID":
-      localStorage.setItem("isL", action.userInfo.isLoggedIn);
+      localStorage.setItem("isL", action.userInfo);
       return { ...state, ...action.userInfo };
     case "LOGUSER_OUT":
       localStorage.removeItem("isL");
