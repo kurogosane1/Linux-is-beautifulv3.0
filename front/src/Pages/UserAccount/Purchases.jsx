@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useRouteMatch, useHistory } from "react-router-dom";
+import { useRouteMatch, useHistory, NavLink } from "react-router-dom";
 import { Container, Grid, Paper, Typography } from "@material-ui/core";
+import OrderDetails from "./OrderDetails";
 
 export default function Purchases({ info, id }) {
   const { url } = useRouteMatch();
@@ -30,19 +31,25 @@ export default function Purchases({ info, id }) {
           <Typography variant="h4">No orders</Typography>
         ) : (
           id.map((information) => {
+            console.log(typeof information.createdAt);
             return (
-              <Paper elevation={3} style={{ marginTop: "1rem" }}>
-                <Container
-                  style={{ display: "flex", justifyContent: "space-evenly" }}>
-                  <Typography variant="h6">Order Number :</Typography>
-                  <Typography variant="subtitle1">
-                    {information.Order_Number}
-                  </Typography>
-                  <Typography variant="subtitle1">
-                    ${information.Total}
-                  </Typography>
-                </Container>
-              </Paper>
+              <NavLink to={`${url}/${information.Order_Number}`}>
+                <Paper elevation={3} style={{ marginTop: "1rem" }}>
+                  <Container
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                    }}>
+                    <Typography variant="h6">Order Number :</Typography>
+                    <Typography variant="subtitle1">
+                      {information.Order_Number}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      ${information.Total}
+                    </Typography>
+                  </Container>
+                </Paper>
+              </NavLink>
             );
           })
         )}

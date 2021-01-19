@@ -60,6 +60,7 @@ router.post("/SignUp", auth.signup_post);
 router.post("/Login", auth.login);
 router.get("/:id/others", verify.verifyAuth);
 router.get("/:id/orders", verify.verifyAuth);
+router.get("/:id/orders/:order", verify.verifyAuth, auth.getOrder);
 router.get("/:id", verify.verifyAuth, auth.getUserInfo);
 router.post("/Logout", auth.LogOut);
 router.get("/DeepinPro/BuyNow/:Number", auth.getProductLaptop);

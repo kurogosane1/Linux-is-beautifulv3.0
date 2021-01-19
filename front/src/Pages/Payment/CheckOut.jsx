@@ -21,6 +21,7 @@ import {
   Button,
 } from "@material-ui/core";
 import Card from "./Card";
+import OrderDetails from "../UserAccount/OrderDetails";
 
 dotenv.config();
 
@@ -87,7 +88,8 @@ export default function CheckOut(props) {
 
   function UpdateData() {
     const Items = location.state;
-    useData(Items);
+    console.log(Items);
+    useData([...Items]);
   }
 
   //Change Address
@@ -112,7 +114,11 @@ export default function CheckOut(props) {
     e.preventDefault();
     setIsProcessing(true);
     const cardElement = element.getElement("card");
-    const Config = data.map((x) => x.Config);
+    const orderNum = uuidv4();
+    const Config = data.map((x) => {
+      return { ...x.Config, Order_Number: orderNum };
+    });
+
     const total =
       data
         .map((x) => x.Cost)
@@ -120,14 +126,12 @@ export default function CheckOut(props) {
           return accum + currentValue;
         }, 0) *
       (taxRate + 1);
-    console.log(total);
-    console.log(data);
 
     const Billing = {
       customer_id: props.id,
       name: billingAddress.Name,
       email: billingAddress.Email,
-      Order_Number: uuidv4(),
+      Order_Number: orderNum,
       Config: Config,
       amount: (total * 100).toFixed(),
       billing_details: {
@@ -141,7 +145,6 @@ export default function CheckOut(props) {
         },
       },
     };
-    console.log(Billing.Order_Number);
 
     try {
       //Get Client secret
@@ -153,7 +156,7 @@ export default function CheckOut(props) {
           return res.data;
         });
 
-        console.log(paymentIntent)
+      console.log(paymentIntent);
 
       //Create PaymentMethod Object
       const paymentMethodObj = await stripe.createPaymentMethod({
@@ -188,8 +191,7 @@ export default function CheckOut(props) {
 
   useEffect(() => {
     UpdateData();
-    console.log(data);
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     SelectCheckbox();

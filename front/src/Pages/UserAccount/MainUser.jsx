@@ -18,6 +18,7 @@ import axios from "axios";
 import Orders from "./Purchases";
 import Profile from "./Profile";
 import Others from "./Others";
+import OrderDetails from "./OrderDetails";
 import { UserContext } from "../../Context/UserContext";
 import Loading from "../../Loading";
 
@@ -136,6 +137,9 @@ export default function MainUser() {
             ) : (
               <Orders info={users} id={userInfo.Orders} />
             )}
+          </Route>
+          <Route path={`${url}/orders/:id`}>
+            <OrderDetails />
           </Route>
         </Switch>
       </Container>

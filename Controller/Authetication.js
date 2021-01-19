@@ -219,7 +219,7 @@ module.exports.paymentProcess = async (req, res) => {
     res.status(200).send(paymentIntent.client_secret);
 
     //Bulk create the Configuration of multiple items user has selected
-    const configs = await Selection.bulkCreate([...Config, Order_Number], {
+    const configs = await Selection.bulkCreate(Config, {
       returning: true,
     }).then((response) => {
       const result_id = response.map((r) => r.id);
@@ -232,11 +232,9 @@ module.exports.paymentProcess = async (req, res) => {
       Total: amount / 100,
       Payment_id: paymentIntent.client_secret,
     }).then((response) => {
-      console.log("This is the cart side");
       response;
     });
   } catch (error) {
-    console.log("this is coming from the payment side");
     res.status(500).json({
       message: error.message,
     });
@@ -305,14 +303,40 @@ module.exports.getUserInfo = async (req, res) => {
 
   //Getting Users Order if any
 
-  const orders = await Cart.findAll({ where: { User_id: id } })
+  const orders = await Cart.findAll({
+    order: [["createdAt", "DESC"]],
+    where: { User_id: id },
+  })
     .then((response) => response)
     .catch((err) => err.message);
 
+  console.log(JSON.stringify(orders));
   //Sending the user information to the front line
   if (orders) {
     res.status(200).json({ info: data, Orders: orders });
   } else {
     res.status(200).json({ info: data, Orders: [] });
+  }
+};
+
+module.exports.getOrder = async (req, res) => {
+  //de-structure user_id and Order Number
+  const { order } = req.params;
+  console.log(order);
+
+  //Locate the orders and send it to user
+  try {
+    const Order = await Selection.findAll({
+      where: { Order_Number: order },
+    })
+      .then((result) => {
+        //If successful then the users orders will be sent to the front end side
+        res.send(result);
+      })
+      .catch((err) => console.log(err));
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
