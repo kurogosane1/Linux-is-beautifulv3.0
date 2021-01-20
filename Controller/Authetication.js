@@ -194,10 +194,12 @@ module.exports.getProductLaptop = async (req, res) => {
     res.status(200).send({ processors, graphics, ram, storage, category });
   }
   if (selection === "11111") {
-    const processors = await Processor.findAll();
-    const graphics = await GPU.findAll();
-    const ram = await RAM.findAll();
-    const storage = await Storage.findAll();
+    const processors = await Processor.findAll({
+      where: { Category: "Laptop" },
+    });
+    const graphics = await GPU.findAll({ where: { Category: "Laptop" } });
+    const ram = await RAM.findAll({ where: { Category: "Laptop" } });
+    const storage = await Storage.findAll({ where: { Category: "Laptop" } });
     const tag = await Category.findAll({
       where: { Tag_Description: "Laptop" },
     });
@@ -343,6 +345,34 @@ module.exports.getOrder = async (req, res) => {
 };
 
 module.exports.getProductData = async (req, res) => {
-  const type = req.header.category;
-  console.log(type);
+  try {
+    //Collection all the data that is being requested from us
+    const Proc = await Processor.findAll({
+      where: { Category: "Tablet" },
+    }).then((response) => {
+      return response;
+    });
+    const ram = await RAM.findAll({ where: { Category: "Tablet" } }).then(
+      (response) => {
+        return response;
+      }
+    );
+
+    const storage = await Storage.findAll({ where: { Category: "Tablet" } })
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => err.message);
+
+    const gpu = await GPU.findAll({ where: { Category: "Tablet" } })
+      .then((response) => {
+        console.log(`This is the GPU data pull up ${response}`);
+        return response;
+      })
+      .catch((err) => err.message);
+
+    await res.status(200).send({ Proc, ram, storage, gpu });
+  } catch (err) {
+    res.status(400).send(err.message);
+  }
 };

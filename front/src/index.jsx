@@ -5,12 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import UserStoreContext from "./Context/UserContext";
 import CartStoreContext from "./Context/CartContext";
+import ProductDataContext from "./Context/ProductData";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserStoreContext>
       <CartStoreContext>
-        <App />
+        <ProductDataContext>
+          <App />
+        </ProductDataContext>
       </CartStoreContext>
     </UserStoreContext>
   </React.StrictMode>,

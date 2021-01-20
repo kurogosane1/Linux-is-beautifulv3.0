@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../controller/Connection");
-import Tag from "./Category";
 
 const GPU = sequelize.define("GPU", {
   id: {
@@ -18,10 +17,7 @@ const GPU = sequelize.define("GPU", {
   },
   Category: {
     type: DataTypes.STRING,
-    references: {
-      model: Tag,
-      key: "Tag_Description",
-    },
+    allowNull: "false",
   },
 });
 
@@ -69,6 +65,7 @@ GPU.sync({ force: false }).then(() => {
       cost: 100,
       Category: "Phone",
     },
+
     {
       id: "deskGPU-1",
       name: "Nvidia RTX 3080 with 10GB GDDR8 Memory Desktop",
@@ -82,7 +79,7 @@ GPU.sync({ force: false }).then(() => {
       Category: "Desktop",
     },
     {
-      id: "deskGPU-2",
+      id: "deskGPU-3",
       name: "Nvidia RTX 3090 with 24GB GDDR8 Memory Desktop",
       cost: 1500,
       Category: "Desktop",

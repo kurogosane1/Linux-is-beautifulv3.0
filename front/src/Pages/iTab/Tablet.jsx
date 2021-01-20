@@ -7,8 +7,10 @@ import {
   Container,
   makeStyles,
   Button,
+  Grid
 } from "@material-ui/core";
 import TabOverview from "./TabOverview";
+import TabBuyNow from "./TabBuyNow";
 
 const useStyles = makeStyles({
   subNav: {
@@ -28,8 +30,8 @@ const useStyles = makeStyles({
 
 export default function Tablet() {
   const { path, url } = useRouteMatch();
-   const classes = useStyles();
-   
+  const classes = useStyles();
+
   return (
     <Container>
       <AppBar position="sticky" className={classes.subNav}>
@@ -52,6 +54,9 @@ export default function Tablet() {
           <Switch>
             <Route exact path={`${url}`}>
               <TabOverview />
+            </Route>
+            <Route path={`${url}/BuyNow`}>
+              <TabBuyNow />
             </Route>
           </Switch>
         </Container>

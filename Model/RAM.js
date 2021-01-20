@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../controller/Connection");
-import Tag from "./Category";
+const Tag = require("./Category");
 
 const RAM = sequelize.define("RAM", {
   id: {
@@ -18,10 +18,7 @@ const RAM = sequelize.define("RAM", {
   },
   Category: {
     type: DataTypes.STRING,
-    references: {
-      model: Tag,
-      key: "Tag_Description",
-    },
+    allowNull: "false",
   },
 });
 

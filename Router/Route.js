@@ -16,6 +16,7 @@ const {
   paymentProcess,
   signup_post,
   login,
+  getProductData,
 } = require("../Controller/Authetication");
 const { verifyAuth, verAuth } = require("../middleware/authMiddleware");
 
@@ -49,7 +50,7 @@ router.get("/Tag", (req, res) => {
 });
 router.get("/GPU", (req, res) => {
   GPU.findAll();
-  res.send(GPU);
+  res.json(GPU);
 });
 router.get("/RAM", (req, res) => {
   RAM.findAll();
@@ -71,5 +72,6 @@ router.get("/:id/orders/:order", verifyAuth, getOrder);
 router.get("/:id", verifyAuth, getUserInfo);
 router.post("/Logout", LogOut);
 router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
+router.get("/iTab/BuyNow",getProductData)
 router.post("/Payment", verAuth, paymentProcess);
 module.exports = router;

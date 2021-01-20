@@ -45,7 +45,7 @@ export default function Options() {
     RAM: "",
     GPU: "",
     Storage: "",
-    Type: "LAPTOP",
+    Type: "Laptop",
   });
   const [cost, setCollection] = useState({
     processorCost: 0,
@@ -71,7 +71,7 @@ export default function Options() {
       RAM: RAM[0].name,
       GPU: Graphics[0].name,
       Storage: Storage[0].name,
-      Type: "LAPTOP",
+      Type: "Laptop",
     });
     setLoading(false);
   }, [Processor, RAM, Graphics, Storage]);
@@ -353,9 +353,7 @@ export default function Options() {
                           Selection.GPU === data.name ? "primary" : "default"
                         }
                         variant={
-                          Selection.GPU === data.name
-                            ? "contained"
-                            : "default"
+                          Selection.GPU === data.name ? "contained" : "default"
                         }
                         onClick={() =>
                           setSelection({ ...Selection, GPU: data.name })
