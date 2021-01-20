@@ -31,9 +31,6 @@ export default function ProductOptionContext(props) {
       .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
   return (
     <OptionContext.Provider
       value={{ Processor, RAM, Graphics, Storage, getData }}>

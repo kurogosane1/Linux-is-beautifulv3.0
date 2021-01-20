@@ -7,10 +7,17 @@ const GPU = require("../Model/Graphics");
 const RAM = require("../Model/RAM");
 const Storage = require("../Model/Storage");
 const cart = require("../Model/Cart");
-const Selection = require("../Model/Selection");
 const bcrypt = require("bcrypt");
-const auth = require("../Controller/Authetication");
-const verify = require("../middleware/authMiddleware");
+const {
+  getOrder,
+  getUserInfo,
+  LogOut,
+  getProductLaptop,
+  paymentProcess,
+  signup_post,
+  login,
+} = require("../Controller/Authetication");
+const { verifyAuth, verAuth } = require("../middleware/authMiddleware");
 
 //Basic Get Route
 router.get("/", (req, res) => {
@@ -56,13 +63,13 @@ router.get("/cart", (req, res) => {
   cart.findAll();
   res.send(cart);
 });
-router.post("/SignUp", auth.signup_post);
-router.post("/Login", auth.login);
-router.get("/:id/others", verify.verifyAuth);
-router.get("/:id/orders", verify.verifyAuth);
-router.get("/:id/orders/:order", verify.verifyAuth, auth.getOrder);
-router.get("/:id", verify.verifyAuth, auth.getUserInfo);
-router.post("/Logout", auth.LogOut);
-router.get("/DeepinPro/BuyNow/:Number", auth.getProductLaptop);
-router.post("/Payment", verify.verAuth, auth.paymentProcess);
+router.post("/SignUp", signup_post);
+router.post("/Login", login);
+router.get("/:id/others", verifyAuth);
+router.get("/:id/orders", verifyAuth);
+router.get("/:id/orders/:order", verifyAuth, getOrder);
+router.get("/:id", verifyAuth, getUserInfo);
+router.post("/Logout", LogOut);
+router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
+router.post("/Payment", verAuth, paymentProcess);
 module.exports = router;

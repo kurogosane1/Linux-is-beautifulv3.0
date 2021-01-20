@@ -41,7 +41,6 @@ const Users = sequelize.define("Users", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

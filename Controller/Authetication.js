@@ -219,14 +219,15 @@ module.exports.paymentProcess = async (req, res) => {
     res.status(200).send(paymentIntent.client_secret);
 
     //Bulk create the Configuration of multiple items user has selected
-    const configs = await Selection.bulkCreate(Config, {
+    await Selection.bulkCreate(Config, {
       returning: true,
     }).then((response) => {
       const result_id = response.map((r) => r.id);
       result_id;
     });
 
-    const newCart = await Cart.create({
+    //Create a cart data in Cart SQL data
+    await Cart.create({
       Order_Number,
       User_id: customer_id,
       Total: amount / 100,
@@ -339,4 +340,9 @@ module.exports.getOrder = async (req, res) => {
       message: error.message,
     });
   }
+};
+
+module.exports.getProductData = async (req, res) => {
+  const type = req.header.category;
+  console.log(type);
 };
