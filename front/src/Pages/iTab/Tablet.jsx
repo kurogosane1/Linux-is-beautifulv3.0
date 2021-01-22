@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
 import {
   AppBar,
@@ -7,7 +7,7 @@ import {
   Container,
   makeStyles,
   Button,
-  Grid
+  Grid,
 } from "@material-ui/core";
 import TabOverview from "./TabOverview";
 import TabBuyNow from "./TabBuyNow";
@@ -31,36 +31,43 @@ const useStyles = makeStyles({
 export default function Tablet() {
   const { path, url } = useRouteMatch();
   const classes = useStyles();
+  const local = "";
+
+  useEffect(() => {
+    console.log(local);
+  }, []);
 
   return (
-    <Container>
-      <AppBar position="sticky" className={classes.subNav}>
-        <Toolbar>
-          <Typography className={classes.subNavhead}>iTab</Typography>
-          <Button component={NavLink} to={`${path}`}>
-            Overview
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            component={NavLink}
-            to={`${path}/BuyNow`}>
-            Buy Now
-          </Button>
-        </Toolbar>
-      </AppBar>
-      <Grid container>
-        <Container>
-          <Switch>
-            <Route exact path={`${url}`}>
-              <TabOverview />
-            </Route>
-            <Route path={`${url}/BuyNow`}>
-              <TabBuyNow />
-            </Route>
-          </Switch>
-        </Container>
-      </Grid>
-    </Container>
+    <div>
+      <Container>
+        <AppBar position="sticky" className={classes.subNav}>
+          <Toolbar>
+            <Typography className={classes.subNavhead}>iTab</Typography>
+            <Button component={NavLink} to={`${path}`}>
+              Overview
+            </Button>
+            <Button
+              variant="contained"
+              color="secondary"
+              component={NavLink}
+              to={`${path}/BuyNow`}>
+              Buy Now
+            </Button>
+          </Toolbar>
+        </AppBar>
+        <Grid container>
+          <Container>
+            <Switch>
+              <Route exact path={`${url}`}>
+                <TabOverview />
+              </Route>
+              <Route path={`${url}/BuyNow`}>
+                <TabBuyNow />
+              </Route>
+            </Switch>
+          </Container>
+        </Grid>
+      </Container>
+    </div>
   );
 }

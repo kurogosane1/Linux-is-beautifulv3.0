@@ -32,7 +32,15 @@ export default function ProductData(props) {
     console.log(data, category);
     await axios
       .get(url)
-      .then((response) => console.log(response.data))
+      .then(async (response) => {
+        const { Proc, gpu, ram, storage } = await response.data;
+
+        //Saving the data to the context
+        await setProcessor([...Proc]);
+        await setGraphics([...gpu]);
+        await setRAM([...ram]);
+        await setStorage([...storage]);
+      })
       .catch((err) => err.message);
   };
 
@@ -43,3 +51,4 @@ export default function ProductData(props) {
     </ProductDataContext.Provider>
   );
 }
+//Proc, gpu, ram, storage
