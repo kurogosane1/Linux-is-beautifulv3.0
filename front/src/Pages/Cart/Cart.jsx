@@ -96,6 +96,18 @@ export default function Cart({ info, action }) {
     action({ type: "EMPTY_CART" });
   };
 
+  const imageChange = (data) => {
+    console.log(data);
+    switch (data) {
+      case "Laptop":
+        return VS;
+      case "Tablet":
+        return Tablet;
+      default:
+        return VS;
+    }
+  };
+
   return (
     <Grid container spacing={3} align="center" style={{ marginTop: "1rem" }}>
       {info.length === 0 ? (
@@ -173,16 +185,7 @@ export default function Cart({ info, action }) {
                     </CardContent>
                   </div>
                   <CardMedia className={classes.cover}>
-                    <img
-                      src={
-                        data.PurchaseType === "Laptop"
-                          ? VS
-                          : data.PurchaseType === "Tablet"
-                          ? Tablet
-                          : VS
-                      }
-                      alt="some"
-                    />
+                    <img src={imageChange(data.PurchaseType)} alt="some" />
                   </CardMedia>
                 </Card>
               );
