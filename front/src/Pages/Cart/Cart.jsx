@@ -116,6 +116,7 @@ export default function Cart({ info, action }) {
               zIndex: "10",
             }}>
             {info.map((data, index) => {
+              console.log(data);
               const total = formatter.format(data.Cost);
               return (
                 <Card
@@ -127,7 +128,7 @@ export default function Cart({ info, action }) {
                       <Typography
                         variant="subtitle1"
                         className={classes.configuration}>
-                        Order id: {data.id}
+                        Config Id: {data.id}
                       </Typography>
                       <Typography
                         variant="h6"
@@ -174,9 +175,9 @@ export default function Cart({ info, action }) {
                   <CardMedia className={classes.cover}>
                     <img
                       src={
-                        data.Type === "LAPTOP"
+                        data.PurchaseType === "Laptop"
                           ? VS
-                          : data.Type === "TABLET"
+                          : data.PurchaseType === "Tablet"
                           ? Tablet
                           : VS
                       }

@@ -112,7 +112,7 @@ export default function Options() {
     const Total = processorCost + gpuCost + ramCost + storageCost;
     const Cart = {
       id: uuidv4(),
-      PurchaseType: "LAPTOP",
+      PurchaseType: "Laptop",
       Config: Selection,
       Cost: Total,
     };
