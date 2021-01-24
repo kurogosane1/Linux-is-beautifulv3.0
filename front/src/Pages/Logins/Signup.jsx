@@ -112,7 +112,7 @@ export default function Signup() {
         password: Entry.password,
       })
       .then((res) => {
-        let id = res.data.id
+        let id = res.data.id;
         setCheck(res.status);
         history.push(`/${id}`);
       })
@@ -126,18 +126,16 @@ export default function Signup() {
     <Container
       maxWidth="sm"
       style={{
-        marginTop: "1rem",
-        maxHeight: "100vh",
+        minHeight: "90vh",
+        height: "90%",
         alignItems: "center",
         justifyContent: "center",
-      }}
-    >
+      }}>
       <Grid container direction="row" style={{ marginTop: "1rem" }}>
         <Grid item xs={12} sm={12}>
           <Typography
             variant="h3"
-            style={{ textAlign: "center", marginTop: "1rem" }}
-          >
+            style={{ textAlign: "center", marginTop: "1rem" }}>
             Sign Up
           </Typography>
         </Grid>
@@ -149,8 +147,7 @@ export default function Signup() {
           alignItems="center"
           judtify="center"
           spacing={3}
-          style={{ marginTop: "1rem" }}
-        >
+          style={{ marginTop: "1rem" }}>
           <Grid item xs={12} sm={6}>
             <div>
               <TextField
@@ -188,8 +185,7 @@ export default function Signup() {
           direction="row"
           justify="center"
           alignItems="center"
-          spacing={3}
-        >
+          spacing={3}>
           <Grid item xs={12} sm={12}>
             <div>
               <TextField
@@ -211,8 +207,7 @@ export default function Signup() {
           direction="row"
           justify="center"
           alignItems="center"
-          spacing={3}
-        >
+          spacing={3}>
           <Grid item xs={12} sm={4}>
             <div>
               <TextField
@@ -331,16 +326,14 @@ export default function Signup() {
           direction="row"
           spacing={3}
           justify="center"
-          align="center"
-        >
+          align="center">
           <Grid item sm={12} xs={12}>
             <Button
               variant="contained"
               className={classes.button}
               value="11111"
               disabled={match === false || match === null ? true : false}
-              type="submit"
-            >
+              type="submit">
               Sign Up
             </Button>
           </Grid>
@@ -351,8 +344,7 @@ export default function Signup() {
         direction="row"
         justify="center"
         align="center"
-        spacing={3}
-      >
+        spacing={3}>
         <Grid item xs={12} sm={12}>
           <Typography varient="caption">
             Have an Account with us Already. Then Click{" "}

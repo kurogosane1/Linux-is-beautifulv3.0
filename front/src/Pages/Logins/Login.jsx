@@ -96,7 +96,11 @@ export default function Login() {
       direction="column"
       justify="center"
       alignItems="center"
-      style={{ maxHeight: "100%", marginTop: "1rem" }}>
+      style={{
+        minHeight: "100vh",
+        alignItems: "center",
+        justifyContent: "center",
+      }}>
       <Grid item sm={12} xs={12}>
         <Typography
           variant="h3"

@@ -18,6 +18,7 @@ import { CartContext } from "./Context/CartContext";
 import Checkout from "./Pages/Payment/CheckOut";
 import Success from "./Pages/Payment/Success";
 import Failure from "./Pages/Payment/Failure";
+import Footer from "./Layout/Footer";
 
 function App() {
   const { users } = useContext(UserContext);
@@ -30,50 +31,53 @@ function App() {
   );
 
   return (
-    <Router>
-      <div className="App">
-        <Nav />
-        <Container maxWidth="lg">
-          <Switch>
-            <Route exact path="/">
-              <Main />
-            </Route>
-            <Route path="/DeepinPro">
-              <ProductOptionContext>
-                <Laptop />
-              </ProductOptionContext>
-            </Route>
-            <Route path="/iTab">
-              <Tablet />
-            </Route>
-            <Route path="/Login">
-              <Login />
-            </Route>
-            <Route path="/SignUp">
-              <Signup />
-            </Route>
-            <Route exact path="/Cart">
-              <Cart info={cart} action={dispatch} />
-            </Route>
-            <Route path={`/${users.id}`}>
-              <MainUser />
-            </Route>
+    <>
+      <Router>
+        <div className="App">
+          <Nav />
+          <Container maxWidth="lg">
+            <Switch>
+              <Route exact path="/">
+                <Main />
+              </Route>
+              <Route path="/DeepinPro">
+                <ProductOptionContext>
+                  <Laptop />
+                </ProductOptionContext>
+              </Route>
+              <Route path="/iTab">
+                <Tablet />
+              </Route>
+              <Route path="/Login">
+                <Login />
+              </Route>
+              <Route path="/SignUp">
+                <Signup />
+              </Route>
+              <Route exact path="/Cart">
+                <Cart info={cart} action={dispatch} />
+              </Route>
+              <Route path={`/${users.id}`}>
+                <MainUser />
+              </Route>
 
-            <Route path="/Payment">
-              <Elements stripe={stripePromise}>
-                <Checkout info={cart} action={dispatch} id={users.id} />
-              </Elements>
-            </Route>
-            <Route path="/Success">
-              <Success action={dispatch} />
-            </Route>
-            <Route path="/Failure">
-              <Failure />
-            </Route>
-          </Switch>
-        </Container>
-      </div>
-    </Router>
+              <Route path="/Payment">
+                <Elements stripe={stripePromise}>
+                  <Checkout info={cart} action={dispatch} id={users.id} />
+                </Elements>
+              </Route>
+              <Route path="/Success">
+                <Success action={dispatch} />
+              </Route>
+              <Route path="/Failure">
+                <Failure />
+              </Route>
+            </Switch>
+          </Container>
+        </div>
+        <Footer />
+      </Router>
+    </>
   );
 }
 

@@ -6,17 +6,20 @@ import reportWebVitals from "./reportWebVitals";
 import UserStoreContext from "./Context/UserContext";
 import CartStoreContext from "./Context/CartContext";
 import ProductDataContext from "./Context/ProductData";
+import Footer from "./Layout/Footer";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <UserStoreContext>
-      <CartStoreContext>
-        <ProductDataContext>
-          <App />
-        </ProductDataContext>
-      </CartStoreContext>
-    </UserStoreContext>
-  </React.StrictMode>,
+  <>
+    <React.StrictMode>
+      <UserStoreContext>
+        <CartStoreContext>
+          <ProductDataContext>
+            <App />
+          </ProductDataContext>
+        </CartStoreContext>
+      </UserStoreContext>
+    </React.StrictMode>
+  </>,
   document.getElementById("root")
 );
 

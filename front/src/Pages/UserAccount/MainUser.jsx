@@ -23,6 +23,10 @@ import { UserContext } from "../../Context/UserContext";
 import Loading from "../../Loading";
 
 const useStyles = makeStyles({
+  mainRoot: {
+    minHeight: "100vh",
+    height: "90%",
+  },
   subNav: {
     borderBottom: "2px black solid",
     borderColor: "black",
@@ -102,7 +106,7 @@ export default function MainUser() {
   };
 
   return (
-    <Container>
+    <Container className={classes.mainRoot}>
       <AppBar position="sticky" className={classes.subNav}>
         <Toolbar>
           <Button component={NavLink} to={`${path}`}>

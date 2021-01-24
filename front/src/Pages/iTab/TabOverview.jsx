@@ -6,6 +6,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 //Import SVG from assets library
 import Tab1 from "../../Assets/iTablet1.svg";
@@ -50,6 +51,8 @@ const useStyles = makeStyles({
 export default function TabOverview() {
   //Classes for styling
   const classes = useStyles();
+  //history to direct
+  const history = useHistory();
 
   return (
     <>
@@ -62,6 +65,7 @@ export default function TabOverview() {
         className={classes.mainContainer}>
         <Grid
           container
+          direction="row"
           spacing={3}
           justify="center"
           alignItems="center"
@@ -74,18 +78,18 @@ export default function TabOverview() {
             </Container>
           </Grid>
         </Grid>
-        <Grid container spacing={3} justify="center" alignItems="center">
-          <Grid item xs={4} sm={4}>
+        <Grid container spacing={3} justify="space-evenly" alignItems="center">
+          <Grid item xs={12} sm={4}>
             <Typography variant="h2" className={classes.subHeading}>
               Your
             </Typography>
           </Grid>
-          <Grid item xs={4} sm={4}>
+          <Grid item xs={12} sm={4}>
             <Typography variant="h2" className={classes.subHeading}>
               Next
             </Typography>
           </Grid>
-          <Grid item xs={4} sm={4}>
+          <Grid item xs={12} sm={4}>
             <Typography variant="h2" className={classes.subHeading}>
               Computer
             </Typography>
@@ -200,10 +204,10 @@ export default function TabOverview() {
       <Grid container spacing={3} justify="center" alignItems="center">
         <Grid item xs={12} sm={12}>
           <Container className={classes.subContainer}>
-            <Typography style={{ textAlign: "center" }} variant="subtitle1">
+            <Typography style={{ textAlign: "center" }} variant="h5">
               So how far can you go with it
             </Typography>
-            <Typography style={{ textAlign: "center" }} variant="subtitle1">
+            <Typography style={{ textAlign: "center" }} variant="h5">
               So click below to buy now
             </Typography>
           </Container>
@@ -217,7 +221,12 @@ export default function TabOverview() {
         alignItems="center">
         <Grid item xs={12} sm={12}>
           <Container className={classes.subContainer}>
-            <Button variant="contained" color="secondary">
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                history.push("/iTab/BuyNow");
+              }}>
               Buy Now
             </Button>
           </Container>

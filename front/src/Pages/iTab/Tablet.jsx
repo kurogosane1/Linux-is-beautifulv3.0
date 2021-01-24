@@ -13,6 +13,10 @@ import TabOverview from "./TabOverview";
 import TabBuyNow from "./TabBuyNow";
 
 const useStyles = makeStyles({
+  mainRoot: {
+    minHeight: "100vh",
+    
+  },
   subNav: {
     borderBottom: "2px black solid",
     borderColor: "black",
@@ -38,7 +42,7 @@ export default function Tablet() {
   }, []);
 
   return (
-    <div>
+    <div className={classes.mainRoot}>
       <Container>
         <AppBar position="sticky" className={classes.subNav}>
           <Toolbar>

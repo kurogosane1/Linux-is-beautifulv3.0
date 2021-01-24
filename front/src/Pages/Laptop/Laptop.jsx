@@ -13,6 +13,10 @@ import Options from "./Options";
 import BuyNow from "./BuyNow";
 
 const useStyles = makeStyles({
+  mainRoot: {
+    minHeight: "100vh",
+    marginBottom: "2rem",
+  },
   subNav: {
     borderBottom: "2px black solid",
     borderColor: "black",
@@ -56,7 +60,7 @@ export default function Laptop() {
           </Button>
         </Toolbar>
       </AppBar>
-      <Container>
+      <Container className={classes.mainRoot}>
         <Switch>
           <Route exact path={`${url}`}>
             <Overview />

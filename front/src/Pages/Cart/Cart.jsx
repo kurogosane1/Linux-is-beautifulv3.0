@@ -109,7 +109,14 @@ export default function Cart({ info, action }) {
   };
 
   return (
-    <Grid container spacing={3} align="center" style={{ marginTop: "1rem" }}>
+    <Grid
+      container
+      spacing={3}
+      align="center"
+      style={{
+        minHeight: "100vh",
+        height: "90%",
+      }}>
       {info.length === 0 ? (
         <Grid item sm={12} xs={12} style={{ textAlign: "center" }}>
           <Typography variant="h3">Cart is Empty</Typography>
