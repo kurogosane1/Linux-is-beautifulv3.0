@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Grid,
   Container,
@@ -17,7 +18,7 @@ import CopyrightIcon from "@material-ui/icons/Copyright";
 const useStyles = makeStyles({
   roots: {
     flexGrow: "1",
-    height: "10rem",
+    // height: "10rem",
     background: "rgb(43, 43, 43)",
     marginTop: "calc(10% + 60px)",
     bottom: "0",

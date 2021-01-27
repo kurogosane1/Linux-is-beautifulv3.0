@@ -40,6 +40,8 @@ const useStyles = makeStyles({
     marginTop: "1rem",
     padding: "1rem",
     background: "rgb(238, 238, 238);",
+    boxShadow: "0px 8px 30px -1px rgba(0,0,0,0.12)",
+    borderRadius:'5px'
   },
 });
 

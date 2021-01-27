@@ -15,7 +15,7 @@ import TabBuyNow from "./TabBuyNow";
 const useStyles = makeStyles({
   mainRoot: {
     minHeight: "100vh",
-    
+    marginBottom: "2rem",
   },
   subNav: {
     borderBottom: "2px black solid",
@@ -42,36 +42,34 @@ export default function Tablet() {
   }, []);
 
   return (
-    <div className={classes.mainRoot}>
-      <Container>
-        <AppBar position="sticky" className={classes.subNav}>
-          <Toolbar>
-            <Typography className={classes.subNavhead}>iTab</Typography>
-            <Button component={NavLink} to={`${path}`}>
-              Overview
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              component={NavLink}
-              to={`${path}/BuyNow`}>
-              Buy Now
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Grid container>
-          <Container>
-            <Switch>
-              <Route exact path={`${url}`}>
-                <TabOverview />
-              </Route>
-              <Route path={`${url}/BuyNow`}>
-                <TabBuyNow />
-              </Route>
-            </Switch>
-          </Container>
-        </Grid>
-      </Container>
-    </div>
+    <Container className={classes.mainRoot}>
+      <AppBar position="sticky" className={classes.subNav}>
+        <Toolbar>
+          <Typography className={classes.subNavhead}>iTab</Typography>
+          <Button component={NavLink} to={`${path}`}>
+            Overview
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            component={NavLink}
+            to={`${path}/BuyNow`}>
+            Buy Now
+          </Button>
+        </Toolbar>
+      </AppBar>
+      <Grid container>
+        <Container>
+          <Switch>
+            <Route exact path={`${url}`}>
+              <TabOverview />
+            </Route>
+            <Route path={`${url}/BuyNow`}>
+              <TabBuyNow />
+            </Route>
+          </Switch>
+        </Container>
+      </Grid>
+    </Container>
   );
 }

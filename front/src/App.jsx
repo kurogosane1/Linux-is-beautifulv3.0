@@ -60,7 +60,6 @@ function App() {
               <Route path={`/${users.id}`}>
                 <MainUser />
               </Route>
-
               <Route path="/Payment">
                 <Elements stripe={stripePromise}>
                   <Checkout info={cart} action={dispatch} id={users.id} />
@@ -75,7 +74,9 @@ function App() {
             </Switch>
           </Container>
         </div>
-        <Footer />
+        <div>
+          <Footer />
+        </div>
       </Router>
     </>
   );

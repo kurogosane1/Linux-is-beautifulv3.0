@@ -19,6 +19,7 @@ ReactDOM.render(
         </CartStoreContext>
       </UserStoreContext>
     </React.StrictMode>
+    
   </>,
   document.getElementById("root")
 );

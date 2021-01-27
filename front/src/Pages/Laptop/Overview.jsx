@@ -31,9 +31,8 @@ export default function Overview() {
       <Grid
         container
         spacing={2}
-        style={{ flexGrow: 1, marginBottom: "2rem", marginTop: "2rem" }}
-      >
-        <Grid item xs={12} md={4}>
+        style={{ flexGrow: 1, marginBottom: "1rem", marginTop: "2rem" }}>
+        <Grid item xs={12} sm={4}>
           <Typography className={classes.subHeading}>
             High Performance
           </Typography>
@@ -44,10 +43,10 @@ export default function Overview() {
         <Grid item align="center" xs={12} md={4}>
           <Typography className={classes.subHeading}>More Pro</Typography>
         </Grid>
-      </Grid>
 
-      <Grid item lg={12} xs={12}>
-        <img src={VS} alt="" />
+        <Grid item sm={12} xs={12}>
+          <img src={VS} alt="" />
+        </Grid>
       </Grid>
 
       <Grid container spacing={3}>
@@ -154,8 +153,7 @@ export default function Overview() {
         container
         justify="space-evenly"
         spacing={3}
-        style={{ textAlign: "center" }}
-      >
+        style={{ textAlign: "center" }}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h4">Up to</Typography>
           <Typography variant="h1">128Gb</Typography>

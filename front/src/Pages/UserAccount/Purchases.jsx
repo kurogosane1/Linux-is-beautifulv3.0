@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useRouteMatch, useHistory, NavLink } from "react-router-dom";
-import { Container, Grid, Paper, Typography } from "@material-ui/core";
+import { Grid, ListItemText, List, Paper, Typography } from "@material-ui/core";
 import OrderDetails from "./OrderDetails";
 
 export default function Purchases({ info, id }) {
@@ -17,6 +17,13 @@ export default function Purchases({ info, id }) {
       }
     });
   }
+
+  //This is to make the currency look good
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
 
   useEffect(() => {
     console.log(id);
@@ -35,19 +42,26 @@ export default function Purchases({ info, id }) {
             return (
               <NavLink to={`${url}/${information.Order_Number}`}>
                 <Paper elevation={3} style={{ marginTop: "1rem" }}>
-                  <Container
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-evenly",
-                    }}>
-                    <Typography variant="h6">Order Number :</Typography>
-                    <Typography variant="subtitle1">
-                      {information.Order_Number}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      ${information.Total}
-                    </Typography>
-                  </Container>
+                  <Grid
+                    container
+                    justify="center"
+                    alignItems="center"
+                    style={{ padding: "2rem" }}>
+                    <Grid item sm={6} xs={12}>
+                      <List>
+                        <ListItemText
+                          primary="Order Number"
+                          secondary={information.Order_Number}
+                        />
+                      </List>
+                    </Grid>
+                    <Grid item sm={6} xs={12}>
+                      <ListItemText
+                        style={{ textAlign: "center" }}
+                        primary={formatter.format(information.Total)}
+                      />
+                    </Grid>
+                  </Grid>
                 </Paper>
               </NavLink>
             );

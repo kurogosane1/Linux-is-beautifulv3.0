@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     justifyItems: "center",
   },
   mainContainer: {
-    maxHeight: "76vh",
+    // maxHeight: "76vh",
     height: "100%",
   },
   heading: {
@@ -55,14 +55,13 @@ export default function TabOverview() {
   const history = useHistory();
 
   return (
-    <>
+    <div className={classes.mainContainer}>
       <Grid
         container
         direction="column"
         spacing={3}
         justify="center"
-        alignItems="center"
-        className={classes.mainContainer}>
+        alignItems="center">
         <Grid
           container
           direction="row"
@@ -98,7 +97,7 @@ export default function TabOverview() {
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item xs={12} sm={12}>
             <Container className={classes.subContainer}>
-              <img src={Tab3} />
+              <img src={Tab3} alt="tablet view 3" />
             </Container>
           </Grid>
         </Grid>
@@ -140,7 +139,7 @@ export default function TabOverview() {
       </Grid>
       <Grid container>
         <Grid item xs={12} sm={12}>
-          <img src={Tab1} />
+          <img src={Tab1} alt="tablet view 1" />
         </Grid>
       </Grid>
       <Grid
@@ -181,7 +180,7 @@ export default function TabOverview() {
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="center">
         <Grid item xs={12} sm={12}>
-          <img src={Tab2} />
+          <img src={Tab2} alt="tablet view 2" />
         </Grid>
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="center">
@@ -197,7 +196,7 @@ export default function TabOverview() {
             </Typography>
           </Container>
           <Container className={classes.subContainer}>
-            <img src={Tab4} />
+            <img src={Tab4} alt="tablet view 4" />
           </Container>
         </Grid>
       </Grid>
@@ -232,6 +231,6 @@ export default function TabOverview() {
           </Container>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 }
