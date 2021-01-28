@@ -9,7 +9,6 @@ import {
 import {
   AppBar,
   Toolbar,
-  Typography,
   Container,
   makeStyles,
   Button,
@@ -52,20 +51,22 @@ export default function MainUser() {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    console.log(users.isLoggedIn);
-  }, [users.isLoggedIn]);
+  useEffect(() => {}, [users.isLoggedIn]);
 
   useEffect(() => {
+    setIsLoading(true);
+    //Checking if the user is already logged in via localstorage
+    const _id = JSON.parse(localStorage.getItem("isL"));
+    console.log(_id);
     //geting the users data when the page loads
-    const id = users.id !== null ? users.id : path;
+    const id = users.id !== null ? users.id : _id.id;
     //Fetching the data to retrieve
     axios
       .get(`/${id}`, { withCredentials: true })
       .then((response) => {
         const status = response.status;
         console.log(response.status);
-        if (status == 200) {
+        if (status === 200) {
           setUserInfo(response.data);
           setIsLoading(false);
         } else {
@@ -73,10 +74,13 @@ export default function MainUser() {
         }
       })
       .catch((err) => history.push("/Login"));
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    const id = users.id === null ? path : users.id;
+    setIsLoading(true);
+    const _id = JSON.parse(localStorage.getItem("isL"));
+    const id = !users.id ? _id.id : users.id;
     axios
       .get(`${id}`, { withCredentials: true })
       .then((response) => {
@@ -88,6 +92,7 @@ export default function MainUser() {
         history.push("/Login");
         console.log(err.message);
       });
+    setIsLoading(false);
   }, [users.id]);
 
   //This is to clear the user loggin

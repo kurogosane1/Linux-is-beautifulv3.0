@@ -139,6 +139,7 @@ module.exports.login = async (req, res) => {
               httpOnly: true,
               SameSite: false,
             });
+            req.session.user = response.id;
             res.status(200).send({ id: response.id });
           }
         });

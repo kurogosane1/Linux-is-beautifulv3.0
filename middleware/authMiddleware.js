@@ -4,7 +4,7 @@ const cookie = require("cookie-parser");
 //check the authentication status
 module.exports.verifyAuth = (req, res, next) => {
   const decodedCookie = req.cookies.jwt;
-  console.log("This is coming from the back side");
+  console.log("This is coming from the verifyAuth Function");
   console.log(req.cookie);
 
   const token = decodedCookie;

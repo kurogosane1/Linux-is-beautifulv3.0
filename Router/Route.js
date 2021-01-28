@@ -19,6 +19,10 @@ const {
   getProductData,
 } = require("../Controller/Authetication");
 const { verifyAuth, verAuth } = require("../middleware/authMiddleware");
+const {
+  isAlreadyLogged,
+  LoginUser,
+} = require("../middleware/verifyMiddleware");
 
 //Basic Get Route
 router.get("/", (req, res) => {
@@ -65,13 +69,17 @@ router.get("/cart", (req, res) => {
   res.send(cart);
 });
 router.post("/SignUp", signup_post);
-router.post("/Login", login);
+
+//User login
+router.route("/Login").post(isAlreadyLogged, LoginUser);
+
+// router.post("/Login", login);
 router.get("/:id/others", verifyAuth);
 router.get("/:id/orders", verifyAuth);
 router.get("/:id/orders/:order", verifyAuth, getOrder);
-router.get("/:id", verifyAuth, getUserInfo);
+router.get("/:id", isAlreadyLogged, getUserInfo);
 router.post("/Logout", LogOut);
 router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
-router.get("/iTab/BuyNow",getProductData)
+router.get("/iTab/BuyNow", getProductData);
 router.post("/Payment", verAuth, paymentProcess);
 module.exports = router;
