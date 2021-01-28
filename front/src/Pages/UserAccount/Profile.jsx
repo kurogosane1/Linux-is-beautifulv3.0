@@ -26,9 +26,9 @@ const useStyles = makeStyles({
 export default function Profile({ info, id }) {
   const classes = useStyles();
 
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
+  // useEffect(() => {
+  //   console.log(id);
+  // }, [id]);
 
   return (
     <Grid
@@ -45,6 +45,7 @@ export default function Profile({ info, id }) {
         justifyContent: "center",
       }}>
       <Grid items sm={12} xs={12} style={{ width: "100%" }}>
+        {/* <h2>This is profile</h2> */}
         <Paper
           elevation={3}
           style={{ display: "flex", flex: "1", width: "100%" }}>

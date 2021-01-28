@@ -22,12 +22,13 @@ const { verifyAuth, verAuth } = require("../middleware/authMiddleware");
 const {
   isAlreadyLogged,
   LoginUser,
+  SessionCheck,
 } = require("../middleware/verifyMiddleware");
 
 //Basic Get Route
-router.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// router.get("/", (req, res) => {
+//   res.send("Hello World");
+// });
 router.get("/User", (req, res) => {
   const user = User.findOne(req.body.email);
   // compare password
@@ -70,16 +71,36 @@ router.get("/cart", (req, res) => {
 });
 router.post("/SignUp", signup_post);
 
+//This is the main route
+router.route("/").get(isAlreadyLogged, (req, res) => {
+  res.status(200).send({ message: "not logged in" });
+});
+
 //User login
-router.route("/Login").post(isAlreadyLogged, LoginUser);
+router
+  .route("/Login")
+  .get(isAlreadyLogged, (req, res) => console.log("this fired"))
+  .post(isAlreadyLogged, login);
+
+//User page
+router.route("/:id").get(SessionCheck, getUserInfo).post(SessionCheck, LogOut);
+
+//User Others page
+router.route("/:id/orders").get(SessionCheck);
+
+//User Orders deep dive
+router.route("/:id/orders/:order").get(SessionCheck, getOrder);
+
+//User others
+router.route("/:id/others").get(SessionCheck);
 
 // router.post("/Login", login);
-router.get("/:id/others", verifyAuth);
-router.get("/:id/orders", verifyAuth);
-router.get("/:id/orders/:order", verifyAuth, getOrder);
-router.get("/:id", isAlreadyLogged, getUserInfo);
+// router.get("/:id/others");
+// router.get("/:id/orders", verifyAuth);
+// router.get("/:id/orders/:order", verifyAuth, getOrder);
+// router.get("/:id", isAlreadyLogged, getUserInfo);
 router.post("/Logout", LogOut);
 router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
 router.get("/iTab/BuyNow", getProductData);
-router.post("/Payment", verAuth, paymentProcess);
+router.post("/Payment", SessionCheck, paymentProcess);
 module.exports = router;

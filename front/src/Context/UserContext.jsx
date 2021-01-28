@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { createContext, useReducer, useEffect } from "react";
 
 export const UserContext = createContext();
@@ -9,7 +10,7 @@ const userReducer = (state, action) => {
       return { ...state, ...action.userInfo };
     case "LOGUSER_OUT":
       localStorage.removeItem("isL");
-      return { id: null, isLoggedIn: false };
+      return { id: "", isLoggedIn: false };
     case "USER_ALREADY_LOGGED_IN":
       return { ...state, ...action.userInfo };
     default:
@@ -25,15 +26,17 @@ export default function UserStoreContext(props) {
   const [users, setUsers] = useReducer(userReducer, initialState);
 
   useEffect(() => {
-    // this is to check if the user is already logged in before or not
+    //Checking if the user is already logged in session
     const check = JSON.parse(localStorage.getItem("isL"));
-    console.log(check);
+    // this is to check if the user is already logged in before or not
     if (check) {
       setUsers({ type: "USER_ALREADY_LOGGED_IN", userInfo: check });
     }
   }, []);
 
-  useEffect(() => {}, [users]);
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
 
   return (
     <UserContext.Provider value={{ users, setUsers }}>

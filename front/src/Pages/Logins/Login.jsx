@@ -59,34 +59,34 @@ export default function Login() {
     e.preventDefault();
     setEmail("");
     setPassword("");
-
+    // First getting the data when the user is logged in
     axios
       .post("/Login", user)
-      .then((data) => {
-        console.log(data.headers);
-        let id = data.data.id;
-        let message = data.data.message;
-        let status = data.status;
-
-        if (status === 200) {
-          const { isLoggedIn } = users;
-          const userInfo = {
+      .then(async (data) => {
+        console.log(data.data);
+        //Checking if there is an error message
+        let message = await data.data.message;
+        //If we have no message then we get the user id
+        if (!message) {
+          let id = await data.data.id;
+          console.log(id);
+          //Since we got the user id, then we save it to the
+          const userInfo = await {
             id,
             isLoggedIn: true,
           };
-          setUsers({ type: "SET_USER_ID", userInfo });
-
-          history.push(`/${id}`);
-        } else if (status === 201) {
-          setEmail("Email is not registered");
-        } else if (status === 202) {
-          setPassword("Password is not correct");
+          //change the status of the user in the page
+          await setUsers({ type: "SET_USER_ID", userInfo });
+          await history.push(`/${id}`);
         } else {
-          message = "";
-          status = "";
+          if (message === "Email is not registered") {
+            setEmail(message);
+          } else if (message === "Password is not correct") {
+            setPassword(message);
+          }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err.message);
   }
 
   return (

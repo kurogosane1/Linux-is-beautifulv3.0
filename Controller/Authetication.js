@@ -156,6 +156,7 @@ module.exports.login = async (req, res) => {
 module.exports.LogOut = (req, res) => {
   const id = req.body.id;
   console.log(id);
+  req.session.destroy();
   Users.findOne({ where: { id } }).then((response) => {
     if (response !== null) {
       res.cookie("jwt", "", { expiresIn: 1 });
@@ -210,6 +211,7 @@ module.exports.getProductLaptop = async (req, res) => {
 
 //Make payment with stripe
 module.exports.paymentProcess = async (req, res) => {
+  console.log(req.body);
   const { amount, Config, customer_id, Order_Number } = req.body;
 
   try {
@@ -296,7 +298,7 @@ module.exports.getCategory = async (data) => {
 
 //Getting User Info on the time when the page loads
 module.exports.getUserInfo = async (req, res) => {
-  const id = req.params.id;
+  const id = !req.params.id ? res.locals.id : req.params.id;
 
   //This is to get the information regarding the User
   const data = await User.findOne({

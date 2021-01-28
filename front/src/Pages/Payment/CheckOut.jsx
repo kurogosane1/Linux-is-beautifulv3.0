@@ -147,6 +147,7 @@ export default function CheckOut(props) {
     };
 
     try {
+      console.log(Billing);
       //Get Client secret
       const paymentIntent = await axios
         .post("/Payment", Billing)

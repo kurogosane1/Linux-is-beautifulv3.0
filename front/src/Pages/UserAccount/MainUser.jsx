@@ -54,56 +54,53 @@ export default function MainUser() {
   useEffect(() => {}, [users.isLoggedIn]);
 
   useEffect(() => {
+    //When the page loads to get the data
     setIsLoading(true);
-    //Checking if the user is already logged in via localstorage
-    const _id = JSON.parse(localStorage.getItem("isL"));
-    console.log(_id);
-    //geting the users data when the page loads
-    const id = users.id !== null ? users.id : _id.id;
-    //Fetching the data to retrieve
-    axios
-      .get(`/${id}`, { withCredentials: true })
-      .then((response) => {
-        const status = response.status;
-        console.log(response.status);
-        if (status === 200) {
+    const id = users.id;
+    const check = JSON.parse(localStorage.getItem("isL"));
+    const _id = check.id;
+    if (!id) {
+      console.log(_id);
+      if (!_id) {
+        history.push("/Login");
+      }
+      //This is to show that data is actually stored in database
+      const userInfo = {
+        id: _id,
+        isLoggedIn: true,
+      };
+      setUsers({ type: "USER_ALREADY_LOGGED_IN", userInfo });
+      // axios
+      //   .get(`/${id}`, { withCredentials: true })
+      //   .then((response) => {
+      //     setUserInfo(response.data);
+      //     setIsLoading(false);
+      //   })
+      //   .catch((error) => {
+      //     setUsers({ type: "LOGUSER_OUT" });
+      //     history.push("/Login");
+      //   });
+    } else {
+      //checking if the user is already logged
+      axios
+        .get(`/${id}`, { withCredentials: true })
+        .then((response) => {
           setUserInfo(response.data);
           setIsLoading(false);
-        } else {
-          history.push("/");
-        }
-      })
-      .catch((err) => history.push("/Login"));
-    setIsLoading(false);
+        })
+        .catch((error) => {
+          setUsers({ type: "LOGUSER_OUT" });
+          history.push("/Login");
+        });
+    }
   }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const _id = JSON.parse(localStorage.getItem("isL"));
-    const id = !users.id ? _id.id : users.id;
-    axios
-      .get(`${id}`, { withCredentials: true })
-      .then((response) => {
-        setUserInfo(response.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(true);
-        history.push("/Login");
-        console.log(err.message);
-      });
-    setIsLoading(false);
-  }, [users.id]);
 
   //This is to clear the user loggin
   const TakeAction = async () => {
     const id = users.id;
-
     axios
       .post(`/Logout`, { id })
       .then(async (data) => {
-        console.log(data);
-        console.log("This is from TakeAction");
         await setUsers({ type: "LOGUSER_OUT" });
         await history.push("/");
       })
@@ -135,6 +132,7 @@ export default function MainUser() {
               <Loading />
             ) : (
               <Profile info={users} id={userInfo.info} />
+              // <Profile />
             )}
           </Route>
           <Route exact path={`${url}/others`}>
