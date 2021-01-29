@@ -211,7 +211,10 @@ module.exports.getProductLaptop = async (req, res) => {
 
 //Make payment with stripe
 module.exports.paymentProcess = async (req, res) => {
-  console.log(req.body);
+  console.log(req);
+  console.log("We are now after the middleware session");
+  console.log(`This is the middleware ${req.body}`);
+
   const { amount, Config, customer_id, Order_Number } = req.body;
 
   try {
@@ -228,6 +231,7 @@ module.exports.paymentProcess = async (req, res) => {
       returning: true,
     }).then((response) => {
       const result_id = response.map((r) => r.id);
+      console.log("This is in selection side");
       result_id;
     });
 
@@ -238,6 +242,7 @@ module.exports.paymentProcess = async (req, res) => {
       Total: amount / 100,
       Payment_id: paymentIntent.client_secret,
     }).then((response) => {
+      console.log("response side");
       response;
     });
   } catch (error) {
@@ -249,6 +254,8 @@ module.exports.paymentProcess = async (req, res) => {
 
 //Get Processor info requested
 module.exports.getProcessor = (data) => {
+  console.log("This has reached here after the middleware");
+
   const info_requested = Processor.findOne({
     where: { name: data },
   }).then((res) => {
@@ -332,14 +339,24 @@ module.exports.getOrder = async (req, res) => {
 
   //Locate the orders and send it to user
   try {
+    //This is to get the order configs
     const Order = await Selection.findAll({
       where: { Order_Number: order },
     })
       .then((result) => {
         //If successful then the users orders will be sent to the front end side
-        res.send(result);
+        return result;
       })
       .catch((err) => console.log(err));
+
+    //This is to get the Cart Costs
+    const CartCost = await Cart.findAll({ where: { Order_Number: order } })
+      .then((result) => {
+        return result;
+      })
+      .catch((err) => console.log(err));
+
+    await res.send({ Order, Cart: CartCost });
   } catch (error) {
     res.status(500).json({
       message: error.message,

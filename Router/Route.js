@@ -23,6 +23,7 @@ const {
   isAlreadyLogged,
   LoginUser,
   SessionCheck,
+  PaymentSession,
 } = require("../middleware/verifyMiddleware");
 
 //Basic Get Route
@@ -76,6 +77,8 @@ router.route("/").get(isAlreadyLogged, (req, res) => {
   res.status(200).send({ message: "not logged in" });
 });
 
+//payment session
+router.route("/Payment").post(PaymentSession, paymentProcess);
 //User login
 router
   .route("/Login")
@@ -94,13 +97,11 @@ router.route("/:id/orders/:order").get(SessionCheck, getOrder);
 //User others
 router.route("/:id/others").get(SessionCheck);
 
-// router.post("/Login", login);
-// router.get("/:id/others");
-// router.get("/:id/orders", verifyAuth);
-// router.get("/:id/orders/:order", verifyAuth, getOrder);
-// router.get("/:id", isAlreadyLogged, getUserInfo);
+
+
+
 router.post("/Logout", LogOut);
 router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
 router.get("/iTab/BuyNow", getProductData);
-router.post("/Payment", SessionCheck, paymentProcess);
+
 module.exports = router;

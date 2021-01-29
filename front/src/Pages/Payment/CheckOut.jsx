@@ -88,7 +88,6 @@ export default function CheckOut(props) {
 
   function UpdateData() {
     const Items = location.state;
-    console.log(Items);
     useData([...Items]);
   }
 
@@ -147,7 +146,6 @@ export default function CheckOut(props) {
     };
 
     try {
-      console.log(Billing);
       //Get Client secret
       const paymentIntent = await axios
         .post("/Payment", Billing)

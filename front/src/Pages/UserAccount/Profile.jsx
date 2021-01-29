@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Container,
   Grid,
@@ -6,8 +6,8 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import axios from "axios";
-import { useRouteMatch, useHistory } from "react-router-dom";
+
+
 
 const useStyles = makeStyles({
   information: {

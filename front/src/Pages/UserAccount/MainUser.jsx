@@ -29,7 +29,8 @@ const useStyles = makeStyles({
   subNav: {
     borderBottom: "2px black solid",
     borderColor: "black",
-    backgroundColor: "transparent",
+    backgroundColor: "rgb(238, 238, 238,0.1) ",
+    backdropFilter: `blur(30px)`,
     boxShadow: "none",
     justifyContent: "spaceBetween",
     alignItems: "center",
@@ -70,16 +71,7 @@ export default function MainUser() {
         isLoggedIn: true,
       };
       setUsers({ type: "USER_ALREADY_LOGGED_IN", userInfo });
-      // axios
-      //   .get(`/${id}`, { withCredentials: true })
-      //   .then((response) => {
-      //     setUserInfo(response.data);
-      //     setIsLoading(false);
-      //   })
-      //   .catch((error) => {
-      //     setUsers({ type: "LOGUSER_OUT" });
-      //     history.push("/Login");
-      //   });
+ 
     } else {
       //checking if the user is already logged
       axios

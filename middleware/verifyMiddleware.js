@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../Model/User");
 
 //This is the middleware to check if the user is logged in or not
-module.exports.isAlreadyLogged = (req, res, next) => {
+module.exports.isAlreadyLogged = async (req, res, next) => {
   console.log(req.session);
   if (req.session.user && req.cookies.SAM) {
     //If sessions is valid, then get the id to get the userinformation
@@ -19,12 +19,20 @@ module.exports.isAlreadyLogged = (req, res, next) => {
 };
 
 //Checking if a session with user already exists during refresh
-module.exports.SessionCheck = (req, res, next) => {
+module.exports.SessionCheck = async (req, res, next) => {
   console.log(req.sessionID);
+
   const { user } = req.session;
+  console.log(`The user is ${user}`);
   if (user) {
-    //if there is a session already then passing the
-    res.locals.id = user;
+    next();
+  } else {
+    res.status(403).send({ message: "user is not logged in" });
+  }
+};
+
+module.exports.PaymentSession = async (req, res, next) => {
+  if (req.session.user && req.session.user) {
     next();
   } else {
     res.status(403).send({ message: "user is not logged in" });

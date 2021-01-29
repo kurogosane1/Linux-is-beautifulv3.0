@@ -19,6 +19,7 @@ import Checkout from "./Pages/Payment/CheckOut";
 import Success from "./Pages/Payment/Success";
 import Failure from "./Pages/Payment/Failure";
 import Footer from "./Layout/Footer";
+import Fail from "./Fail";
 
 function App() {
   const { users } = useContext(UserContext);
@@ -47,6 +48,9 @@ function App() {
               </Route>
               <Route path="/iTab">
                 <Tablet />
+              </Route>
+              <Route path="/Fail">
+                <Fail />
               </Route>
               <Route path="/Login">
                 <Login />
