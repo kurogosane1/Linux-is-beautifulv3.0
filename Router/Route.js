@@ -21,7 +21,6 @@ const {
 const { verifyAuth, verAuth } = require("../middleware/authMiddleware");
 const {
   isAlreadyLogged,
-  LoginUser,
   SessionCheck,
   PaymentSession,
 } = require("../middleware/verifyMiddleware");
@@ -72,11 +71,6 @@ router.get("/cart", (req, res) => {
 });
 router.post("/SignUp", signup_post);
 
-//This is the main route
-router.route("/").get(isAlreadyLogged, (req, res) => {
-  res.status(200).send({ message: "not logged in" });
-});
-
 //payment session
 router.route("/Payment").post(PaymentSession, paymentProcess);
 //User login
@@ -96,9 +90,6 @@ router.route("/:id/orders/:order").get(SessionCheck, getOrder);
 
 //User others
 router.route("/:id/others").get(SessionCheck);
-
-
-
 
 router.post("/Logout", LogOut);
 router.get("/DeepinPro/BuyNow/:Number", getProductLaptop);
