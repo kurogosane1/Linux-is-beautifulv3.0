@@ -19,6 +19,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import VS from "../../Assets/DesktopEnv.svg";
 import Tablet from "../../Assets/iTablet1.svg";
 import { UserContext } from "../../Context/UserContext";
+import EmptyCart from "./EmptyCart";
 
 const useStyles = makeStyles({
   configuration: {
@@ -118,11 +119,9 @@ export default function Cart({ info, action }) {
         height: "90%",
       }}>
       {info.length === 0 ? (
-        <Grid item sm={12} xs={12} style={{ textAlign: "center" }}>
-          <Typography variant="h3">Cart is Empty</Typography>
-        </Grid>
+        <EmptyCart />
       ) : (
-        <>
+        <EmptyCart>
           <Grid
             item
             sm={6}
@@ -293,7 +292,7 @@ export default function Cart({ info, action }) {
               </TableBody>
             </TableContainer>
           </Grid>
-        </>
+        </EmptyCart>
       )}
     </Grid>
   );

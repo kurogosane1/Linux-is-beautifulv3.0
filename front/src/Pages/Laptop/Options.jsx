@@ -188,7 +188,7 @@ export default function Options() {
                         fontSize: "1.2rem",
                       }}
                       onClick={AddToCart}>
-                      Buy Now
+                      Add to Cart
                     </Button>
                   </Grid>
                 </Container>

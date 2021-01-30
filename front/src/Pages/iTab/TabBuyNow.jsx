@@ -41,7 +41,7 @@ const useStyles = makeStyles({
     padding: "1rem",
     background: "rgb(238, 238, 238);",
     boxShadow: "0px 8px 30px -1px rgba(0,0,0,0.12)",
-    borderRadius:'5px'
+    borderRadius: "5px",
   },
 });
 
@@ -235,7 +235,7 @@ export default function TabBuyNow() {
                   fontSize: "1.2rem",
                 }}
                 onClick={AddToCart}>
-                Buy Now
+                Add to Cart
               </Button>
             </Container>
           </Grid>
