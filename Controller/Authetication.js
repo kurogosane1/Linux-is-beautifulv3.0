@@ -99,25 +99,24 @@ module.exports.signup_post = async (req, res) => {
           password: hashPassword,
         })
           .then((response) => {
-            const token = createToken(response.id);
-            res.cookie("jwt", token, {
-              expiresIn: maxAge,
-              httpOnly: true,
-              SameSite: false,
-            });
+            // const token = createToken(response.id);
+            // res.cookie("jwt", token, {
+            //   expiresIn: maxAge,
+            //   httpOnly: true,
+            //   SameSite: false,
+            // });
+            req.session.user = response.id;
             res.status(200).json({ id: response.id });
           })
           .catch((err) => {
-            console.log(
-              `This is the error when trying to create new user${err}`
-            );
+            throw err;
           });
       } else {
         res.status(400).json({ message: "User Already Exists" });
       }
     })
     .catch((err) => {
-      console.log(err);
+      throw err;
     });
 };
 
@@ -129,16 +128,15 @@ module.exports.login = async (req, res) => {
     .then((response) => {
       if (response !== null) {
         bcrypt.compare(password, response.password, (err, result) => {
-          console.log(result);
           if (result === false) {
             res.status(202).send({ message: "Password is not correct" });
           } else {
-            const token = createToken(response.id);
-            res.cookie("jwt", token, {
-              expiresIn: maxAge,
-              httpOnly: true,
-              SameSite: false,
-            });
+            // const token = createToken(response.id);
+            // res.cookie("jwt", token, {
+            //   expiresIn: maxAge,
+            //   httpOnly: true,
+            //   SameSite: false,
+            // });
             req.session.user = response.id;
             res.status(200).send({ id: response.id });
           }
@@ -148,21 +146,19 @@ module.exports.login = async (req, res) => {
       }
     })
     .catch((err) => {
-      console.log(err);
+      throw err;
     });
 };
 
 //This is for Logging Out
 module.exports.LogOut = (req, res) => {
   const id = req.body.id;
-  console.log(id);
   req.session.destroy();
   Users.findOne({ where: { id } }).then((response) => {
     if (response !== null) {
-      res.cookie("jwt", "", { expiresIn: 1 });
       res.sendStatus(200);
     } else {
-      console.err();
+      throw err;
     }
   });
 };
@@ -211,10 +207,6 @@ module.exports.getProductLaptop = async (req, res) => {
 
 //Make payment with stripe
 module.exports.paymentProcess = async (req, res) => {
-  console.log(req);
-  console.log("We are now after the middleware session");
-  console.log(`This is the middleware ${req.body}`);
-
   const { amount, Config, customer_id, Order_Number } = req.body;
 
   try {
@@ -242,7 +234,6 @@ module.exports.paymentProcess = async (req, res) => {
       Total: amount / 100,
       Payment_id: paymentIntent.client_secret,
     }).then((response) => {
-      console.log("response side");
       response;
     });
   } catch (error) {
@@ -254,8 +245,6 @@ module.exports.paymentProcess = async (req, res) => {
 
 //Get Processor info requested
 module.exports.getProcessor = (data) => {
-  console.log("This has reached here after the middleware");
-
   const info_requested = Processor.findOne({
     where: { name: data },
   }).then((res) => {
@@ -335,8 +324,7 @@ module.exports.getUserInfo = async (req, res) => {
 module.exports.getOrder = async (req, res) => {
   //de-structure user_id and Order Number
   const { order } = req.params;
-  console.log(order);
-
+ 
   //Locate the orders and send it to user
   try {
     //This is to get the order configs
