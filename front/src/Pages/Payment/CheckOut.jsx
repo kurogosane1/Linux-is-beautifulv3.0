@@ -478,12 +478,14 @@ export default function CheckOut(props) {
               height: "2rem",
               marginTop: "1rem",
               marginBottom: "1.2rem",
-
               alignItems: "center",
               justifyItems: "center",
               alignContent: "center",
               justifyContent: "center",
             }}>
+            <p>Please use 4242 4242 4242 4242 for card number</p>
+            <p>security as 222 and expiry date as 02/22</p>
+            <p>No Charge will be placed to you</p>
             <Card />
           </Paper>
 
