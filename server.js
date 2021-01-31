@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //using sessions
+app.set("trust proxy", 1);
 app.use(session);
 app.use(cookieParser());
 
