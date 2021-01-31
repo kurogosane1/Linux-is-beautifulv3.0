@@ -2,8 +2,6 @@ const session = require("express-session");
 const connectRedis = require("connect-redis");
 const redisClient = require("./DbConnection");
 
-
-
 const RedisStore = connectRedis(session);
 
 module.exports = session({
@@ -16,5 +14,6 @@ module.exports = session({
     maxAge: 1 * 60 * 60 * 1000,
     sameSite: true,
     secure: false,
+    httpOnly: true,
   },
 });
