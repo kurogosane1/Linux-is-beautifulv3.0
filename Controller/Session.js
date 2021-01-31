@@ -13,7 +13,7 @@ module.exports = session({
   cookie: {
     maxAge: 1 * 60 * 60 * 1000,
     sameSite: true,
-    secure: false,
+    secure: true,
     httpOnly: true,
   },
 });
