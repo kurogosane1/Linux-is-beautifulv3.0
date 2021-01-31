@@ -6,6 +6,7 @@ const sequelize = require("./Controller/Connection");
 const session = require("./Controller/Session");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
 
 // BodyParser makes it possible for our server to interpret data sent to it.
 app.use(bodyParser.json());
@@ -21,6 +22,14 @@ app.use(session);
 app.use(cookieParser());
 
 app.use("/", require("./Router/Route"));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("front/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "front", "build", "index.html"));
+  });
+}
 
 sequelize
   .authenticate()
