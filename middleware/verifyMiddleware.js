@@ -21,8 +21,8 @@ module.exports.isAlreadyLogged = async (req, res, next) => {
 //Checking if a session with user already exists during refresh
 module.exports.SessionCheck = async (req, res, next) => {
   console.log(req.sessionID);
-
-  const { user } = req.session;
+  console.log(req.sesssion)
+  const { user } = req.session.user;
   console.log(`The user is ${user}`);
   if (user) {
     next();
