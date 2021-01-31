@@ -26,10 +26,10 @@ export default function Purchases({ info, id }) {
   });
 
   useEffect(() => {
-    console.log(id);
-    console.log(id.length);
-    verifyUserIsValid();
-  }, [url]);
+    // console.log(id);
+    // console.log(id.length);
+    // verifyUserIsValid();
+  }, []);
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
