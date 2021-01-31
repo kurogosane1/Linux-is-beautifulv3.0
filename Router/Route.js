@@ -83,7 +83,7 @@ router
 router.route("/:id").get(SessionCheck, getUserInfo).post(SessionCheck, LogOut);
 
 //User Others page
-router.route("/:id/orders").get(SessionCheck, getOrder);
+router.route("/:id/orders").get(SessionCheck);
 
 //User Orders deep dive
 router.route("/:id/orders/:order").get(SessionCheck, getOrder);
