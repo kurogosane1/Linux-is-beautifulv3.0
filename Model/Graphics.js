@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../controller/Connection");
+const sequelize = require("../Controller/Connection");
 
 const GPU = sequelize.define("GPU", {
   id: {

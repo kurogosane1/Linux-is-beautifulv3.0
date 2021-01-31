@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../controller/Connection");
+const sequelize = require("../Controller/Connection");
 const Processor = require("./Processor");
 const RAM = require("./RAM");
 const Storage = require("./Storage");
