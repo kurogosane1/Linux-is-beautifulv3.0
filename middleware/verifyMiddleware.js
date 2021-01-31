@@ -22,7 +22,7 @@ module.exports.isAlreadyLogged = async (req, res, next) => {
 module.exports.SessionCheck = async (req, res, next) => {
   console.log(req.sessionID);
   console.log(req.sesssion)
-  const { user } = req.session.user;
+  const { user } = req.session;
   console.log(`The user is ${user}`);
   if (user) {
     next();
