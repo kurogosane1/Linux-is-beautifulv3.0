@@ -6,17 +6,17 @@ export default function Others() {
   const { url } = useRouteMatch();
   let history = useHistory();
 
-  useEffect(() => {
-    axios
-      .get(`${url}`, { withCredentials: true })
-      .then((res) => {
-        console.log(res);
-        if (res.data.status !== 200) {
-          history.push("/Login");
-        }
-      })
-      .catch((err) => console.log(err));
-  });
+  // useEffect(() => {
+  //   axios
+  //     .get(`${url}`, { withCredentials: true })
+  //     .then((res) => {
+  //       console.log(res);
+  //       if (res.data.status !== 200) {
+  //         history.push("/Login");
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // });
 
   useEffect(() => {}, []);
   return (
