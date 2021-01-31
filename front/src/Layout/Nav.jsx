@@ -54,9 +54,7 @@ export default function Nav() {
     setAnchorEl(null);
   };
 
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [users]);
+  useEffect(() => {}, [users]);
 
   return (
     <AppBar position="static" className={classes.header}>

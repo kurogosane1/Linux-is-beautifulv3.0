@@ -98,7 +98,6 @@ export default function Cart({ info, action }) {
   };
 
   const imageChange = (data) => {
-    console.log(data);
     switch (data) {
       case "Laptop":
         return VS;
@@ -121,7 +120,7 @@ export default function Cart({ info, action }) {
       {info.length === 0 ? (
         <EmptyCart />
       ) : (
-        <EmptyCart>
+        <>
           <Grid
             item
             sm={6}
@@ -134,7 +133,6 @@ export default function Cart({ info, action }) {
               zIndex: "10",
             }}>
             {info.map((data, index) => {
-              console.log(data);
               const total = formatter.format(data.Cost);
               return (
                 <Card
@@ -292,7 +290,7 @@ export default function Cart({ info, action }) {
               </TableBody>
             </TableContainer>
           </Grid>
-        </EmptyCart>
+        </>
       )}
     </Grid>
   );

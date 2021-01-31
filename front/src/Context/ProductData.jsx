@@ -24,12 +24,11 @@ export default function ProductData(props) {
 
   //This is to retrieve the data for that product
   const getInformation = async (url, data) => {
-    console.log(url);
     await setCategory({
       ProductName: data.ProductName,
       ProductCategory: data.ProductCategory,
     });
-    console.log(data, category);
+
     await axios
       .get(url)
       .then(async (response) => {

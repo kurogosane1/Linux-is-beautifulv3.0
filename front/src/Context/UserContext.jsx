@@ -34,9 +34,7 @@ export default function UserStoreContext(props) {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+  useEffect(() => {}, [users]);
 
   return (
     <UserContext.Provider value={{ users, setUsers }}>
