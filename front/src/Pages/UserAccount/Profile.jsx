@@ -7,8 +7,6 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-
-
 const useStyles = makeStyles({
   information: {
     display: "flex",
@@ -25,10 +23,6 @@ const useStyles = makeStyles({
 
 export default function Profile({ info, id }) {
   const classes = useStyles();
-
-  // useEffect(() => {
-  //   console.log(id);
-  // }, [id]);
 
   return (
     <Grid

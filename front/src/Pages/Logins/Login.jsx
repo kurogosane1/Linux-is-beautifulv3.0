@@ -63,13 +63,11 @@ export default function Login() {
     axios
       .post("/Login", user)
       .then(async (data) => {
-        console.log(data.data);
         //Checking if there is an error message
         let message = await data.data.message;
         //If we have no message then we get the user id
         if (!message) {
           let id = await data.data.id;
-          console.log(id);
           //Since we got the user id, then we save it to the
           const userInfo = await {
             id,

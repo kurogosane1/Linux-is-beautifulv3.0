@@ -51,7 +51,6 @@ const createToken = (id) => {
 
 //handle Errors
 const handleErrors = (err) => {
-  console.log(err.message, err.code);
   let errors = { email: "", password: "" };
   //duplicate email error
   if (err.code === 11000) {
@@ -223,7 +222,7 @@ module.exports.paymentProcess = async (req, res) => {
       returning: true,
     }).then((response) => {
       const result_id = response.map((r) => r.id);
-      console.log("This is in selection side");
+
       result_id;
     });
 
@@ -271,7 +270,6 @@ module.exports.getRAM = async (data) => {
 module.exports.getStorage = (data) => {
   const info_requested = Storage.findOne({ where: { name: data } }).then(
     (res) => {
-      console.log(res);
       return res.id;
     }
   );
@@ -312,7 +310,6 @@ module.exports.getUserInfo = async (req, res) => {
     .then((response) => response)
     .catch((err) => err.message);
 
-  console.log(JSON.stringify(orders));
   //Sending the user information to the front line
   if (orders) {
     res.status(200).json({ info: data, Orders: orders });
@@ -324,7 +321,7 @@ module.exports.getUserInfo = async (req, res) => {
 module.exports.getOrder = async (req, res) => {
   //de-structure user_id and Order Number
   const { order } = req.params;
- 
+
   //Locate the orders and send it to user
   try {
     //This is to get the order configs
@@ -335,14 +332,18 @@ module.exports.getOrder = async (req, res) => {
         //If successful then the users orders will be sent to the front end side
         return result;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw err;
+      });
 
     //This is to get the Cart Costs
     const CartCost = await Cart.findAll({ where: { Order_Number: order } })
       .then((result) => {
         return result;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw err;
+      });
 
     await res.send({ Order, Cart: CartCost });
   } catch (error) {
@@ -374,7 +375,6 @@ module.exports.getProductData = async (req, res) => {
 
     const gpu = await GPU.findAll({ where: { Category: "Tablet" } })
       .then((response) => {
-        console.log(`This is the GPU data pull up ${response}`);
         return response;
       })
       .catch((err) => err.message);

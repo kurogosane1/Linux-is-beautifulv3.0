@@ -76,13 +76,7 @@ export default function OrderDetails() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(cart);
-    console.log(order);
-  }, [cart, order]);
-
   const fetchData = () => {
-    console.log(history);
     setIsLoading(true);
 
     const id = match.params.id;
@@ -91,10 +85,8 @@ export default function OrderDetails() {
       .get(`${url}`, { withCredentials: true })
       .then((datas) => {
         const information = datas.data;
-        console.log(information);
         setCart([...information.Cart]);
         setOrder([...information.Order]);
-        console.log(cart, order);
         setIsLoading(false);
       })
       .catch((err) => err.message);
@@ -178,7 +170,6 @@ export default function OrderDetails() {
                     spacing={3}
                     style={{ padding: "1rem" }}>
                     {order.map((data) => {
-                      console.log(data);
                       return (
                         <>
                           <Grid item sm={5} xs={12}>
@@ -213,7 +204,11 @@ export default function OrderDetails() {
                             <Container>
                               <Typography variant="subtitle1">Cost</Typography>
                             </Container>
-                            {data.length === 0 ? "" : <Divider variant="middle"/>}
+                            {data.length === 0 ? (
+                              ""
+                            ) : (
+                              <Divider variant="middle" />
+                            )}
                           </Grid>
                         </>
                       );

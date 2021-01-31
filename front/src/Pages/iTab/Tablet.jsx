@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
 import {
   AppBar,
@@ -35,11 +35,6 @@ const useStyles = makeStyles({
 export default function Tablet() {
   const { path, url } = useRouteMatch();
   const classes = useStyles();
-  const local = "";
-
-  useEffect(() => {
-    console.log(local);
-  }, []);
 
   return (
     <Container className={classes.mainRoot}>

@@ -150,12 +150,8 @@ export default function CheckOut(props) {
       const paymentIntent = await axios
         .post("/Payment", Billing)
         .then((res) => {
-          console.log("This is coming from the payment Intent");
-          console.log(res.data);
           return res.data;
         });
-
-      console.log(paymentIntent);
 
       //Create PaymentMethod Object
       const paymentMethodObj = await stripe.createPaymentMethod({
@@ -164,7 +160,6 @@ export default function CheckOut(props) {
         billing_details: Billing.billing_details,
       });
 
-      console.log(paymentMethodObj);
       //Confirm Payment Method
 
       const confirmPayment = await stripe.confirmCardPayment(paymentIntent, {
@@ -172,18 +167,15 @@ export default function CheckOut(props) {
       });
 
       if (confirmPayment.error) {
-        console.log(confirmPayment.error.message);
         setIsProcessing(false);
       }
       if (confirmPayment.paymentIntent.status === "succeeded") {
-        console.log("this is the success side");
         return history.push("/Success");
       } else {
         setIsProcessing(false);
         return history.push("/Failure");
       }
     } catch (error) {
-      console.log(error.message);
       setIsProcessing(false);
     }
   };

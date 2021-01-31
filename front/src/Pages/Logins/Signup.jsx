@@ -117,7 +117,6 @@ export default function Signup() {
         history.push(`/${id}`);
       })
       .catch((err) => {
-        console.log(`this is from front error ${err}`);
         setCheck(400);
       });
   };

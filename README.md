@@ -34,6 +34,28 @@ So in other words 2 `.env` files are needed
 
 Here mySQL was used and was being run in the express environment, however, you are free to change that to whatever liking
 
+###### Issues to note when connecting database
+
+When in local environment for Sequelize to work you need to have `Database name`, `User Name` , `Password`, and a `host` which will be your `Localhost`.
+So it will look like this:
+
+```
+const sequelize = new Sequelize(Database,UserName, Password,
+{host: Localhost, dialect: "mySQL"|| "PostGres"||"MongoDB"|| "MariaDB", etc}
+);
+
+```
+
+However, in this example, the database was provided by Heroku in the example below. So the URL provided had all the information needed like `Database name`, `User Name` , `Password` already included in the URL and in the example below the URL is stored in an environmental variable
+So not much is needed to do and the code will look like shown below for Sequelize
+
+```
+const sequelize = new Sequelize(
+    process.env.HEROKU_PROVIDED_DATABASE_URL,
+    {dailect :"mySQL"|| "PostGres"||"MongoDB"|| "MariaDB", etc}
+);
+```
+
 ##### Caching
 
 Since this is using express-sessions a caching of reddis was used for caching purpose
@@ -41,3 +63,4 @@ Since this is using express-sessions a caching of reddis was used for caching pu
 ##### Payment
 
 You would is processed by stripe and therefore you would need the API keys for the stripe payment. You can get the API key from [Here](https://stripe.com/)
+```

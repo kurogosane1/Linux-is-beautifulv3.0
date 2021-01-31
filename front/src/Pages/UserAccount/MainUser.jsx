@@ -62,7 +62,6 @@ export default function MainUser() {
     const check = JSON.parse(localStorage.getItem("isL"));
     const _id = check.id;
     if (!id) {
-      console.log(_id);
       if (!_id) {
         history.push("/Login");
       }
@@ -72,7 +71,6 @@ export default function MainUser() {
         isLoggedIn: true,
       };
       setUsers({ type: "USER_ALREADY_LOGGED_IN", userInfo });
- 
     } else {
       //checking if the user is already logged
       axios
@@ -97,7 +95,7 @@ export default function MainUser() {
         await setUsers({ type: "LOGUSER_OUT" });
         await history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   return (

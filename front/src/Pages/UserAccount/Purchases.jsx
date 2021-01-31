@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React from "react";
+
 import { useRouteMatch, useHistory, NavLink } from "react-router-dom";
 import { Grid, ListItemText, List, Paper, Typography } from "@material-ui/core";
 import OrderDetails from "./OrderDetails";
@@ -8,28 +8,12 @@ export default function Purchases({ info, id }) {
   const { url } = useRouteMatch();
   let history = useHistory();
 
-  function verifyUserIsValid() {
-    const id = info.id;
-    axios.get(`${url}`, { withCredentials: true }).then((res) => {
-      console.log(res);
-      if (res.data.status !== 200) {
-        history.push("/Login");
-      }
-    });
-  }
-
   //This is to make the currency look good
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     minimumFractionDigits: 2,
   });
-
-  useEffect(() => {
-    // console.log(id);
-    // console.log(id.length);
-    // verifyUserIsValid();
-  }, []);
 
   return (
     <Grid container direction="column" justify="center" alignItems="center">
@@ -38,7 +22,6 @@ export default function Purchases({ info, id }) {
           <Typography variant="h4">No orders</Typography>
         ) : (
           id.map((information) => {
-            console.log(typeof information.createdAt);
             return (
               <NavLink to={`${url}/${information.Order_Number}`}>
                 <Paper elevation={3} style={{ marginTop: "1rem" }}>
