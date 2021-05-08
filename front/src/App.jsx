@@ -21,6 +21,7 @@ import Failure from "./Pages/Payment/Failure";
 import Footer from "./Layout/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ScrollToTop from "./ScrollToTop";
 
 function App() {
   const { users } = useContext(UserContext);
@@ -36,6 +37,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       <Router>
         <div className="App">
           <Nav />
