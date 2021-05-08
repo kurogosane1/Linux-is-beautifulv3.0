@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 4000;
 const sequelize = require("./Controller/Connection");
 const session = require("./Controller/Session");
+const flash = require("connect-flash");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
