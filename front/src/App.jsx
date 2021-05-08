@@ -19,11 +19,15 @@ import Checkout from "./Pages/Payment/CheckOut";
 import Success from "./Pages/Payment/Success";
 import Failure from "./Pages/Payment/Failure";
 import Footer from "./Layout/Footer";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
   const { users } = useContext(UserContext);
   const { cart, dispatch } = useContext(CartContext);
-  useEffect(() => {}, [users]);
+  useEffect(() => {
+    AOS.init({ duration: 2000, easing: "ease-in-sine", delay: 100 });
+  }, []);
 
   //This is the for stripe to work with this
   const stripePromise = loadStripe(

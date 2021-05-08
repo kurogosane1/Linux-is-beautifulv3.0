@@ -71,32 +71,50 @@ export default function TabOverview() {
           className={classes.root}>
           <Grid item xs={12} sm={12}>
             <Container>
-              <Typography variant="h1" className={classes.heading}>
+              <Typography
+                variant="h1"
+                className={classes.heading}
+                data-aos="fade-up">
                 iTab
               </Typography>
             </Container>
           </Grid>
         </Grid>
         <Grid container spacing={3} justify="space-evenly" alignItems="center">
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h2" className={classes.subHeading}>
+          <Grid item xs={12} sm={4} data-aos="fade-up" data-aos-delay="200">
+            <Typography
+              variant="h2"
+              className={classes.subHeading}
+              data-aos="fade-up"
+              data-aos-delay="200">
               Your
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h2" className={classes.subHeading}>
+          <Grid item xs={12} sm={4} data-aos="fade-up" data-aos-delay="250">
+            <Typography
+              variant="h2"
+              className={classes.subHeading}
+              data-aos="fade-up"
+              data-aos-delay="250">
               Next
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Typography variant="h2" className={classes.subHeading}>
+          <Grid item xs={12} sm={4} data-aos="fade-up" data-aos-delay="300">
+            <Typography
+              variant="h2"
+              className={classes.subHeading}
+              data-aos="fade-up"
+              data-aos-delay="300">
               Computer
             </Typography>
           </Grid>
         </Grid>
         <Grid container spacing={3} justify="center" alignItems="center">
-          <Grid item xs={12} sm={12}>
-            <Container className={classes.subContainer}>
+          <Grid item xs={12} sm={12} data-aos="fade-up" data-aos-delay="650">
+            <Container
+              className={classes.subContainer}
+              data-aos="fade-up"
+              data-aos-delay="650">
               <img src={Tab3} alt="tablet view 3" />
             </Container>
           </Grid>
@@ -109,8 +127,12 @@ export default function TabOverview() {
         justify="center"
         alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container>
-            <Typography variant="h3" className={classes.subText}>
+          <Container data-aos="fade-up" data-aos-delay="700">
+            <Typography
+              variant="h3"
+              className={classes.subText}
+              data-aos="fade-up"
+              data-aos-delay="700">
               New ARM X13 processor that provides <strong>3 times </strong> the
               performance than leading tablets. We call it{" "}
               <strong>Zues1</strong>
@@ -126,8 +148,12 @@ export default function TabOverview() {
         justify="center"
         alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container>
-            <Typography variant="h3" className={classes.subText}>
+          <Container data-aos="fade-up" data-aos-delay="700">
+            <Typography
+              variant="h3"
+              className={classes.subText}
+              data-aos="fade-up"
+              data-aos-delay="700">
               Beautiful AMOLED edge-to-edge Dsiplay is not only gorgues and
               immersive, but also features incredibly advance technologies like
               the stunning smooth scroll look and everything feels responsive.
@@ -138,8 +164,8 @@ export default function TabOverview() {
         </Grid>
       </Grid>
       <Grid container>
-        <Grid item xs={12} sm={12}>
-          <img src={Tab1} alt="tablet view 1" />
+        <Grid item xs={12} sm={12} data-aos="fade-up">
+          <img src={Tab1} alt="tablet view 1" data-aos="fade-up" />
         </Grid>
       </Grid>
       <Grid
@@ -149,8 +175,15 @@ export default function TabOverview() {
         justify="center"
         alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container className={classes.subContainer}>
-            <Typography variant="h3" className={classes.subText}>
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
+            <Typography
+              variant="h3"
+              className={classes.subText}
+              data-aos="fade-up"
+              data-aos-delay="300">
               Zues1 is so fast it outpaces most advance tablets and even some
               PCs. It makes everything you do fast and fluid, from your everyday
               tasks to graphics-intensive workflows. And the 8-core graphics
@@ -167,8 +200,15 @@ export default function TabOverview() {
         justify="center"
         alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container className={classes.subContainer}>
-            <Typography variant="h3" className={classes.subText}>
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
+            <Typography
+              variant="h3"
+              className={classes.subText}
+              data-aos="fade-up"
+              data-aos-delay="300">
               iTablet is incredibly thin and so light you can carry it with you
               everywhere. And it has up to <strong>10 hours</strong> of battery
               life to keep you going all day. Stay connected on the go with fast
@@ -179,14 +219,26 @@ export default function TabOverview() {
         </Grid>
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="center">
-        <Grid item xs={12} sm={12}>
-          <img src={Tab2} alt="tablet view 2" />
+        <Grid item xs={12} sm={12} data-aos="fade-up" data-aos-delay="300">
+          <img
+            src={Tab2}
+            alt="tablet view 2"
+            data-aos="fade-up"
+            data-aos-delay="300"
+          />
         </Grid>
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container className={classes.subContainer}>
-            <Typography variant="h3" className={classes.subText}>
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
+            <Typography
+              variant="h3"
+              className={classes.subText}
+              data-aos="fade-up"
+              data-aos-delay="300">
               We believe technology is most powerful when it empowers everyone.
               That's why iTablet comes with accessibility features that support
               vision, hearing, mobility, and learning needs. Including Voice
@@ -195,18 +247,37 @@ export default function TabOverview() {
               touching it
             </Typography>
           </Container>
-          <Container className={classes.subContainer}>
-            <img src={Tab4} alt="tablet view 4" />
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
+            <img
+              src={Tab4}
+              alt="tablet view 4"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            />
           </Container>
         </Grid>
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container className={classes.subContainer}>
-            <Typography style={{ textAlign: "center" }} variant="h5">
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
+            <Typography
+              style={{ textAlign: "center" }}
+              variant="h5"
+              data-aos="fade-up"
+              data-aos-delay="300">
               So how far can you go with it
             </Typography>
-            <Typography style={{ textAlign: "center" }} variant="h5">
+            <Typography
+              style={{ textAlign: "center" }}
+              variant="h5"
+              data-aos="fade-up"
+              data-aos-delay="300">
               So click below to buy now
             </Typography>
           </Container>
@@ -219,13 +290,18 @@ export default function TabOverview() {
         justify="center"
         alignItems="center">
         <Grid item xs={12} sm={12}>
-          <Container className={classes.subContainer}>
+          <Container
+            className={classes.subContainer}
+            data-aos="fade-up"
+            data-aos-delay="300">
             <Button
               variant="contained"
               color="secondary"
               onClick={() => {
                 history.push("/iTab/BuyNow");
-              }}>
+              }}
+              data-aos="fade-up"
+              data-aos-delay="300">
               Buy Now
             </Button>
           </Container>

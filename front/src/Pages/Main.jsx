@@ -112,7 +112,10 @@ export default function Main() {
       spacing={5}
       className={classes.mainContainer}>
       <Grid item sm={12} xs={12} className={classes.GridItemFirst}>
-        <Paper elevation={3} className={classes.subContainer}>
+        <Paper
+          elevation={3}
+          className={classes.subContainer}
+          data-aos="fade-up">
           <Grid
             container
             justify="center"
@@ -125,10 +128,10 @@ export default function Main() {
                 alignItems="center"
                 spacing={1}
                 style={{ padding: "1rem" }}>
-                <Grid item sm={8} xs={12}>
+                <Grid item sm={8} xs={12} data-aos="fade-right">
                   <img src={VS} alt="something" className={classes.subImage} />
                 </Grid>
-                <Grid item sm={4} xs={12}>
+                <Grid item sm={4} xs={12} data-aos="fade-left">
                   <Container className={classes.GridTypoGrophy}>
                     <Typography
                       variant="h1"
@@ -171,7 +174,11 @@ export default function Main() {
 
       {/* this is for the second options to sell  */}
       <Grid item sm={12} xs={12} style={{ width: "100%" }}>
-        <Paper elevation={3} className={classes.subContainer}>
+        <Paper
+          elevation={3}
+          className={classes.subContainer}
+          data-aos="fade-up"
+          data-aos-delay="350">
           <Grid
             container
             justify="center"
@@ -192,26 +199,34 @@ export default function Main() {
                     }}>
                     <Typography
                       variant={matches ? "h2" : "h1"}
-                      style={{ textAlign: "center", padding: "1rem" }}>
+                      style={{ textAlign: "center", padding: "1rem" }}
+                      data-aos="fade-right"
+                      data-aos-delay="350">
                       iTab
                     </Typography>
                     <Typography
                       variant="subtitle1"
-                      style={{ textAlign: "center", padding: "1rem" }}>
+                      style={{ textAlign: "center", padding: "1rem" }}
+                      data-aos="fade-right"
+                      data-aos-delay="350">
                       More Performance
                     </Typography>
                     <Typography
                       variant="subtitle1"
-                      style={{ textAlign: "center", padding: "1rem" }}>
+                      style={{ textAlign: "center", padding: "1rem" }}
+                      data-aos="fade-right"
+                      data-aos-delay="350">
                       More Power
                     </Typography>
                     <Typography
                       variant="subtitle1"
-                      style={{ textAlign: "center", padding: "1rem" }}>
+                      style={{ textAlign: "center", padding: "1rem" }}
+                      data-aos="fade-right"
+                      data-aos-delay="350">
                       More Pro
                     </Typography>
                   </Container>
-                  <Container>
+                  <Container data-aos="fade-right" data-aos-delay="400">
                     <Button
                       variant="contained"
                       color="primary"
@@ -227,7 +242,12 @@ export default function Main() {
                     </Button>
                   </Container>
                 </Grid>
-                <Grid item sm={8} xs={12}>
+                <Grid
+                  item
+                  sm={8}
+                  xs={12}
+                  data-aos="fade-left"
+                  data-aos-delay="350">
                   <img
                     src={Tab1}
                     alt="something"
