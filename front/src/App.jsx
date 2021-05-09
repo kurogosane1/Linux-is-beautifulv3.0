@@ -37,9 +37,9 @@ function App() {
 
   return (
     <>
-      <ScrollToTop />
       <Router>
         <div className="App">
+          <ScrollToTop />
           <Nav />
           <Container maxWidth="lg">
             <Switch>
