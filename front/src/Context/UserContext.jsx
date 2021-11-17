@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { createContext, useReducer, useEffect } from "react";
 
 export const UserContext = createContext();
@@ -35,10 +34,9 @@ export default function UserStoreContext(props) {
   }, []);
 
   useEffect(() => {}, [users]);
+  const value = { users, setUsers };
 
   return (
-    <UserContext.Provider value={{ users, setUsers }}>
-      {props.children}
-    </UserContext.Provider>
+    <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );
 }

@@ -63,6 +63,7 @@ function App() {
               <Route exact path="/Cart">
                 <Cart info={cart} action={dispatch} />
               </Route>
+
               <Route path={`/${users.id}`}>
                 <MainUser />
               </Route>

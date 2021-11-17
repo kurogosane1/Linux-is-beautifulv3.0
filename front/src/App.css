@@ -323,6 +323,7 @@ li {
 .options-given {
   display: none;
   cursor: pointer;
+  back
 }
 
 .opt-image {
