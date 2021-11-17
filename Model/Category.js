@@ -3,7 +3,7 @@ const sequelize = require("../Controller/Connection");
 
 const Tag = sequelize.define("Tag", {
   Tag_id: {
-    type: DataTypes.,
+    type: DataTypes.UUID,
     defaultValue: DataTypes.V4,
     allowNull: false,
     primaryKey: true,
